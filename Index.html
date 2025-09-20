@@ -16,7 +16,6 @@
             min-height: 100vh;
         }
         
-        /* Estilos para o ecrã de consentimento */
         #consent-overlay {
             position: fixed;
             top: 0;
@@ -108,7 +107,6 @@
             overflow-y: auto;
         }
         
-        /* Card de destaque - Missão V (largura normal) */
         .card {
             background: white;
             border-radius: 18px;
@@ -129,7 +127,6 @@
             box-shadow: 0 8px 22px rgba(0,0,0,0.12);
         }
         
-        /* NeoOtto card - mais largo */
         .highlight-card {
             background: white;
             border-radius: 20px;
@@ -219,7 +216,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
-        /* Dropdown para sub-botões */
         .dropdown-container {
             position: relative;
             width: 100%;
@@ -301,11 +297,8 @@
             background-color: #e6f0fa;
         }
         
-        /* Cores específicas dos botões */
         .btn-doc { background-color: #4caf50; }
         .btn-doc:hover { background-color: #3b9440; }
-        .btn-sheet { background-color: #f4b400; }
-        .btn-sheet:hover { background-color: #d49b00; }
         .btn-whatsapp { background-color: #25D366; }
         .btn-whatsapp:hover { background-color: #1ebe5d; }
         .btn-presentation { background-color: #9c27b0; }
@@ -331,7 +324,6 @@
             font-size: 1.1em;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             header {
                 font-size: 1.4em;
@@ -405,7 +397,7 @@
         </header>
 
         <main>
-            <!-- Card Missão V - largura normal -->
+            <!-- Card Missão V -->
             <div class="card card-highlighted-bg">
                 <h2>🚀 Missão V - Prontidão Organizacional</h2>
                 <p>Avaliação completa da maturidade organizacional da Hiperfrio para implementação de IA, com diagnóstico 9D, roadmap de 90 dias e dois pilotos priorizados.</p>
@@ -414,7 +406,7 @@
                 </a>
             </div>
 
-            <!-- NeoOtto.ai Card - Mais largo -->
+            <!-- NeoOtto.ai Card -->
             <div class="highlight-card">
                 <h2>Bem-vindo ao NeoOtto.ai</h2>
                 <p>O nosso especialista em inteligência artificial para identificar novas oportunidades de negócio. Explore as funcionalidades e a visão para o futuro!</p>
@@ -505,7 +497,6 @@
             const appContent = document.getElementById('app-content');
             const acceptButton = document.getElementById('accept-button');
 
-            // Verifica se o consentimento já foi dado
             const consentGiven = localStorage.getItem('ai-consent-given');
             
             if (consentGiven === 'true') {
@@ -513,7 +504,6 @@
                 appContent.style.display = 'block';
             }
 
-            // Quando o botão "Aceitar e Continuar" é clicado
             acceptButton.addEventListener('click', () => {
                 localStorage.setItem('ai-consent-given', 'true');
                 consentOverlay.style.display = 'none';
@@ -521,7 +511,6 @@
             });
         });
 
-        // Função para toggle dos dropdowns
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const btnId = dropdownId.replace('dropdown', 'btn');
@@ -530,7 +519,6 @@
             dropdown.classList.toggle('show');
             btn.classList.toggle('active');
             
-            // Fecha outros dropdowns
             const allDropdowns = document.querySelectorAll('.dropdown-content');
             const allBtns = document.querySelectorAll('.dropdown-btn');
             
@@ -550,3 +538,4 @@
 
 </body>
 </html>
+
