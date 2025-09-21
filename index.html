@@ -313,6 +313,105 @@
             background-color: #e6f0fa;
         }
         
+        /* Estilos especiais para Missão IV - Mapa Mental */
+        .mindmap-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 5px;
+            position: relative;
+        }
+        
+        .mindmap-main {
+            background: #1a73e8;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(26, 115, 232, 0.3);
+        }
+        
+        .mindmap-main:hover {
+            background: #155ab6;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4);
+        }
+        
+        .mindmap-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .mindmap-connector::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 30px;
+            background: #1a73e8;
+            top: -30px;
+        }
+        
+        .mindmap-label {
+            background: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            color: #666;
+            font-style: italic;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .mindmap-children {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .mindmap-child {
+            flex: 1;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 3px solid #4CAF50;
+            position: relative;
+        }
+        
+        .mindmap-child::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 2px;
+            background: #1a73e8;
+            left: -20px;
+            top: 50%;
+        }
+        
+        .mindmap-child:hover {
+            background: #f0f7ff;
+            transform: translateX(5px);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        }
+        
         .btn-doc { background-color: #4caf50; }
         .btn-doc:hover { background-color: #3b9440; }
         .btn-whatsapp { background-color: #25D366; }
@@ -370,6 +469,12 @@
             .btn {
                 padding: 8px 10px;
                 font-size: 0.9em;
+            }
+            .mindmap-children {
+                flex-direction: column;
+            }
+            .mindmap-child::before {
+                display: none;
             }
             footer {
                 padding: 10px;
@@ -475,23 +580,30 @@
                     </div>
                 </div>
                 
-                <!-- Missão IV com dropdown -->
+                <!-- Missão IV com layout mapa mental -->
                 <div class="dropdown-container">
                     <button class="dropdown-btn" onclick="toggleDropdown('dropdown4')" id="btn4">
                         <span class="arrow-left">▼</span>
                         <span><span class="emoji">📑</span> Missão IV</span>
                         <span class="arrow-right">▼</span>
                     </button>
-                    <div class="dropdown-content" id="dropdown4">
-                        <a href="Documento_unico_da_Missao_IV.pdf" target="_blank">
-                            <span class="emoji">📑</span> Documento Único Consolidado
-                        </a>
-                        <a href="Identificacao_Oportunidades.pdf" target="_blank">
-                            <span class="emoji">🔍</span> Identificação de Oportunidades
-                        </a>
-                        <a href="Tabela_Oportunidades.pdf" target="_blank">
-                            <span class="emoji">📊</span> Tabela de Oportunidades
-                        </a>
+                    <div class="dropdown-content" id="dropdown4" style="background: transparent; box-shadow: none; padding: 0;">
+                        <div class="mindmap-container">
+                            <a href="Documento_unico_da_Missao_IV.pdf" target="_blank" class="mindmap-main">
+                                <span class="emoji">📑</span> Documento Único Consolidado
+                            </a>
+                            <div class="mindmap-connector">
+                                <span class="mindmap-label">contém</span>
+                            </div>
+                            <div class="mindmap-children">
+                                <a href="Identificacao_Oportunidades.pdf" target="_blank" class="mindmap-child">
+                                    <span class="emoji">🔍</span> Identificação de Oportunidades
+                                </a>
+                                <a href="Tabela_Oportunidades.pdf" target="_blank" class="mindmap-child">
+                                    <span class="emoji">📊</span> Tabela de Oportunidades
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -567,3 +679,4 @@
 
 </body>
 </html>
+
