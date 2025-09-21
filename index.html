@@ -29,10 +29,6 @@
             z-index: 9999;
         }
         
-        #consent-overlay.hidden {
-            display: none;
-        }
-        
         .consent-box {
             background: white;
             padding: 40px;
@@ -75,7 +71,9 @@
             margin-top: 25px;
         }
         
-        #view-policy-button, #accept-button {
+        #accept-button {
+            background-color: #4CAF50;
+            color: white;
             padding: 15px 30px;
             border: none;
             border-radius: 10px;
@@ -85,32 +83,11 @@
             transition: all 0.3s ease;
         }
         
-        #view-policy-button {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        
-        #view-policy-button:hover {
-            background-color: #e0e0e0;
-            transform: translateY(-2px);
-        }
-        
-        #accept-button {
-            background-color: #4CAF50;
-            color: white;
-        }
-        
         #accept-button:hover {
             background-color: #3b9440;
             transform: translateY(-2px);
         }
         
-        #accept-button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
@@ -363,13 +340,6 @@
         .emoji {
             font-size: 1.1em;
         }
-        
-        .policy-read-notice {
-            font-size: 0.9em;
-            color: #4CAF50;
-            margin-top: 15px;
-            font-style: italic;
-        }
 
         @media (max-width: 768px) {
             header {
@@ -420,13 +390,9 @@
             .consent-box p {
                 font-size: 0.95em;
             }
-            .button-container {
-                flex-direction: column;
-            }
-            #view-policy-button, #accept-button {
+            #accept-button {
                 padding: 12px 25px;
                 font-size: 1em;
-                width: 100%;
             }
         }
     </style>
@@ -437,16 +403,8 @@
         <div class="consent-box">
             <h1>Política de Uso de Inteligência Artificial</h1>
             <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
-            <p>Por favor, leia a nossa Política de Uso de IA antes de continuar.</p>
-            <p id="policy-status" class="policy-read-notice" style="display: none;">✓ Política lida - Pode agora aceitar e continuar</p>
-            <div class="button-container">
-                <button id="view-policy-button" onclick="window.open('politica-ia.html', '_blank'); enableAcceptButton();">
-                    📄 Ler Política de IA
-                </button>
-                <button id="accept-button" disabled>
-                    Aceitar e Continuar
-                </button>
-            </div>
+            <p>Ao continuar, confirma que leu e aceita a nossa <a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a>.</p>
+            <button id="accept-button">Aceitar e Continuar</button>
         </div>
     </div>
 
@@ -464,7 +422,6 @@
                     <span class="emoji">🤖</span> Aceder ao NeoOtto.ai
                 </a>
             </div>
-
                         <div class="card card-highlighted-bg">
                 <h2>🎯 Missão V - Prontidão Organizacional</h2>
                 <p>Avaliação completa da maturidade organizacional da Hiperfrio para implementação de IA, com diagnóstico 9D, roadmap de 90 dias e dois pilotos priorizados.</p>
@@ -472,7 +429,6 @@
                     <span class="emoji">📄</span> Documento Completo
                 </a>
             </div>
-
                         <div class="card card-highlighted-bg">
                 <h2>Avaliação da Missão V</h2>
                 <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho da Missão V e a evolução do projeto.</p>
@@ -480,7 +436,6 @@
                     <span class="emoji">✍</span> Começar Avaliação
                 </a>
             </div>
-
                         <div class="card">
                 <h2>Trabalhos Realizados</h2>
                 <p>Aceda ao histórico das Missões anteriores do grupo.</p>
@@ -548,72 +503,49 @@
             const consentOverlay = document.getElementById('consent-overlay');
             const appContent = document.getElementById('app-content');
             const acceptButton = document.getElementById('accept-button');
-            const policyStatus = document.getElementById('policy-status');
 
-            // Verificar se o consentimento já foi dado anteriormente
-            const consentGiven = localStorage.getItem('ai-consent-given');
-            const policyRead = sessionStorage.getItem('policy-read');
-            
+            // Verifica se o consentimento já foi dado na sessão
+            const consentGiven = sessionStorage.getItem('ai-consent-given');
             if (consentGiven === 'true') {
-                // Se já deu consentimento antes, mostrar diretamente o conteúdo
-                consentOverlay.classList.add('hidden');
-                appContent.classList.add('visible');
+                consentOverlay.style.display = 'none';
+                appContent.style.display = 'block';
             } else {
-                // Se é a primeira vez ou limpou o cache
-                if (policyRead === 'true') {
-                    enableAcceptButton();
-                }
+                // Se não houver consentimento, exibe o overlay
+                consentOverlay.style.display = 'flex';
             }
 
             // Evento do botão aceitar
             acceptButton.addEventListener('click', () => {
-                if (!acceptButton.disabled) {
-                    localStorage.setItem('ai-consent-given', 'true');
-                    localStorage.setItem('consent-date', new Date().toISOString());
-                    consentOverlay.classList.add('hidden');
-                    appContent.classList.add('visible');
-                }
+                // Marca o consentimento na sessão para a próxima vez
+                sessionStorage.setItem('ai-consent-given', 'true');
+                consentOverlay.style.display = 'none';
+                appContent.style.display = 'block';
             });
+
+            function toggleDropdown(dropdownId) {
+                const dropdown = document.getElementById(dropdownId);
+                const btnId = dropdownId.replace('dropdown', 'btn');
+                const btn = document.getElementById(btnId);
+                
+                dropdown.classList.toggle('show');
+                btn.classList.toggle('active');
+                
+                const allDropdowns = document.querySelectorAll('.dropdown-content');
+                const allBtns = document.querySelectorAll('.dropdown-btn');
+                
+                allDropdowns.forEach((d) => {
+                    if (d.id !== dropdownId && d.classList.contains('show')) {
+                        d.classList.remove('show');
+                    }
+                });
+                
+                allBtns.forEach((b) => {
+                    if (b.id !== btnId && b.classList.contains('active')) {
+                        b.classList.remove('active');
+                    }
+                });
+            }
         });
-
-        function enableAcceptButton() {
-            const acceptButton = document.getElementById('accept-button');
-            const policyStatus = document.getElementById('policy-status');
-            
-            // Marcar que a política foi lida nesta sessão
-            sessionStorage.setItem('policy-read', 'true');
-            
-            // Habilitar o botão de aceitar
-            acceptButton.disabled = false;
-            
-            // Mostrar mensagem de confirmação
-            policyStatus.style.display = 'block';
-        }
-
-        function toggleDropdown(dropdownId) {
-            const dropdown = document.getElementById(dropdownId);
-            const btnId = dropdownId.replace('dropdown', 'btn');
-            const btn = document.getElementById(btnId);
-            
-            dropdown.classList.toggle('show');
-            btn.classList.toggle('active');
-            
-            // Fechar outros dropdowns abertos
-            const allDropdowns = document.querySelectorAll('.dropdown-content');
-            const allBtns = document.querySelectorAll('.dropdown-btn');
-            
-            allDropdowns.forEach((d) => {
-                if (d.id !== dropdownId && d.classList.contains('show')) {
-                    d.classList.remove('show');
-                }
-            });
-            
-            allBtns.forEach((b) => {
-                if (b.id !== btnId && b.classList.contains('active')) {
-                    b.classList.remove('active');
-                }
-            });
-        }
     </script>
 
 </body>
