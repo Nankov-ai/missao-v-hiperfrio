@@ -86,22 +86,7 @@
             transform: translateY(-2px);
         }
         
-        #clear-consent {
-            background: none;
-            border: none;
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 15px;
-            cursor: pointer;
-            text-decoration: underline;
-            display: block;
-            width: 100%;
-        }
         
-        #clear-consent:hover {
-            color: #333;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
@@ -510,12 +495,11 @@
     <!-- Overlay de Consentimento - SEMPRE VISÍVEL NO INÍCIO -->
     <div id="consent-overlay">
         <div class="consent-box">
-            <h1>Política de Uso de Inteligência Artificial</h1>
-            <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
-            <p>Ao continuar, confirma que leu e aceita a nossa <a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a>.</p>
-            <button id="accept-button">Aceitar e Continuar</button>
-            <button id="clear-consent" onclick="clearConsent()">Limpar consentimento anterior</button>
-        </div>
+    <h1>Política de Uso de Inteligência Artificial</h1>
+    <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
+    <p>Ao continuar, confirma que leu e aceita a nossa <a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a>.</p>
+    <button id="accept-button">Aceitar e Continuar</button>
+</div>
     </div>
 
     <!-- Conteúdo Principal - ESCONDIDO ATÉ ACEITAR -->
@@ -628,18 +612,19 @@
             const appContent = document.getElementById('app-content');
             const acceptButton = document.getElementById('accept-button');
 
-            // Verifica se já existe consentimento guardado
-            const consentGiven = localStorage.getItem('ai-consent-given');
-            
-            if (consentGiven === 'true') {
-                // Se já aceitou antes, mostra o conteúdo
-                consentOverlay.style.display = 'none';
-                appContent.style.display = 'block';
-            } else {
-                // Se não aceitou, mantém o overlay visível
-                consentOverlay.style.display = 'flex';
-                appContent.style.display = 'none';
-            }
+            // FORÇA A APRESENTAÇÃO DA POLÍTICA EM TODAS AS VISITAS
+	// Comentamos a verificação do localStorage para garantir que aparece sempre
+	// const consentGiven = localStorage.getItem('ai-consent-given');
+
+	// if (consentGiven === 'true') {
+	//     consentOverlay.style.display = 'none';
+	//     appContent.style.display = 'block';
+	// } else {
+    	// Força sempre a mostrar o overlay de consentimento
+    	consentOverlay.style.display = 'flex';
+    	appContent.style.display = 'none';
+	// }
+
 
             // Quando clica em "Aceitar e Continuar"
             acceptButton.addEventListener('click', () => {
@@ -649,14 +634,7 @@
             });
         });
 
-        // Função para limpar consentimento (útil para testes)
-        function clearConsent() {
-            localStorage.removeItem('ai-consent-given');
-            alert('Consentimento limpo. A página será recarregada.');
-            location.reload();
-        }
-
-        // Função para toggle dos dropdowns
+           // Função para toggle dos dropdowns
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const btnId = dropdownId.replace('dropdown', 'btn');
