@@ -85,8 +85,7 @@
             background-color: #3b9440;
             transform: translateY(-2px);
         }
-        
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
@@ -304,103 +303,184 @@
             background-color: #e6f0fa;
         }
         
-        /* Estilos especiais para Missão IV - Mapa Mental */
-        .mindmap-container {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
-            border-radius: 10px;
-            padding: 15px;
+        /* Layout para Missão III - Documentos separados + ligação entre Análise Crítica e Áudio */
+        .simple-container-3 {
+            background: transparent;
+            padding: 0;
             margin-top: 5px;
-            position: relative;
         }
         
-        .mindmap-main {
-            background: #1a73e8;
-            color: white;
+        .simple-standalone {
+            background: white;
             padding: 12px 16px;
             border-radius: 8px;
             text-decoration: none;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             font-size: 0.9em;
             font-weight: bold;
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: 0 3px 10px rgba(26, 115, 232, 0.3);
+            color: #333;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e1ecf4;
         }
         
-        .mindmap-main:hover {
-            background: #155ab6;
+        .simple-standalone:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
         
-        .mindmap-connector {
+        .analise-container {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8f9ff 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px solid #e0e8f0;
+        }
+        
+        .analise-main {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0;
-            position: relative;
+            gap: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e1ecf4;
         }
         
-        .mindmap-connector::before {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 30px;
-            background: #1a73e8;
-            top: -30px;
+        .analise-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
         
-        .mindmap-label {
-            background: white;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.8em;
+        .analise-label {
+            text-align: center;
             color: #666;
+            font-size: 0.8em;
             font-style: italic;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            font-weight: 600;
         }
         
-        .mindmap-children {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            position: relative;
-            padding-left: 20px;
-        }
-        
-        .mindmap-child {
-            flex: 1;
+        .analise-child {
             background: white;
-            padding: 10px;
+            padding: 10px 12px;
             border-radius: 8px;
             text-decoration: none;
             color: #333;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            gap: 6px;
             font-size: 0.85em;
+            font-weight: 600;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-left: 3px solid #4CAF50;
-            position: relative;
+            text-align: center;
+            border-left: 4px solid #7b68ee;
+            border: 1px solid #d6e9f7;
         }
         
-        .mindmap-child::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 2px;
-            background: #1a73e8;
-            left: -20px;
-            top: 50%;
+        .analise-child:hover {
+            transform: translateY(-2px);
+            background: #f8fbff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
-        .mindmap-child:hover {
-            background: #f0f7ff;
-            transform: translateX(5px);
-            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+        /* Layout simplificado para Missão IV - CORES ESBATIDAS */
+        .simple-container {
+            background: linear-gradient(135deg, #f0f8f0 0%, #fff8f0 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 5px;
+            border: 1px solid #e8f5e8;
+        }
+        
+        .simple-main {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e8f5e8;
+        }
+        
+        .simple-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        
+        .simple-label {
+            text-align: center;
+            color: #666;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .simple-children {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .simple-child {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-align: center;
+            background: white;
+        }
+        
+        .simple-child:nth-child(1) {
+            border-left: 4px solid #81c784;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .simple-child:nth-child(2) {
+            border-left: 4px solid #ffb74d;
+            border: 1px solid #ffe0b2;
+        }
+        
+        .simple-child:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .simple-child:nth-child(1):hover {
+            background: #f1f8e9;
+        }
+        
+        .simple-child:nth-child(2):hover {
+            background: #fff3e0;
         }
         
         .btn-doc { background-color: #4caf50; }
@@ -461,11 +541,9 @@
                 padding: 8px 10px;
                 font-size: 0.9em;
             }
-            .mindmap-children {
+            .simple-children {
                 flex-direction: column;
-            }
-            .mindmap-child::before {
-                display: none;
+                gap: 8px;
             }
             footer {
                 padding: 10px;
@@ -495,11 +573,11 @@
     <!-- Overlay de Consentimento - SEMPRE VISÍVEL NO INÍCIO -->
     <div id="consent-overlay">
         <div class="consent-box">
-    <h1>Política de Uso de Inteligência Artificial</h1>
-    <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
-    <p>Ao continuar, confirma que leu e aceita a nossa <a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a>.</p>
-    <button id="accept-button">Aceitar e Continuar</button>
-</div>
+            <h1>Política de Uso de Inteligência Artificial</h1>
+            <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
+            <p>Ao continuar, confirma que leu e aceita a nossa<br><a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a>.</p>
+            <button id="accept-button">Aceitar e Continuar</button>
+        </div>
     </div>
 
     <!-- Conteúdo Principal - ESCONDIDO ATÉ ACEITAR -->
@@ -511,10 +589,10 @@
         <main>
             <!-- Card Missão V -->
             <div class="card card-highlighted-bg">
-                <h2>🚀 Missão V - Prontidão Organizacional</h2>
-                <p>Avaliação da maturidade organizacional da Hiperfrio para implementação de IA, com diagnóstico 9D, Aceleradores e Bloqueios, entre outros.</p>
+                <h2>🎯 Missão V - Prontidão Organizacional</h2>
+                <p>Avaliação da maturidade organizacional da Hiperfrio para implementação de IA, com Diagnóstico 9D, Aceleradores e Bloqueios, entre outros.</p>
                 <a class="btn btn-doc" href="Missao_V.pdf" target="_blank">
-                    <span class="emoji">📄</span> Documento Completo
+                    <span class="emoji">📑</span> Documento Completo
                 </a>
             </div>
 
@@ -533,7 +611,7 @@
                 <h2>Avaliação da Missão V</h2>
                 <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho da Missão V e a evolução do projeto.</p>
                 <a class="btn btn-whatsapp btn-align-bottom" href="https://chat.whatsapp.com/KdILJuUUjX2JffexE92n8E" target="_blank">
-                    <span class="emoji">✍</span> Começar Avaliação
+                    <span class="emoji">⭐</span> Começar Avaliação
                 </a>
             </div>
 
@@ -543,53 +621,59 @@
                 <p>Aceda ao histórico completo das Missões anteriores do grupo.</p>
                 
                 <a class="btn" href="https://drive.google.com/file/d/1eEPmpAtIbRS3K417RzaA4P5kf0I0_3gg/view?usp=drive_link" target="_blank">
-                    <span class="emoji">📄</span> Missão I
+                    <span class="emoji">📑</span> Missão I
                 </a>
                 
                 <a class="btn" href="https://docs.google.com/presentation/d/1W7NFxGzgThQ2zIH-q4MpHeKtNjCfKNrW/present?usp=sharing" target="_blank">
-                    <span class="emoji">🎨</span> Missão II
+                    <span class="emoji">🎮</span> Missão II
                 </a>
                 
-                <!-- Missão III com dropdown -->
+                <!-- Missão III com documentos separados -->
                 <div class="dropdown-container">
                     <button class="dropdown-btn" onclick="toggleDropdown('dropdown3')" id="btn3">
                         <span class="arrow-left">▼</span>
-                        <span><span class="emoji">📖</span> Missão III</span>
+                        <span><span class="emoji">📊</span> Missão III</span>
                         <span class="arrow-right">▼</span>
                     </button>
-                    <div class="dropdown-content" id="dropdown3">
-                        <a href="https://drive.google.com/file/d/1fnypY3ntZ6NbleWoP4lA7w2E1Yep55l5/view?usp=drive_link" target="_blank">
-                            <span class="emoji">📖</span> Documento Original
-                        </a>
-                        <a href="Analise_Critica_Missao_III.pdf" target="_blank">
-                            <span class="emoji">📝</span> Análise Crítica Detalhada
-                        </a>
-                        <a href="analise-critica-audio.mp3" target="_blank">
-                            <span class="emoji">🎧</span> Análise em Áudio
-                        </a>
+                    <div class="dropdown-content" id="dropdown3" style="background: transparent; box-shadow: none; padding: 0;">
+                        <div class="simple-container-3">
+                            <!-- Documento independente -->
+                            <a href="https://drive.google.com/file/d/1fnypY3ntZ6NbleWoP4lA7w2E1Yep55l5/view?usp=drive_link" target="_blank" class="simple-standalone">
+                                <span class="emoji">📖</span> Desenvolvimento do "Oráculo"
+                            </a>
+                            
+                            <!-- Análise Crítica com ligação ao áudio -->
+                            <div class="analise-container">
+                                <a href="Analise_Critica_Missao_III.pdf" target="_blank" class="analise-main">
+                                    <span class="emoji">📝</span> Análise Crítica Detalhada
+                                </a>
+                                <div class="analise-label">com</div>
+                                <a href="analise-critica-audio.mp3" target="_blank" class="analise-child">
+                                    <span class="emoji">🎧</span> Análise em Áudio
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Missão IV com layout mapa mental -->
+                <!-- Missão IV com layout simplificado -->
                 <div class="dropdown-container">
                     <button class="dropdown-btn" onclick="toggleDropdown('dropdown4')" id="btn4">
                         <span class="arrow-left">▼</span>
-                        <span><span class="emoji">📑</span> Missão IV</span>
+                        <span><span class="emoji">📋</span> Missão IV</span>
                         <span class="arrow-right">▼</span>
                     </button>
                     <div class="dropdown-content" id="dropdown4" style="background: transparent; box-shadow: none; padding: 0;">
-                        <div class="mindmap-container">
-                            <a href="Documento_unico_da_Missao_IV.pdf" target="_blank" class="mindmap-main">
-                                <span class="emoji">📑</span> Documento Único Consolidado
+                        <div class="simple-container">
+                            <a href="Documento_unico_da_Missao_IV.pdf" target="_blank" class="simple-main">
+                                <span class="emoji">📋</span> Documento Único Consolidado
                             </a>
-                            <div class="mindmap-connector">
-                                <span class="mindmap-label">contém</span>
-                            </div>
-                            <div class="mindmap-children">
-                                <a href="Identificacao_Oportunidades.pdf" target="_blank" class="mindmap-child">
+                            <div class="simple-label">contém</div>
+                            <div class="simple-children">
+                                <a href="Identificacao_Oportunidades.pdf" target="_blank" class="simple-child">
                                     <span class="emoji">🔍</span> Identificação de Oportunidades
                                 </a>
-                                <a href="Tabela_Oportunidades.pdf" target="_blank" class="mindmap-child">
+                                <a href="Tabela_Oportunidades.pdf" target="_blank" class="simple-child">
                                     <span class="emoji">📊</span> Tabela de Oportunidades
                                 </a>
                             </div>
@@ -613,18 +697,8 @@
             const acceptButton = document.getElementById('accept-button');
 
             // FORÇA A APRESENTAÇÃO DA POLÍTICA EM TODAS AS VISITAS
-	// Comentamos a verificação do localStorage para garantir que aparece sempre
-	// const consentGiven = localStorage.getItem('ai-consent-given');
-
-	// if (consentGiven === 'true') {
-	//     consentOverlay.style.display = 'none';
-	//     appContent.style.display = 'block';
-	// } else {
-    	// Força sempre a mostrar o overlay de consentimento
-    	consentOverlay.style.display = 'flex';
-    	appContent.style.display = 'none';
-	// }
-
+            consentOverlay.style.display = 'flex';
+            appContent.style.display = 'none';
 
             // Quando clica em "Aceitar e Continuar"
             acceptButton.addEventListener('click', () => {
@@ -634,7 +708,7 @@
             });
         });
 
-           // Função para toggle dos dropdowns
+        // Função para toggle dos dropdowns
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const btnId = dropdownId.replace('dropdown', 'btn');
