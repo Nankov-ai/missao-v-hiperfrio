@@ -79,6 +79,20 @@
             background-color: #3b9440;
             transform: translateY(-2px);
         }
+        
+        #clear-consent {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 15px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        #clear-consent:hover {
+            color: #333;
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -382,15 +396,18 @@
 </head>
 <body>
 
+    <!-- Overlay de Consentimento - SEMPRE VISÍVEL NO INÍCIO -->
     <div id="consent-overlay">
         <div class="consent-box">
             <h1>Política de Uso de Inteligência Artificial</h1>
             <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
             <p>Ao continuar, confirma que leu e aceita a nossa <a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a>.</p>
             <button id="accept-button">Aceitar e Continuar</button>
+            <button id="clear-consent" onclick="clearConsent()">Limpar consentimento anterior</button>
         </div>
     </div>
 
+    <!-- Conteúdo Principal - ESCONDIDO ATÉ ACEITAR -->
     <div id="app-content" style="display: none;">
         <header>
             Missão V - Prontidão Organizacional para IA
@@ -486,24 +503,32 @@
         </main>
 
         <footer>
-            <p>GT4 Grupo 3 | Fernando Costa I Maria Vieira | Miguel Anim | João Luís | José Gomes | Rui Baltazar</p>
+            <p>GT4 Grupo 3 | Fernando Costa | Maria Vieira | Miguel Anim | João Luís | José Gomes | Rui Baltazar</p>
             <p class="ai-footer-notice">Esta aplicação integra componentes de Inteligência Artificial.</p>
         </footer>
     </div>
 
     <script>
+        // SCRIPT PARA GARANTIR QUE A POLÍTICA APARECE SEMPRE
         document.addEventListener('DOMContentLoaded', () => {
             const consentOverlay = document.getElementById('consent-overlay');
             const appContent = document.getElementById('app-content');
             const acceptButton = document.getElementById('accept-button');
 
+            // Verifica se já existe consentimento guardado
             const consentGiven = localStorage.getItem('ai-consent-given');
             
             if (consentGiven === 'true') {
+                // Se já aceitou antes, mostra o conteúdo
                 consentOverlay.style.display = 'none';
                 appContent.style.display = 'block';
+            } else {
+                // Se não aceitou, mantém o overlay visível
+                consentOverlay.style.display = 'flex';
+                appContent.style.display = 'none';
             }
 
+            // Quando clica em "Aceitar e Continuar"
             acceptButton.addEventListener('click', () => {
                 localStorage.setItem('ai-consent-given', 'true');
                 consentOverlay.style.display = 'none';
@@ -511,6 +536,14 @@
             });
         });
 
+        // Função para limpar consentimento (útil para testes)
+        function clearConsent() {
+            localStorage.removeItem('ai-consent-given');
+            alert('Consentimento limpo. A página será recarregada.');
+            location.reload();
+        }
+
+        // Função para toggle dos dropdowns
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const btnId = dropdownId.replace('dropdown', 'btn');
@@ -519,6 +552,7 @@
             dropdown.classList.toggle('show');
             btn.classList.toggle('active');
             
+            // Fecha outros dropdowns abertos
             const allDropdowns = document.querySelectorAll('.dropdown-content');
             const allBtns = document.querySelectorAll('.dropdown-btn');
             
