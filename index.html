@@ -86,12 +86,12 @@
         }
         
         #view-policy-button {
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #1a73e8;
+            color: white;
         }
         
         #view-policy-button:hover {
-            background-color: #e0e0e0;
+            background-color: #155ab6;
             transform: translateY(-2px);
         }
         
@@ -100,7 +100,7 @@
             color: white;
         }
         
-        #accept-button:hover {
+        #accept-button:hover:not(:disabled) {
             background-color: #3b9440;
             transform: translateY(-2px);
         }
@@ -108,7 +108,7 @@
         #accept-button:disabled {
             background-color: #cccccc;
             cursor: not-allowed;
-            transform: none;
+            opacity: 0.6;
         }
 
         @keyframes fadeIn {
@@ -369,6 +369,7 @@
             color: #4CAF50;
             margin-top: 15px;
             font-style: italic;
+            display: none;
         }
 
         @media (max-width: 768px) {
@@ -438,9 +439,9 @@
             <h1>Política de Uso de Inteligência Artificial</h1>
             <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
             <p>Por favor, leia a nossa Política de Uso de IA antes de continuar.</p>
-            <p id="policy-status" class="policy-read-notice" style="display: none;">✓ Política lida - Pode agora aceitar e continuar</p>
+            <p id="policy-status" class="policy-read-notice">✓ Política lida - Pode agora aceitar e continuar</p>
             <div class="button-container">
-                <button id="view-policy-button" onclick="window.open('politica-ia.html', '_blank'); enableAcceptButton();">
+                <button id="view-policy-button">
                     📄 Ler Política de IA
                 </button>
                 <button id="accept-button" disabled>
@@ -555,22 +556,29 @@
             const consentOverlay = document.getElementById('consent-overlay');
             const appContent = document.getElementById('app-content');
             const acceptButton = document.getElementById('accept-button');
+            const viewPolicyButton = document.getElementById('view-policy-button');
             const policyStatus = document.getElementById('policy-status');
 
             // Verificar se o consentimento já foi dado anteriormente
             const consentGiven = localStorage.getItem('ai-consent-given');
-            const policyRead = sessionStorage.getItem('policy-read');
             
             if (consentGiven === 'true') {
                 // Se já deu consentimento antes, mostrar diretamente o conteúdo
                 consentOverlay.classList.add('hidden');
                 appContent.classList.add('visible');
-            } else {
-                // Se é a primeira vez ou limpou o cache
-                if (policyRead === 'true') {
-                    enableAcceptButton();
-                }
             }
+
+            // Evento do botão de ver política
+            viewPolicyButton.addEventListener('click', () => {
+                // Abrir a política numa nova aba
+                window.open('./politica-ia.html', '_blank');
+                
+                // Habilitar o botão de aceitar
+                acceptButton.disabled = false;
+                
+                // Mostrar mensagem de confirmação
+                policyStatus.style.display = 'block';
+            });
 
             // Evento do botão aceitar
             acceptButton.addEventListener('click', () => {
@@ -582,20 +590,6 @@
                 }
             });
         });
-
-        function enableAcceptButton() {
-            const acceptButton = document.getElementById('accept-button');
-            const policyStatus = document.getElementById('policy-status');
-            
-            // Marcar que a política foi lida nesta sessão
-            sessionStorage.setItem('policy-read', 'true');
-            
-            // Habilitar o botão de aceitar
-            acceptButton.disabled = false;
-            
-            // Mostrar mensagem de confirmação
-            policyStatus.style.display = 'block';
-        }
 
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
@@ -625,4 +619,3 @@
 
 </body>
 </html>
-
