@@ -1,115 +1,620 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missão V - Prontidão Organizacional para IA</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão V - Prontidão Organizacional para IA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e6f0fa 0%, #ffffff 100%);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        #consent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        #consent-overlay.hidden {
+            display: none;
+        }
+        
+        .consent-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 550px;
+            margin: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .consent-box h1 {
+            color: #1a73e8;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+        
+        .consent-box p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .consent-link {
+            color: #1a73e8;
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .consent-link:hover {
+            color: #155ab6;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        #view-policy-button, #accept-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #view-policy-button {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        #view-policy-button:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        
+        #accept-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        #accept-button:hover {
+            background-color: #3b9440;
+            transform: translateY(-2px);
+        }
+        
+        #accept-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        #app-content {
+            display: none;
+            width: 100%;
+        }
+        
+        #app-content.visible {
+            display: block;
+        }
+
+        header {
+            background-color: #1a73e8;
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+            letter-spacing: 1px;
+            z-index: 1000;
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px 15px;
+            gap: 20px;
+            overflow-y: auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: auto;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+        }
+        
+        .highlight-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 9px 25px rgba(0,0,0,0.18);
+        }
+        
+        .highlight-card h2 {
+            margin-top: 0;
+            font-size: 1.9em;
+            color: #1a73e8;
+            margin-bottom: 12px;
+        }
+        
+        .highlight-card p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .card-highlighted-bg {
+            background-color: #e0f2f7;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            color: #1a73e8;
+            border-bottom: 1px solid #e6f0fa;
+            padding-bottom: 8px;
+        }
+        
+        .card p {
+            font-size: 0.9em;
+            line-height: 1.4;
+            color: #555;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+        
+        .ai-disclosure {
+            font-size: 0.85em;
+            color: #d32f2f;
+            font-weight: bold;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.15s ease;
+            white-space: nowrap;
+        }
+        
+        .btn-align-bottom {
+            margin-top: auto;
+        }
+
+        .btn:hover {
+            background-color: #155ab6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .dropdown-container {
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .dropdown-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background 0.25s ease, transform 0.15s ease;
+            cursor: pointer;
+            border: none;
+            position: relative;
+        }
+        
+        .dropdown-btn .arrow-left,
+        .dropdown-btn .arrow-right {
+            position: absolute;
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-btn .arrow-left {
+            left: 14px;
+        }
+        
+        .dropdown-btn .arrow-right {
+            right: 14px;
+        }
+        
+        .dropdown-btn.active .arrow-left,
+        .dropdown-btn.active .arrow-right {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-btn:hover {
+            background-color: #155ab6;
+            transform: translateY(-2px);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: relative;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content.show {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #e6f0fa;
+        }
+        
+        .btn-doc { background-color: #4caf50; }
+        .btn-doc:hover { background-color: #3b9440; }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #1ebe5d; }
+        .btn-presentation { background-color: #9c27b0; }
+        .btn-presentation:hover { background-color: #7b1fa2; }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #eaeaea;
+            font-size: 0.8em;
+            color: #555;
+            letter-spacing: 0.5px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .ai-footer-notice {
+            font-size: 0.75em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .emoji {
+            font-size: 1.1em;
+        }
+        
+        .policy-read-notice {
+            font-size: 0.9em;
+            color: #4CAF50;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4em;
+                padding: 15px 10px;
+            }
+            main {
+                padding: 20px 10px;
+                gap: 15px;
+            }
+            .highlight-card {
+                padding: 20px;
+                max-width: 95%;
+            }
+            .highlight-card h2 {
+                font-size: 1.6em;
+            }
+            .highlight-card p {
+                font-size: 0.9em;
+            }
+            .ai-disclosure {
+                font-size: 0.7em;
+            }
+            .card {
+                max-width: 95%;
+                padding: 15px;
+            }
+            .card h2 {
+                font-size: 1.1em;
+            }
+            .btn {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+            footer {
+                padding: 10px;
+                font-size: 0.75em;
+            }
+            .ai-footer-notice {
+                font-size: 0.65em;
+            }
+            .consent-box {
+                padding: 30px 20px;
+            }
+            .consent-box h1 {
+                font-size: 1.8em;
+            }
+            .consent-box p {
+                font-size: 0.95em;
+            }
+            .button-container {
+                flex-direction: column;
+            }
+            #view-policy-button, #accept-button {
+                padding: 12px 25px;
+                font-size: 1em;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <div id="consent-overlay">
-        <div class="consent-box">
-            <h1>Política de Uso de Inteligência Artificial</h1>
-            <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
-            <p>Ao continuar, confirma que leu e aceita a nossa <a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a>.</p>
-            <button id="accept-button">Aceitar e Continuar</button>
-        </div>
-    </div>
+    <div id="consent-overlay">
+        <div class="consent-box">
+            <h1>Política de Uso de Inteligência Artificial</h1>
+            <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
+            <p>Por favor, leia a nossa Política de Uso de IA antes de continuar.</p>
+            <p id="policy-status" class="policy-read-notice" style="display: none;">✓ Política lida - Pode agora aceitar e continuar</p>
+            <div class="button-container">
+                <button id="view-policy-button" onclick="window.open('politica-ia.html', '_blank'); enableAcceptButton();">
+                    📄 Ler Política de IA
+                </button>
+                <button id="accept-button" disabled>
+                    Aceitar e Continuar
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <div id="app-content" style="display: none;">
-        <header>
-            Missão V - Prontidão Organizacional para IA
-        </header>
+    <div id="app-content">
+        <header>
+            Missão V - Prontidão Organizacional para IA
+        </header>
 
-        <main>
-            <div class="card card-highlighted-bg">
-                <h2>🚀 Missão V - Prontidão Organizacional</h2>
-                <p>Avaliação completa da maturidade organizacional da Hiperfrio para implementação de IA, com diagnóstico 9D, roadmap de 90 dias e dois pilotos priorizados.</p>
-                <a class="btn btn-doc" href="Missao_V.pdf" target="_blank">
-                    <span class="emoji">📄</span> Documento Completo
-                </a>
-            </div>
+        <main>
+                        <div class="highlight-card">
+                <h2>Bem-vindo ao NeoOtto.ai</h2>
+                <p>O nosso especialista em inteligência artificial para identificar novas oportunidades de negócio. Explore as funcionalidades e a visão para o futuro!</p>
+                <p class="ai-disclosure">Esta secção integra um sistema de Inteligência Artificial.</p>
+                <a class="btn" href="https://chatgpt.com/g/g-6867dda33f808191a1c2e26f47d4fa1c-neootto-ai" target="_blank">
+                    <span class="emoji">🤖</span> Aceder ao NeoOtto.ai
+                </a>
+            </div>
 
-            <div class="highlight-card">
-                <h2>Bem-vindo ao NeoOtto.ai</h2>
-                <p>O nosso especialista em inteligência artificial para identificar novas oportunidades de negócio. Explore as funcionalidades e a visão para o futuro!</p>
-                <p class="ai-disclosure">Esta secção integra um sistema de Inteligência Artificial.</p>
-                <a class="btn" href="https://chatgpt.com/g/g-6867dda33f808191a1c2e26f47d4fa1c-neootto-ai" target="_blank">
-                    <span class="emoji">🤖</span> Aceder ao NeoOtto.ai
-                </a>
-            </div>
+                        <div class="card card-highlighted-bg">
+                <h2>🎯 Missão V - Prontidão Organizacional</h2>
+                <p>Avaliação completa da maturidade organizacional da Hiperfrio para implementação de IA, com diagnóstico 9D, roadmap de 90 dias e dois pilotos priorizados.</p>
+                <a class="btn btn-doc" href="Missao_V.pdf" target="_blank">
+                    <span class="emoji">📄</span> Documento Completo
+                </a>
+            </div>
 
-            <div class="card card-highlighted-bg">
-                <h2>Avaliação da Missão V</h2>
-                <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho da Missão V e a evolução do projeto.</p>
-                <a class="btn btn-whatsapp btn-align-bottom" href="https://chat.whatsapp.com/KdILJuUUjX2JffexE92n8E" target="_blank">
-                    <span class="emoji">✍</span> Começar Avaliação
-                </a>
-            </div>
+                        <div class="card card-highlighted-bg">
+                <h2>Avaliação da Missão V</h2>
+                <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho da Missão V e a evolução do projeto.</p>
+                <a class="btn btn-whatsapp btn-align-bottom" href="https://chat.whatsapp.com/KdILJuUUjX2JffexE92n8E" target="_blank">
+                    <span class="emoji">✍</span> Começar Avaliação
+                </a>
+            </div>
 
-            <div class="card">
-                <h2>Trabalhos Realizados</h2>
-                <p>Aceda ao histórico das Missões anteriores do grupo.</p>
-                
-                <a class="btn" href="https://drive.google.com/file/d/1eEPmpAtIbRS3K417RzaA4P5kf0I0_3gg/view?usp=drive_link" target="_blank">
-                    <span class="emoji">📄</span> Missão I
-                </a>
-                
-                <a class="btn" href="https://docs.google.com/presentation/d/1W7NFxGzgThQ2zIH-q4MpHeKtNjCfKNrW/present?usp=sharing" target="_blank">
-                    <span class="emoji">🎨</span> Missão II
-                </a>
-                
-                <div class="dropdown-container">
-                    <button class="dropdown-btn" onclick="toggleDropdown('dropdown3')" id="btn3">
-                        <span class="arrow-left">▼</span>
-                        <span><span class="emoji">📖</span> Missão III</span>
-                        <span class="arrow-right">▼</span>
-                    </button>
-                    <div class="dropdown-content" id="dropdown3">
-                        <a href="https://drive.google.com/file/d/1fnypY3ntZ6NbleWoP4lA7w2E1Yep55l5/view?usp=drive_link" target="_blank">
-                            <span class="emoji">📖</span> Documento Original
-                        </a>
-                        <a href="Analise_Critica_Missao_III.pdf" target="_blank">
-                            <span class="emoji">📝</span> Análise Crítica Detalhada
-                        </a>
-                        <a href="analise-critica-audio.mp3" target="_blank">
-                            <span class="emoji">🎧</span> Análise em Áudio
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="dropdown-container">
-                    <button class="dropdown-btn" onclick="toggleDropdown('dropdown4')" id="btn4">
-                        <span class="arrow-left">▼</span>
-                        <span><span class="emoji">📑</span> Missão IV</span>
-                        <span class="arrow-right">▼</span>
-                    </button>
-                    <div class="dropdown-content" id="dropdown4">
-                        <a href="Documento_unico_da_Missao_IV.pdf" target="_blank">
-                            <span class="emoji">📑</span> Documento Único Consolidado
-                        </a>
-                        <a href="Identificacao_Oportunidades.pdf" target="_blank">
-                            <span class="emoji">🔍</span> Identificação de Oportunidades
-                        </a>
-                        <a href="Tabela_Oportunidades.pdf" target="_blank">
-                            <span class="emoji">📊</span> Tabela de Oportunidades
-                        </a>
-                    </div>
-                </div>
-                
-                <a class="btn btn-presentation" href="Missao_V.pdf" target="_blank">
-                    <span class="emoji">🚀</span> Missão V
-                </a>
-            </div>
-        </main>
+                        <div class="card">
+                <h2>Trabalhos Realizados</h2>
+                <p>Aceda ao histórico das Missões anteriores do grupo.</p>
+                
+                <a class="btn" href="https://drive.google.com/file/d/1eEPmpAtIbRS3K417RzaA4P5kf0I0_3gg/view?usp=drive_link" target="_blank">
+                    <span class="emoji">📄</span> Missão I
+                </a>
+                
+                <a class="btn" href="https://docs.google.com/presentation/d/1W7NFxGzgThQ2zIH-q4MpHeKtNjCfKNrW/present?usp=sharing" target="_blank">
+                    <span class="emoji">🎬</span> Missão II
+                </a>
+                
+                                <div class="dropdown-container">
+                    <button class="dropdown-btn" onclick="toggleDropdown('dropdown3')" id="btn3">
+                        <span class="arrow-left">▼</span>
+                        <span><span class="emoji">📑</span> Missão III</span>
+                        <span class="arrow-right">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="dropdown3">
+                        <a href="https://drive.google.com/file/d/1fnypY3ntZ6NbleWoP4lA7w2E1Yep55l5/view?usp=drive_link" target="_blank">
+                            <span class="emoji">📑</span> Documento Original
+                        </a>
+                        <a href="Analise_Critica_Missao_III.pdf" target="_blank">
+                            <span class="emoji">📊</span> Análise Crítica Detalhada
+                        </a>
+                        <a href="analise-critica-audio.mp3" target="_blank">
+                            <span class="emoji">🎧</span> Análise em Áudio
+                        </a>
+                    </div>
+                </div>
+                
+                                <div class="dropdown-container">
+                    <button class="dropdown-btn" onclick="toggleDropdown('dropdown4')" id="btn4">
+                        <span class="arrow-left">▼</span>
+                        <span><span class="emoji">📈</span> Missão IV</span>
+                        <span class="arrow-right">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="dropdown4">
+                        <a href="Documento_unico_da_Missao_IV.pdf" target="_blank">
+                            <span class="emoji">📈</span> Documento Único Consolidado
+                        </a>
+                        <a href="Identificacao_Oportunidades.pdf" target="_blank">
+                            <span class="emoji">🌟</span> Identificação de Oportunidades
+                        </a>
+                        <a href="Tabela_Oportunidades.pdf" target="_blank">
+                            <span class="emoji">📋</span> Tabela de Oportunidades
+                        </a>
+                    </div>
+                </div>
+                
+                                <a class="btn btn-presentation" href="Missao_V.pdf" target="_blank">
+                    <span class="emoji">🎯</span> Missão V
+                </a>
+            </div>
+        </main>
 
-        <footer>
-            <p>GT4 Grupo 3 | Fernando Costa I Maria Vieira | Miguel Anim | João Luís | José Gomes | Rui Baltazar</p>
-            <p class="ai-footer-notice">Esta aplicação integra componentes de Inteligência Artificial.</p>
-        </footer>
-    </div>
+        <footer>
+            <p>GT4 Grupo 3 | Fernando Costa I Maria Vieira | Miguel Anim | João Luís | José Gomes | Rui Baltazar</p>
+            <p class="ai-footer-notice">Esta aplicação integra componentes de Inteligência Artificial.</p>
+        </footer>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const consentOverlay = document.getElementById('consent-overlay');
+            const appContent = document.getElementById('app-content');
+            const acceptButton = document.getElementById('accept-button');
+            const policyStatus = document.getElementById('policy-status');
+
+            // Verificar se o consentimento já foi dado anteriormente
+            const consentGiven = localStorage.getItem('ai-consent-given');
+            const policyRead = sessionStorage.getItem('policy-read');
+            
+            if (consentGiven === 'true') {
+                // Se já deu consentimento antes, mostrar diretamente o conteúdo
+                consentOverlay.classList.add('hidden');
+                appContent.classList.add('visible');
+            } else {
+                // Se é a primeira vez ou limpou o cache
+                if (policyRead === 'true') {
+                    enableAcceptButton();
+                }
+            }
+
+            // Evento do botão aceitar
+            acceptButton.addEventListener('click', () => {
+                if (!acceptButton.disabled) {
+                    localStorage.setItem('ai-consent-given', 'true');
+                    localStorage.setItem('consent-date', new Date().toISOString());
+                    consentOverlay.classList.add('hidden');
+                    appContent.classList.add('visible');
+                }
+            });
+        });
+
+        function enableAcceptButton() {
+            const acceptButton = document.getElementById('accept-button');
+            const policyStatus = document.getElementById('policy-status');
+            
+            // Marcar que a política foi lida nesta sessão
+            sessionStorage.setItem('policy-read', 'true');
+            
+            // Habilitar o botão de aceitar
+            acceptButton.disabled = false;
+            
+            // Mostrar mensagem de confirmação
+            policyStatus.style.display = 'block';
+        }
+
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const btnId = dropdownId.replace('dropdown', 'btn');
+            const btn = document.getElementById(btnId);
+            
+            dropdown.classList.toggle('show');
+            btn.classList.toggle('active');
+            
+            // Fechar outros dropdowns abertos
+            const allDropdowns = document.querySelectorAll('.dropdown-content');
+            const allBtns = document.querySelectorAll('.dropdown-btn');
+            
+            allDropdowns.forEach((d) => {
+                if (d.id !== dropdownId && d.classList.contains('show')) {
+                    d.classList.remove('show');
+                }
+            });
+            
+            allBtns.forEach((b) => {
+                if (b.id !== btnId && b.classList.contains('active')) {
+                    b.classList.remove('active');
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>
