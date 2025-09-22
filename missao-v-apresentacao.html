@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão V - Prontidão Organizacional para IA | Hiperfrio</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-alt: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(to bottom, #f0f9ff, #ffffff);
+            overflow-x: hidden;
+        }
+        
+        /* Navegação */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 5rem 2rem;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.2s both;
+            position: relative;
+            opacity: 0.95;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Sections */
+        .section {
+            margin: 4rem 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+        }
+        
+        .section-intro {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(14, 165, 233, 0.05));
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        /* Tabelas */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 600px;
+        }
+        
+        th {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+        
+        tr:hover {
+            background: #f8fafc;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Risk Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .badge-high {
+            background: #fee2e2;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        
+        .badge-medium {
+            background: #fed7aa;
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+        
+        .badge-low {
+            background: #d1fae5;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .kpi-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .kpi-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+        
+        .kpi-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            width: 45%;
+            position: relative;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Pilot Cards */
+        .pilot-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .pilot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .pilot-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pilot-header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .pilot-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pilot-body {
+            padding: 2rem;
+        }
+        
+        .pilot-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .pilot-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .pilot-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        /* Quick Wins */
+        .quickwin-container {
+            background: var(--gradient-alt);
+            border-radius: 16px;
+            padding: 2.5rem;
+            color: white;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quickwin-container::before {
+            content: '⚡';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            font-size: 150px;
+            opacity: 0.1;
+        }
+        
+        .quickwin-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .quickwin-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+        
+        .quickwin-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+        }
+        
+        /* NeoOtto Section */
+        .neootto-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            color: white;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neootto-section::before {
+            content: '🤖';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            font-size: 200px;
+            opacity: 0.1;
+        }
+        
+        .neootto-link {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .neootto-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(255,255,255,0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                justify-content: center;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 50px);
+                margin-left: 50px;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                flex-direction: row;
+            }
+            
+            .timeline-marker {
+                left: 20px;
+            }
+            
+            .pilot-container {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 0.875rem;
+            }
+            
+            th, td {
+                padding: 0.75rem;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+        }
+        
+        /* Animações extras */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .slide-in {
+            animation: slideIn 1s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(14, 165, 233, 0.1));
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+        
+        /* Print Styles */
+        @media print {
+            nav, footer {
+                display: none;
+            }
+            
+            .hero {
+                margin-top: 0;
+                padding: 2rem;
+                background: none;
+                color: black;
+            }
+            
+            .card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span>🚀</span>
+                <span>Missão V - Hiperfrio</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#sumario">Sumário</a></li>
+                <li><a href="#diagnostico">Diagnóstico 9D</a></li>
+                <li><a href="#aceleradores">Aceleradores</a></li>
+                <li><a href="#pilotos">Pilotos IA</a></li>
+                <li><a href="#kpis">KPIs</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#governanca">Governança</a></li>
+                <li><a href="#neootto">NeoOtto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Missão V - Prontidão Organizacional para IA</h1>
+        <p>Transformando a Hiperfrio com Inteligência Artificial: Da Estratégia à Implementação</p>
+    </section>
+
+    <!-- Container Principal -->
+    <div class="container">
+        
+        <!-- 1. Sumário Executivo -->
+        <section id="sumario" class="section">
+            <h2 class="section-title">1. Sumário Executivo</h2>
+            
+            <div class="section-intro">
+                Em linha com a máxima que a cultura organizacional é fulcral para o sucesso de novas iniciativas, 
+                a Missão V aprofunda a prontidão da Hiperfrio para a implementação da IA, focando nos aspectos 
+                humanos e processuais que determinarão o sucesso desta transformação digital.
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h3>Contexto e Desafios</h3>
+                </div>
+                <p>Na Hiperfrio, técnicos e gestores enfrentam hoje desafios que limitam eficiência e previsibilidade. 
+                Ordens de trabalho acumulam-se, falhas surgem de forma inesperada e o ciclo order-to-cash demora mais 
+                do que deveria. A Inteligência Artificial surge aqui não como uma tecnologia distante, mas como uma 
+                ferramenta prática para resolver problemas concretos.</p>
+                
+                <div class="grid grid-2" style="margin-top: 2rem;">
+                    <div class="card" style="background: var(--gradient-alt); color: white;">
+                        <h4>🎯 Foco da Missão</h4>
+                        <p style="margin-top: 1rem;">A presente missão aprofunda 2 dos 6 casos de uso identificados nas 
+                        missões anteriores, priorizando-os com base em critérios de prontidão organizacional, impacto 
+                        direto e facilidade de implementação.</p>
+                    </div>
+                    <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                        <h4>📋 Casos Priorizados</h4>
+                        <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                            <li>✅ Manutenção Preditiva em Refrigeração</li>
+                            <li>✅ Dashboards Order-to-Cash</li>
+                            <li style="margin-top: 0.5rem; opacity: 0.8;">📌 4 oportunidades em exploração</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Diagnóstico Organizacional -->
+        <section id="diagnostico" class="section">
+            <h2 class="section-title">2. Diagnóstico Organizacional - Checklist 9D</h2>
+            
+            <div class="section-intro">
+                Para avaliar a prontidão organizacional, seguimos as 9 dimensões propostas na Sessão IV, com base no 
+                modelo aiSTROM (IEEE, 2021), garantindo uma visão equilibrada entre estratégia, cultura, dados e processos. 
+                Este diagnóstico permite identificar riscos e definir ações prioritárias para cada dimensão crítica.
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-bottom: 1.5rem;">2.1 Detalhe do Diagnóstico - Checklist 9D</h3>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dimensão</th>
+                                <th>Resposta Consolidada</th>
+                                <th>Risco</th>
+                                <th style="min-width: 350px;">Ação Curta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Estratégia & Visão</strong></td>
+                                <td>Não há estratégia formal de IA; foram priorizados pilotos ligados ao core (assistência técnica e manutenção preditiva)</td>
+                                <td><span class="badge badge-high">Alto</span></td>
+                                <td>Clarificar a diferenciação competitiva da Hiperfrio e mapear o ROI de cada caso de uso, dado o risco elevado associado à ausência de uma visão formal de IA alinhada ao negócio.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cultura & Valores</strong></td>
+                                <td>Cultura pouco orientada à inovação; receios de substituição e impacto laboral</td>
+                                <td><span class="badge badge-high">Alto</span></td>
+                                <td>Promover workshops práticos e comunicação humanizada, essenciais face à resistência cultural e receios de impacto laboral, para aumentar a confiança na IA.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Estrutura & Casos de Uso</strong></td>
+                                <td>Sem liderança formal; pilotos de preditiva e OT-to-cash priorizados</td>
+                                <td><span class="badge badge-medium">Médio</span></td>
+                                <td>Criar um Comité de IA interdepartamental para priorizar pilotos e liderar a governança, já que a falta de liderança formal coloca risco médio na execução.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pessoas & Competências</strong></td>
+                                <td>Receio da mudança; literacia digital heterogénea</td>
+                                <td><span class="badge badge-high">Alto</span></td>
+                                <td>Lançar um programa incremental de capacitação em IA, necessário devido ao risco alto resultante da baixa literacia digital e receio da mudança entre técnicos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistemas</strong></td>
+                                <td>Infraestrutura cloud disponível; processos ainda não preparados</td>
+                                <td><span class="badge badge-low">Baixo</span></td>
+                                <td>Implementar integrações faseadas em cloud entre ERP, CRM e PIM, tirando partido da infraestrutura já disponível, o que reduz o risco para um nível baixo.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dados</strong></td>
+                                <td>Dados técnicos existem mas sem governação clara</td>
+                                <td><span class="badge badge-medium">Médio</span></td>
+                                <td>Definir políticas mínimas de governação e criar um dicionário comum, dado o risco médio associado a dados técnicos sem qualidade assegurada ou normalização.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Processos</strong></td>
+                                <td>Processos IA não definidos; automatização necessária em pontos críticos</td>
+                                <td><span class="badge badge-medium">Médio</span></td>
+                                <td>Desenhar processos-alvo com automação em pontos críticos e quick wins visíveis, mitigando o risco médio de ausência de processos claros de IA.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Governance & Ética</strong></td>
+                                <td>Cumpre RGPD mas AI Act ainda não é considerado</td>
+                                <td><span class="badge badge-high">Alto</span></td>
+                                <td>Definir políticas internas de ética e conformidade em IA alinhadas com RGPD e AI Act, pois a falta destes mecanismos cria risco alto na adoção segura.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Experiências Anteriores</strong></td>
+                                <td>Sem projetos IA prévios; experiências digitais podem ser aproveitadas</td>
+                                <td><span class="badge badge-medium">Médio</span></td>
+                                <td>Aproveitar experiências digitais passadas para lançar pilotos em contexto real, reduzindo o risco médio associado à falta de antecedentes em IA.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p><strong>Nota sobre classificações de risco:</strong> As classificações (Alto, Médio, Baixo) refletem a análise da equipa sobre a maturidade atual da Hiperfrio: riscos altos associam-se a ausência de estratégia, resistência cultural e lacunas de ética/governança; riscos médios surgem de fragilidades em dados, processos e estrutura; riscos baixos referem-se a áreas já com capacidade instalada, como infraestrutura cloud.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Aceleradores, Bloqueios e Quick Wins -->
+        <section id="aceleradores" class="section">
+            <h2 class="section-title">3. Aceleradores, Bloqueios e Quick Wins</h2>
+            
+            <div class="section-intro">
+                A adoção de IA depende tanto da tecnologia como do contexto organizacional. Identificámos os principais 
+                aceleradores e bloqueios com ações concretas e rápidas para os potenciar ou ultrapassar, alinhados com 
+                boas práticas de consultoras como a Deloitte (2023). Esta análise permite maximizar fatores positivos 
+                e mitigar resistências organizacionais.
+            </div>
+            
+            <!-- 3.1 Aceleradores -->
+            <div class="card">
+                <h3 style="color: var(--success); margin-bottom: 1.5rem;">3.1 Aceleradores Detalhados</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Acelerador</th>
+                                <th>Explicação</th>
+                                <th style="min-width: 350px;">Estratégia/Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Patrocínio CFO</strong></td>
+                                <td>Apoio da direção financeira garante recursos e prioridade</td>
+                                <td>Mapear candidaturas e aproveitar incentivos fiscais/governamentais para financiar pilotos de IA, reduzindo risco inicial e acelerando a adoção.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dados históricos</strong></td>
+                                <td>Registos de assistência técnica acumulados ao longo dos anos</td>
+                                <td>Firmar protocolos de colaboração com universidades (ex.: FEUP, ISCTE) e hubs digitais, garantindo co-desenvolvimento de pilotos e transferência de competências.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Infraestrutura cloud</strong></td>
+                                <td>Plataforma já disponível e usada em alguns processos</td>
+                                <td>Responder à pressão do setor investindo em IA como diferenciador 360º, comunicando o seu papel em ganhos de eficiência e no cumprimento de metas ambientais.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Urgência eficiência</strong></td>
+                                <td>Pressão por reduzir custos e aumentar a previsibilidade</td>
+                                <td>Aproveitar a abertura do Grupo Aquiram para nomear champions internos, reforçando o patrocínio da administração e motivando equipas na execução de projetos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Disponibilidade para pilotos</strong></td>
+                                <td>Equipa técnica aberta a testar soluções em contexto</td>
+                                <td>Implementar casos de uso imediatos como manutenção preditiva e dashboards KPI, gerando resultados rápidos e construindo confiança para escalar soluções de IA.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 3.2 Bloqueios -->
+            <div class="card" style="margin-top: 2rem;">
+                <h3 style="color: var(--danger); margin-bottom: 1.5rem;">3.2 Bloqueios Detalhados</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bloqueio</th>
+                                <th>Explicação</th>
+                                <th style="min-width: 350px;">Estratégia/Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Resistência cultural</strong></td>
+                                <td>Receio de substituição e impacto nos empregos</td>
+                                <td>Clarificar a diferenciação competitiva da Hiperfrio e mapear o ROI de cada caso de uso, garantindo que a IA está ligada a objetivos de negócio.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ausência de KPIs comuns</strong></td>
+                                <td>Cada área mede sucesso de forma diferente</td>
+                                <td>Organizar workshops práticos e comunicação clara que mostrem os benefícios da IA e quick wins, reforçando que a tecnologia apoia e não substitui funções humanas.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Integrações frágeis</strong></td>
+                                <td>Sistemas ERP/CRM não se comunicam de forma fluida</td>
+                                <td>Lançar um programa incremental de capacitação em IA e digital, ajustado a perfis, para reduzir desigualdades de competências e aumentar confiança na adoção.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Governança de dados incipiente</strong></td>
+                                <td>Dados sem política clara de qualidade e acesso</td>
+                                <td>Definir KPIs de negócio desde o início (falhas evitadas, tempo poupado, energia), permitindo medir resultados e justificar investimento em IA.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Falta de liderança IA</strong></td>
+                                <td>Não há sponsor ou comitê formal de IA</td>
+                                <td>Otimizar políticas de governação e implementar dicionário mínimo de dados, assegurando qualidade e fiabilidade da informação usada nos pilotos.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 3.3 Quick Wins -->
+            <div class="quickwin-container">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">3.3 Quick Wins (90 dias)</h3>
+                <p style="margin-bottom: 1.5rem;">
+                    Quick Wins são vitórias rápidas de 90 dias: simples, visíveis e de baixo custo. Servem para criar confiança interna, 
+                    reduzir resistências culturais e demonstrar valor imediato da IA, preparando terreno para os pilotos principais.
+                </p>
+                <div class="quickwin-list">
+                    <div class="quickwin-item">
+                        📊 Dashboards OT-to-cash com 5 métricas críticas e rituais diários de 15'
+                    </div>
+                    <div class="quickwin-item">
+                        🔔 Alertas baseados em regras antes do modelo preditivo (ganhos rápidos)
+                    </div>
+                    <div class="quickwin-item">
+                        📚 Dicionário mínimo de dados + QA (Quality Assurance) recorrente; micro-formação por perfil
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Casos de Uso Priorizados -->
+        <section id="pilotos" class="section">
+            <h2 class="section-title">4. Casos de Uso Priorizados (Pilotos)</h2>
+            
+            <div class="section-intro">
+                Entre as oportunidades previamente analisadas, dois pilotos foram selecionados com base em impacto direto, 
+                prontidão técnica e abertura da equipa: manutenção preditiva em refrigeração e dashboards order-to-cash. 
+                As restantes oportunidades são detalhadas na secção 4.3.
+            </div>
+            
+            <div class="pilot-container">
+                <!-- 4.1 Manutenção Preditiva -->
+                <div class="pilot-card">
+                    <div class="pilot-header">
+                        <div class="pilot-icon">📦</div>
+                        <h3>4.1 Manutenção Preditiva</h3>
+                        <p>Refrigeração Comercial</p>
+                    </div>
+                    <div class="pilot-body">
+                        <p><strong>Problema:</strong> Hoje, falhas em equipamentos de refrigeração obrigam a respostas reativas e ineficientes. 
+                        Com IA preditiva, a Hiperfrio pode antecipar avarias e otimizar deslocações e peças.</p>
+                        
+                        <h4 style="margin-top: 1.5rem; color: var(--primary);">Solução IA:</h4>
+                        <ul class="pilot-list">
+                            <li>Dados: histórico de ordens de trabalho, ciclos, ambiente, sensores</li>
+                            <li>Modelo: séries temporais (ex. Prophet) + regras híbridas; apoio via RAG</li>
+                            <li>Entrega: alertas e dashboard técnico com notificações</li>
+                        </ul>
+                        
+                        <h4 style="margin-top: 1.5rem; color: var(--primary);">KPIs (90 dias):</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-card">
+                                <div class="kpi-value">-20%</div>
+                                <div class="kpi-label">Falhas imprevistas</div>
+                            </div>
+                            <div class="kpi-card">
+                                <div class="kpi-value">-15%</div>
+                                <div class="kpi-label">MTTR</div>
+                            </div>
+                            <div class="kpi-card">
+                                <div class="kpi-value">≥60%</div>
+                                <div class="kpi-label">Precisão</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 4.2 Dashboards Order-to-Cash -->
+                <div class="pilot-card">
+                    <div class="pilot-header" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="pilot-icon">💶</div>
+                        <h3>4.2 Dashboards Order-to-Cash</h3>
+                        <p>Assistência Técnica</p>
+                    </div>
+                    <div class="pilot-body">
+                        <p><strong>Problema:</strong> O ciclo OT-to-cash tem atrasos que afetam a liquidez. Com dashboards integrados 
+                        e rituais diários, é possível antecipar gargalos e reduzir erros.</p>
+                        
+                        <h4 style="margin-top: 1.5rem; color: var(--primary);">Solução IA:</h4>
+                        <ul class="pilot-list">
+                            <li>Dados: ERP, CRM, ordens, tempos, deslocações, faturação</li>
+                            <li>Lógica: métricas operacionais e financeiras em tempo quase real</li>
+                            <li>Entrega: dashboards por perfil + rituais</li>
+                        </ul>
+                        
+                        <h4 style="margin-top: 1.5rem; color: var(--primary);">KPIs (90 dias):</h4>
+                        <div class="kpi-grid">
+                            <div class="kpi-card">
+                                <div class="kpi-value">-25%</div>
+                                <div class="kpi-label">Lead time</div>
+                            </div>
+                            <div class="kpi-card">
+                                <div class="kpi-value">+15pp</div>
+                                <div class="kpi-label">Sem retrabalho</div>
+                            </div>
+                            <div class="kpi-card">
+                                <div class="kpi-value">-5d</div>
+                                <div class="kpi-label">DSO</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4.3 Outras Oportunidades -->
+            <div class="card" style="margin-top: 3rem; background: #f8fafc;">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">4.3 Outras Oportunidades de IA (Missões III-IV)</h3>
+                <p style="margin-bottom: 2rem;">As oportunidades abaixo foram exploradas em missões anteriores e mantém relevância estratégica, 
+                ainda que não tenham sido priorizadas nesta fase:</p>
+                
+                <div class="grid grid-2">
+                    <div style="padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <h4 style="color: var(--primary);">❄️ Cooling as a Service com IA</h4>
+                        <p><strong>Descrição:</strong> IA para prever uso e otimizar contratos 'as a service'.</p>
+                        <p style="margin-top: 1rem;"><strong>Estado:</strong> Exploratória e dependente de sensores e novos modelos de negócio. 
+                        Não foi priorizada nesta fase devido à complexidade de implementação e à necessidade de validar primeiro quick wins menos arriscados.</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <h4 style="color: var(--primary);">🤖 Assistente Virtual Técnico</h4>
+                        <p><strong>Descrição:</strong> IA conversacional para apoio a técnicos.</p>
+                        <p style="margin-top: 1rem;"><strong>Estado:</strong> Adiado; requer infraestrutura e maturidade digital. 
+                        Só fará sentido após o reforço da integração de sistemas e aumento da literacia digital das equipas.</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <h4 style="color: var(--primary);">🥽 Formação com Realidade Mista</h4>
+                        <p><strong>Descrição:</strong> Mixed Reality com IA para capacitação remota.</p>
+                        <p style="margin-top: 1rem;"><strong>Estado:</strong> Congelado; sem sponsor nem infraestrutura. 
+                        A prioridade foi canalizar recursos para casos de uso com impacto imediato e aceitação cultural mais fácil.</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <h4 style="color: var(--primary);">⭐ Scoring Automático de Fornecedores</h4>
+                        <p><strong>Descrição:</strong> IA para ranking e avaliação de fornecedores.</p>
+                        <p style="margin-top: 1rem;"><strong>Estado:</strong> Em preparação; depende da normalização de dados e dashboards prévios. 
+                        Foi adiado para a fase seguinte, após estabilização da governação de dados e entrega de dashboards OT-to-cash.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. KPIs e Canais de Entrega -->
+        <section id="kpis" class="section">
+            <h2 class="section-title">5. KPIs e Canais de Entrega</h2>
+            
+            <div class="section-intro">
+                Medir é essencial para validar pilotos e decidir se escalam. Além de métricas técnicas e financeiras, 
+                a comunicação clara destes indicadores e a formação contínua garantem a adoção pelos utilizadores finais. 
+                Com base em benchmarks do setor e literatura de consultoras como BCG, Pipefy e McKinsey, definimos 
+                baseline T0 e metas a 90 dias para cada indicador.
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-bottom: 1.5rem;">Métricas de Desempenho</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Piloto</th>
+                                <th>KPI</th>
+                                <th>Baseline (T0)</th>
+                                <th>Meta (90 dias)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="3"><strong>Preditiva - Refrigeração</strong></td>
+                                <td>Redução de falhas não previstas</td>
+                                <td>15-25% falhas/ano</td>
+                                <td>-20%</td>
+                            </tr>
+                            <tr>
+                                <td>MTTR (Mean Time To Repair)</td>
+                                <td>8-12h por avaria</td>
+                                <td>-15%</td>
+                            </tr>
+                            <tr>
+                                <td>Precisão útil dos alertas</td>
+                                <td>≤50%</td>
+                                <td>≥60%</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3"><strong>OT-to-Cash</strong></td>
+                                <td>Lead time de faturação</td>
+                                <td>7-10 dias</td>
+                                <td>-25%</td>
+                            </tr>
+                            <tr>
+                                <td>DSO (Days Sales Outstanding)</td>
+                                <td>45-60 dias</td>
+                                <td>-5 dias</td>
+                            </tr>
+                            <tr>
+                                <td>% ordens sem retrabalho</td>
+                                <td>70-80%</td>
+                                <td>+15pp</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1.5rem;">5.1 Canais de Entrega por KPI</h3>
+                <p style="margin-bottom: 1.5rem;">Para garantir adoção e eficácia, cada indicador chave será entregue por um canal 
+                específico adaptado ao perfil do utilizador final. Essa personalização aumenta a utilidade prática dos insights gerados.</p>
+                
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>KPI</th>
+                                <th>Meta (90d)</th>
+                                <th>Canal de Entrega</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Redução falhas não previstas</td>
+                                <td>≥20%</td>
+                                <td>Dashboard + alertas</td>
+                            </tr>
+                            <tr>
+                                <td>MTTR</td>
+                                <td>-15%</td>
+                                <td>Painel técnico</td>
+                            </tr>
+                            <tr>
+                                <td>Lead time faturação</td>
+                                <td>-25%</td>
+                                <td>Dashboard gestão</td>
+                            </tr>
+                            <tr>
+                                <td>% alertas úteis</td>
+                                <td>≥60%</td>
+                                <td>Notificações + painel</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Roadmap 30-60-90 + RACI -->
+        <section id="roadmap" class="section">
+            <h2 class="section-title">6. Roadmap 30-60-90 + RACI</h2>
+            
+            <div class="section-intro">
+                Os próximos 90 dias funcionam como fase de teste e aprendizagem. O roadmap mostra marcos curtos e o RACI 
+                clarifica responsabilidades, garantindo execução eficaz e alinhamento organizacional [[11]].
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content slide-in">
+                        <h3 style="color: var(--primary);">30 Dias</h3>
+                        <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                            <li>✅ QA de dados</li>
+                            <li>✅ Dashboards OT-to-cash v1</li>
+                            <li>✅ Plano de formação e comunicação de quick wins para reduzir resistência cultural</li>
+                            <li>✅ Comité IA criado</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content slide-in">
+                        <h3 style="color: var(--primary);">60 Dias</h3>
+                        <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                            <li>🚀 Piloto preditiva no terreno</li>
+                            <li>📊 Medição de KPIs</li>
+                            <li>💬 Sessões de feedback com utilizadores</li>
+                            <li>🔧 Ajustes para reforçar envolvimento humano</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content slide-in">
+                        <h3 style="color: var(--primary);">90 Dias</h3>
+                        <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                            <li>📈 Expansão</li>
+                            <li>🏛️ Governance formal</li>
+                            <li>🗺️ Plano de scaling</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+            </div>
+            
+            <!-- RACI Matrix -->
+            <div class="card" style="margin-top: 3rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">Matriz RACI - Responsabilidades</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Atividade</th>
+                                <th>Responsável (R)</th>
+                                <th>Aprova (A)</th>
+                                <th>Consulta (C)</th>
+                                <th>Informa (I)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Governance IA</strong></td>
+                                <td>IT + Jurídico</td>
+                                <td>Direção</td>
+                                <td>RH, Operações</td>
+                                <td>Organização</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dashboards OT-to-cash</strong></td>
+                                <td>BI/Data</td>
+                                <td>CFO</td>
+                                <td>Operações, Vendas</td>
+                                <td>Equipa</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Preditiva Refrigeração</strong></td>
+                                <td>Direção Técnica</td>
+                                <td>COO</td>
+                                <td>Clientes piloto</td>
+                                <td>Gestão</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Formação & Mudança</strong></td>
+                                <td>RH</td>
+                                <td>Direção</td>
+                                <td>IT, Operações</td>
+                                <td>Colaboradores</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Governança, Ética e Risco -->
+        <section id="governanca" class="section">
+            <h2 class="section-title">7. Governança, Ética e Risco (AI Act & RGPD)</h2>
+            
+            <div class="section-intro">
+                A confiança é central para adoção da IA. Mesmo não estando em alto risco no AI Act, os pilotos da Hiperfrio 
+                devem seguir boas práticas de governação, ética e transparência, alinhadas com RGPD e princípios de confiança 
+                da União Europeia. Segundo a Comissão Europeia (2023), confiança e supervisão humana são críticas para adoção segura [[11]].
+            </div>
+            
+            <div class="card" style="background: var(--gradient-alt); color: white;">
+                <h3 style="margin-bottom: 1.5rem;">🛡️ Princípios de Confiança</h3>
+                
+                <div class="grid grid-2" style="gap: 1rem; margin-top: 2rem;">
+                    <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px;">
+                        <h4>📊 Qualidade de Dados</h4>
+                        <p>Registo de datasets e versões de modelo</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px;">
+                        <h4>🔍 Transparência</h4>
+                        <p>Explicabilidade prática (regras + tickets de causa/efeito)</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px;">
+                        <h4>👥 Supervisão</h4>
+                        <p>Decisões críticas mantêm 'human-in-the-loop'</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 8px;">
+                        <h4>📝 Auditoria</h4>
+                        <p>Registos de uso, incidentes e eficiência energética</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 2rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">📚 Literacia e Formação Contínua</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 1rem; background: #f8fafc; margin: 0.5rem 0; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        ✅ Formação contínua por perfis
+                    </li>
+                    <li style="padding: 1rem; background: #f8fafc; margin: 0.5rem 0; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        ✅ Comunicação clara dos limites da IA
+                    </li>
+                    <li style="padding: 1rem; background: #f8fafc; margin: 0.5rem 0; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        ✅ Envolvimento dos colaboradores no desenho de políticas
+                    </li>
+                    <li style="padding: 1rem; background: #f8fafc; margin: 0.5rem 0; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        ✅ Política de dados clara
+                    </li>
+                    <li style="padding: 1rem; background: #f8fafc; margin: 0.5rem 0; border-radius: 8px; border-left: 4px solid var(--primary);">
+                        ✅ Revisão periódica de riscos
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 8. Referências -->
+        <section class="section">
+            <h2 class="section-title">8. Referências</h2>
+            <div class="card">
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">📚 EU AI Act – EUR-Lex / AI Act Explorer (2023)</li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">📚 aiSTROM – Roadmap para estratégia de IA (IEEE, 2021)</li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">📚 McKinsey – Predictive maintenance at scale (2023)</li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">📚 Deloitte – Cash excellence and OT-to-cash (2022)</li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">📚 BCG – Generative AI adoption benchmarks (2023)</li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">📚 KPIFrontier – IoT Predictive Maintenance KPIs (2023)</li>
+                    <li style="padding: 0.75rem 0; border-bottom: 1px solid #e5e7eb;">📚 Pipefy – Order-to-Cash optimization studies (2023)</li>
+                    <li style="padding: 0.75rem 0;">📚 Upflow.io – DSO & cash collection benchmarks (2023)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 9. Infográfico Resumo -->
+        <section class="section">
+            <h2 class="section-title">9. Apêndice: Infográfico Resumo dos Pilotos</h2>
+            
+            <div class="section-intro">
+                Resumo visual estruturado dos dois pilotos priorizados, apresentando de forma clara e concisa 
+                os elementos essenciais de cada iniciativa de IA.
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="card pulse" style="background: var(--gradient-alt); color: white;">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem;">📦 Manutenção Preditiva (Refrigeração)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;"><strong>Dados:</strong> ordens, ciclos, sensores</li>
+                        <li style="padding: 0.5rem 0;"><strong>Modelo:</strong> séries temporais + RAG</li>
+                        <li style="padding: 0.5rem 0;"><strong>Entrega:</strong> alertas e painel técnico</li>
+                        <li style="padding: 0.5rem 0;"><strong>KPIs:</strong> -20% falhas, MTTR -15%, ≥60% precisão</li>
+                    </ul>
+                </div>
+                
+                <div class="card pulse" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem;">💶 Order-to-Cash (Assistência Técnica)</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;"><strong>Dados:</strong> ERP, CRM, tempos</li>
+                        <li style="padding: 0.5rem 0;"><strong>Lógica:</strong> métricas em tempo quase real</li>
+                        <li style="padding: 0.5rem 0;"><strong>Entrega:</strong> dashboards e rituais diários</li>
+                        <li style="padding: 0.5rem 0;"><strong>KPIs:</strong> -25% lead time, +15pp retrabalho, -5 dias DSO</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Enquadramento do Teste ao NeoOtto -->
+        <section id="neootto" class="section">
+            <h2 class="section-title">10. Enquadramento do Teste ao NeoOtto (IA Estratégica)</h2>
+            
+            <div class="section-intro">
+                No âmbito da Missão V e da utilização de Inteligência Artificial aplicada à gestão, foi realizada uma 
+                interação com o assistente personalizado NeoOtto, especializado em estratégias de adoção e governação de IA. 
+                Este teste permitiu validar as recomendações estratégicas e obter insights adicionais para a implementação.
+            </div>
+            
+            <div class="neootto-section">
+                <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">🤖 Teste com Assistente Estratégico NeoOtto</h3>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+                    <h4 style="margin-bottom: 1rem;">📝 Pergunta Colocada:</h4>
+                    <p style="font-style: italic; font-size: 1.1rem; line-height: 1.8;">
+                        "Considerando que já foram priorizados dois pilotos de IA operacionais (manutenção preditiva em 
+                        refrigeração e dashboards OT-to-cash), como podemos garantir a adoção organizacional e preparar 
+                        a empresa para escalar essas soluções, respeitando os princípios do AI Act e minimizando risco 
+                        técnico e humano?"
+                    </p>
+                </div>
+                
+                <h4 style="margin-top: 2rem; margin-bottom: 1rem;">🎯 Motivos da Escolha desta Pergunta:</h4>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 1rem; background: rgba(255,255,255,0.1); margin: 0.5rem 0; border-radius: 8px;">
+                        <strong>1️⃣ Alinhamento com o projeto:</strong> Está alinhada com o estágio atual do projeto 
+                        (fase pós-priorização e início de execução)
+                    </li>
+                    <li style="padding: 1rem; background: rgba(255,255,255,0.1); margin: 0.5rem 0; border-radius: 8px;">
+                        <strong>2️⃣ IA como motor estratégico:</strong> Permite avaliar o papel da IA como motor 
+                        estratégico, não apenas como tecnologia de suporte
+                    </li>
+                    <li style="padding: 1rem; background: rgba(255,255,255,0.1); margin: 0.5rem 0; border-radius: 8px;">
+                        <strong>3️⃣ Dimensões críticas:</strong> Explora dimensões críticas da Missão V: cultura, 
+                        governance, escalabilidade, ética e risco
+                    </li>
+                </ul>
+                
+                <p style="margin-top: 2rem; font-size: 1.1rem;">
+                    A resposta gerada pelo NeoOtto encontra-se incorporada no Capítulo 11 abaixo, e resume-se a um 
+                    conjunto de recomendações práticas, alinhadas com o AI Act, para garantir adoção organizacional, 
+                    literacia, escalabilidade e retorno do investimento.
+                </p>
+                
+                <p style="margin-top: 1.5rem; font-size: 1.1rem;">
+                    Para obter a versão completa da resposta ou experimentar novas variações da pergunta, recomendamos 
+                    ao leitor que interaja diretamente com o NeoOtto.
+                </p>
+                
+                <a href="https://chatgpt.com/g/g-6867dda33f808191a1c2e26f47d4fa1c-neootto-ai" 
+                   target="_blank" 
+                   class="neootto-link">
+                    🚀 Experimentar o NeoOtto
+                </a>
+            </div>
+        </section>
+
+        <!-- 11. Extensão Estratégica com Base em NeoOtto -->
+        <section class="section">
+            <h2 class="section-title">11. Extensão Estratégica com Base em NeoOtto – Preparar a Escala com IA Responsável</h2>
+            
+            <div class="section-intro">
+                Com base em simulação com o assistente estratégico NeoOtto, incorporando práticas da McKinsey, BCG e 
+                Roland Berger, reforçamos a visão de que os próximos 90 dias são críticos não só para validar pilotos, 
+                mas para preparar a sua escalabilidade segura, ética e tecnicamente sustentável.
+            </div>
+            
+            <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">🤖 Insights Estratégicos do NeoOtto</h3>
+                <p style="font-size: 1.1rem;">
+                    A análise do NeoOtto revelou que a Hiperfrio está num momento crítico da jornada de IA: 
+                    a transição de pilotos isolados para uma capacidade organizacional escalável. Este é o momento 
+                    onde a maioria das empresas falha, mas também onde se criam as maiores oportunidades de diferenciação.
+                </p>
+            </div>
+            
+            <!-- Diagnóstico -->
+            <div class="card">
+                <h3 style="color: var(--danger); margin-bottom: 1.5rem;">⚠️ Diagnóstico</h3>
+                <p style="margin-bottom: 1.5rem;">
+                    Com dois pilotos já priorizados, a manutenção preditiva em refrigeração e dashboards OT-to-cash, 
+                    a Hiperfrio entra na fase onde muitas empresas falham: escalar com governança. Estudos mostram que 
+                    apenas <strong>26%</strong> das organizações conseguem transformar pilotos em valor repetível.
+                </p>
+                
+                <h4 style="margin-top: 1.5rem; color: var(--primary);">Os obstáculos não são tecnológicos, mas sim:</h4>
+                <ul style="margin-top: 1rem;">
+                    <li><strong>Maturidade organizacional limitada</strong> - Falta de processos estruturados para IA</li>
+                    <li><strong>Cultura digital em transição</strong> - Resistência à mudança e baixa literacia digital</li>
+                    <li><strong>Falta de supervisão estruturada segundo o AI Act</strong> - Ausência de frameworks de governança</li>
+                </ul>
+            </div>
+            
+            <!-- Oportunidade -->
+            <div class="card" style="margin-top: 2rem;">
+                <h3 style="color: var(--success); margin-bottom: 1.5rem;">💡 Oportunidade</h3>
+                <p style="margin-bottom: 1.5rem;">Escalar os pilotos atuais traz benefícios concretos e mensuráveis:</p>
+                
+                <div class="grid grid-2">
+                    <div style="padding: 1.5rem; background: #f0fdf4; border-radius: 8px; border-left: 4px solid var(--success);">
+                        <h4 style="color: var(--success);">Manutenção Preditiva</h4>
+                        <ul style="margin-top: 1rem;">
+                            <li>Menos falhas não planeadas</li>
+                            <li>Redução de custos operacionais</li>
+                            <li>Maior disponibilidade de equipamentos</li>
+                        </ul>
+                    </div>
+                    <div style="padding: 1.5rem; background: #f0fdf4; border-radius: 8px; border-left: 4px solid var(--success);">
+                        <h4 style="color: var(--success);">Dashboards OT-to-Cash</h4>
+                        <ul style="margin-top: 1rem;">
+                            <li>Maior liquidez financeira</li>
+                            <li>Menos retrabalho</li>
+                            <li>Ciclos mais rápidos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h4 style="margin-top: 2rem; color: var(--primary);">Mas exige:</h4>
+                <ul style="margin-top: 1rem;">
+                    <li><strong>Governance AI-first</strong> (IT + Jurídico + Operações)</li>
+                    <li><strong>Capacitação</strong> (AI literacy + interpretação de alertas e dashboards)</li>
+                    <li><strong>Compliance ético e regulatório</strong> (transparência, documentação, supervisão)</li>
+                </ul>
+            </div>
+            
+            <!-- Recomendações 90 dias -->
+            <div class="card" style="margin-top: 2rem; background: #f8fafc;">
+                <h3 style="color: var(--primary); margin-bottom: 1.5rem;">📋 Recomendações para os Próximos 90 Dias</h3>
+                <p style="margin-bottom: 2rem;">
+                    Estas recomendações foram desenhadas para responder às três dimensões críticas da Missão V: 
+                    garantir a adoção organizacional (via formação e comunicação), preparar a escalabilidade 
+                    (via governança e KPIs) e assegurar conformidade ética e regulatória (via AI Act e supervisão humana).
+                </p>
+                
+                <div class="grid grid-3">
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <div style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;">1️⃣</div>
+                        <h4>Criar Comité de AI</h4>
+                        <p style="margin-top: 0.5rem;">Com IT, operações e jurídico</p>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <div style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;">2️⃣</div>
+                        <h4>Definir política interna de IA</h4>
+                        <p style="margin-top: 0.5rem;">Com base no AI Act (documentação, supervisão, auditoria)</p>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <div style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;">3️⃣</div>
+                        <h4>Lançar literacia IA</h4>
+                        <p style="margin-top: 0.5rem;">Por perfil</p>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <div style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;">4️⃣</div>
+                        <h4>Painéis de controlo</h4>
+                        <p style="margin-top: 0.5rem;">AI Value Dashboard</p>
+                    </div>
+                    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <div style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;">5️⃣</div>
+                        <h4>Monitorizar KPIs</h4>
+                        <p style="margin-top: 0.5rem;">Ativos, tempo, adoção, incidentes</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4 style="color: var(--primary);">KPIs Críticos a Monitorizar:</h4>
+                    <ul style="margin-top: 1rem;">
+                        <li>% ativos monitorizados com IA</li>
+                        <li>Tempo OT-to-cash</li>
+                        <li>Adoção de dashboards</li>
+                        <li>Incidentes ou falhas de modelo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Benchmark -->
+            <div class="card pulse" style="margin-top: 2rem; border: 2px solid var(--success);">
+                <h3 style="color: var(--success); margin-bottom: 1.5rem;">🏆 Benchmark Externo</h3>
+                
+                <div class="grid grid-2">
+                    <div>
+                        <h4 style="color: var(--primary);">Manutenção Preditiva</h4>
+                        <p style="margin-top: 1rem;">Empresas industriais que escalaram manutenção preditiva reportaram:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>Até 30%</strong> menos paragens não planeadas</li>
+                            <li><strong>Payback inferior a 18 meses</strong></li>
+                            <li><strong>ROI médio de 10x</strong> em 3 anos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary);">Dashboards Financeiros Operacionais</h4>
+                        <p style="margin-top: 1rem;">Libertação de capital de giro:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>Até 6M€/ano</strong> em grupos de média dimensão</li>
+                            <li><strong>ROI positivo</strong> em 6 meses</li>
+                            <li><strong>Redução de 40%</strong> no tempo de decisão</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px; text-align: center; font-size: 1.1rem;">
+                    <strong>Este exemplo reforça que a Hiperfrio pode ser referência nacional na aplicação ética e 
+                    pragmática de IA no setor técnico-operacional</strong>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 1rem;">Missão V - Hiperfrio</h3>
+            <p>Transformando a organização com Inteligência Artificial responsável e pragmática</p>
+            <p style="margin-top: 1.5rem;">
+                <a href="https://chatgpt.com/g/g-6867dda33f808191a1c2e26f47d4fa1c-neootto-ai" 
+                   target="_blank">
+                    🤖 Experimentar o NeoOtto - Assistente Estratégico de IA
+                </a>
+            </p>
+            <p style="margin-top: 2rem; opacity: 0.8;">© 2024 Hiperfrio - Prontidão Organizacional para IA</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript para interatividade -->
+    <script>
+        // Smooth scroll para navegação
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação de entrada dos elementos quando visíveis
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar observer aos cards e sections
+        document.querySelectorAll('.card, .section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Contador animado para KPIs
+        function animateValue(element, start, end, duration, suffix = '') {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.innerHTML = (end < 0 ? '-' : (end > 0 && suffix === 'pp' ? '+' : '')) + Math.abs(value) + suffix;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Ativar contadores quando visíveis
+        const kpiObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.animated) {
+                    entry.target.animated = true;
+                    const value = entry.target.textContent;
+                    if (value.includes('%')) {
+                        const num = parseInt(value.replace(/[^0-9-]/g, ''));
+                        animateValue(entry.target, 0, num, 2000, '%');
+                    } else if (value.includes('d')) {
+                        const num = parseInt(value.replace(/[^0-9-]/g, ''));
+                        animateValue(entry.target, 0, num, 2000, 'd');
+                    } else if (value.includes('pp')) {
+                        const num = parseInt(value.replace(/[^0-9+]/g, ''));
+                        animateValue(entry.target, 0, num, 2000, 'pp');
+                    } else if (value.includes('≥')) {
+                        const num = parseInt(value.replace(/[^0-9]/g, ''));
+                        element.innerHTML = '≥' + num + '%';
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.kpi-value').forEach(el => {
+            kpiObserver.observe(el);
+        });
+
+        // Efeito parallax no hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < 500) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Adicionar indicador de progresso de leitura
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = 'position: fixed; top: 0; left: 0; height: 3px; background: var(--gradient); z-index: 10000; transition: width 0.2s;';
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Criar botão de voltar ao topo
+        const backToTop = document.createElement('button');
+        backToTop.innerHTML = '↑';
+        backToTop.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        `;
+
+        document.body.appendChild(backToTop);
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.opacity = '1';
+            } else {
+                backToTop.style.opacity = '0';
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        backToTop.addEventListener('mouseenter', () => {
+            backToTop.style.transform = 'scale(1.1) rotate(360deg)';
+        });
+
+        backToTop.addEventListener('mouseleave', () => {
+            backToTop.style.transform = 'scale(1) rotate(0deg)';
+        });
+
+        // Adicionar animação de destaque para quick wins
+        const quickWinItems = document.querySelectorAll('.quickwin-item');
+        quickWinItems.forEach((item, index) => {
+            item.style.animation = `fadeInUp 0.5s ease ${0.2 + index * 0.1}s both`;
+        });
+
+        // Menu responsivo
+        const menuToggle = document.createElement('button');
+        menuToggle.innerHTML = '☰';
+        menuToggle.style.cssText = `
+            display: none;
+            background: none;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+            transition: all 0.3s;
+        `;
+
+        const navContainer = document.querySelector('.nav-container');
+        navContainer.appendChild(menuToggle);
+
+        let menuOpen = false;
+        menuToggle.addEventListener('click', () => {
+            const menu = document.querySelector('.nav-menu');
+            menuOpen = !menuOpen;
+            
+            if (menuOpen) {
+                menu.style.display = 'flex';
+                menuToggle.innerHTML = '✕';
+                menuToggle.style.transform = 'rotate(90deg)';
+            } else {
+                menu.style.display = 'none';
+                menuToggle.innerHTML = '☰';
+                menuToggle.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Responsividade
+        function checkResponsive() {
+            const width = window.innerWidth;
+            const menu = document.querySelector('.nav-menu');
+            
+            if (width <= 768) {
+                menuToggle.style.display = 'block';
+                if (!menuOpen) {
+                    menu.style.display = 'none';
+                }
+                menu.style.position = 'absolute';
+                menu.style.top = '100%';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = 'white';
+                menu.style.flexDirection = 'column';
+                menu.style.padding = '1rem';
+                menu.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+                menu.style.borderRadius = '0 0 12px 12px';
+            } else {
+                menuToggle.style.display = 'none';
+                menu.style.display = 'flex';
+                menu.style.position = 'static';
+                menu.style.flexDirection = 'row';
+                menu.style.background = 'transparent';
+                menu.style.padding = '0';
+                menu.style.boxShadow = 'none';
+            }
+        }
+
+        window.addEventListener('resize', checkResponsive);
+        checkResponsive();
+
+        // Adicionar tooltips nas badges
+        document.querySelectorAll('.badge').forEach(badge => {
+            badge.style.cursor = 'help';
+            badge.title = badge.classList.contains('badge-high') ? 'Risco Alto: Requer ação imediata' :
+                         badge.classList.contains('badge-medium') ? 'Risco Médio: Monitorizar e planear ação' :
+                         'Risco Baixo: Situação controlada';
+        });
+
+        // Animação de typing para o título
+        const heroTitle = document.querySelector('.hero h1');
+        if (heroTitle) {
+            const text = heroTitle.textContent;
+            heroTitle.textContent = '';
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    heroTitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+            
+            setTimeout(typeWriter, 500);
+        }
+
+        console.log('Missão V - Hiperfrio: Apresentação carregada com sucesso!');
+        console.log('Visite o NeoOtto em: https://chatgpt.com/g/g-6867dda33f808191a1c2e26f47d4fa1c-neootto-ai');
+    </script>
+</body>
+</html>
+
