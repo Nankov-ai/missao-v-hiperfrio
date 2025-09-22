@@ -222,6 +222,50 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
+        /* Botões compactos para ficheiros adicionais */
+        .btn-compact {
+            padding: 8px 12px;
+            font-size: 0.85em;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+        
+        .btn-compact .emoji {
+            font-size: 1em;
+        }
+        
+        /* Cores diferenciadas para os ficheiros da Missão V */
+        .btn-primary { 
+            background-color: #4CAF50; 
+        }
+        .btn-primary:hover { 
+            background-color: #3b9440; 
+        }
+        
+        .btn-secondary { 
+            background-color: #FF9800; 
+        }
+        .btn-secondary:hover { 
+            background-color: #e68900; 
+        }
+        
+        .btn-tertiary { 
+            background-color: #9C27B0; 
+        }
+        .btn-tertiary:hover { 
+            background-color: #7B1FA2; 
+        }
+        
+        /* Texto de sugestão */
+        .suggestion-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.85em;
+            font-style: italic;
+            margin: 15px 0 10px 0;
+            font-weight: 600;
+        }
+        
         .dropdown-container {
             position: relative;
             width: 100%;
@@ -438,6 +482,7 @@
             font-weight: 600;
         }
         
+        /* Layout horizontal para outras missões */
         .simple-children {
             display: flex;
             gap: 10px;
@@ -541,6 +586,10 @@
                 padding: 8px 10px;
                 font-size: 0.9em;
             }
+            .btn-compact {
+                padding: 6px 8px;
+                font-size: 0.8em;
+            }
             .simple-children {
                 flex-direction: column;
                 gap: 8px;
@@ -591,8 +640,22 @@
             <div class="card card-highlighted-bg">
                 <h2>🎯 Missão V - Prontidão Organizacional</h2>
                 <p>Avaliação da maturidade organizacional da Hiperfrio para implementação de IA, com Diagnóstico 9D, Aceleradores e Bloqueios, entre outros.</p>
-                <a class="btn btn-doc" href="Missao_V.pdf" target="_blank">
-                    <span class="emoji">📑</span> Documento Completo
+                
+                <!-- Ficheiro principal - TAMANHO ORIGINAL -->
+                <a class="btn btn-primary" href="Missao_V.pdf" target="_blank">
+                    <span class="emoji">📋</span> Documento Missão V da Hiperfrio
+                </a>
+                
+                <!-- Texto de sugestão -->
+                <div class="suggestion-text">sugestão de leitura e escuta</div>
+                
+                <!-- Ficheiros adicionais - TAMANHO COMPACTO -->
+                <a class="btn btn-compact btn-secondary" href="missao-v-apresentacao.html" target="_blank">
+                    <span class="emoji">🎨</span> Apresentação Interativa Missão V
+                </a>
+                
+                <a class="btn btn-compact btn-tertiary" href="Prontidao_para_a_IA.mp3" target="_blank">
+                    <span class="emoji">🎵</span> Sugestão: Debate sobre a Missão V
                 </a>
             </div>
 
@@ -621,11 +684,11 @@
                 <p>Aceda ao histórico completo das Missões anteriores do grupo.</p>
                 
                 <a class="btn" href="https://drive.google.com/file/d/1eEPmpAtIbRS3K417RzaA4P5kf0I0_3gg/view?usp=drive_link" target="_blank">
-                    <span class="emoji">📑</span> Missão I
+                    <span class="emoji">📋</span> Missão I
                 </a>
                 
                 <a class="btn" href="https://docs.google.com/presentation/d/1W7NFxGzgThQ2zIH-q4MpHeKtNjCfKNrW/present?usp=sharing" target="_blank">
-                    <span class="emoji">🎮</span> Missão II
+                    <span class="emoji">🎯</span> Missão II
                 </a>
                 
                 <!-- Missão III com documentos separados -->
@@ -660,13 +723,13 @@
                 <div class="dropdown-container">
                     <button class="dropdown-btn" onclick="toggleDropdown('dropdown4')" id="btn4">
                         <span class="arrow-left">▼</span>
-                        <span><span class="emoji">📋</span> Missão IV</span>
+                        <span><span class="emoji">📈</span> Missão IV</span>
                         <span class="arrow-right">▼</span>
                     </button>
                     <div class="dropdown-content" id="dropdown4" style="background: transparent; box-shadow: none; padding: 0;">
                         <div class="simple-container">
                             <a href="Documento_unico_da_Missao_IV.pdf" target="_blank" class="simple-main">
-                                <span class="emoji">📋</span> Documento Único Consolidado
+                                <span class="emoji">📈</span> Documento Único Consolidado
                             </a>
                             <div class="simple-label">contém</div>
                             <div class="simple-children">
@@ -708,7 +771,7 @@
             });
         });
 
-        // Função para toggle dos dropdowns
+        // Função para toggle dos dropdowns das outras missões
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const btnId = dropdownId.replace('dropdown', 'btn');
@@ -737,6 +800,4 @@
 
 </body>
 </html>
-
-
 
