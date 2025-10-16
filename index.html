@@ -1,3 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão VI - Escolha da oportunidade e definição do âmbito do projeto aplicado - Order to Cash "O2C"</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e6f0fa 0%, #ffffff 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Overlay de Consentimento */
+        #consent-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .consent-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .consent-box h1 {
+            color: #1a73e8;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+        
+        .consent-box p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .consent-link {
+            color: #1a73e8;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        
+        .consent-link:hover {
+            color: #155ab6;
+        }
+        
+        #accept-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        #accept-button:hover {
+            background-color: #3b9440;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideInFromTop {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header {
+            background-color: #1a73e8;
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+            letter-spacing: 1px;
+            z-index: 1000;
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px 15px;
+            gap: 20px;
+            overflow-y: auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: auto;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+        }
+        
+        .highlight-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 9px 25px rgba(0,0,0,0.18);
+        }
+        
+        .highlight-card h2 {
+            margin-top: 0;
+            font-size: 1.9em;
+            color: #1a73e8;
+            margin-bottom: 12px;
+        }
+        
+        .highlight-card p {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Card especial para Missão VI - CORRIGIDO */
+        .mission-vi-card {
+            background-color: #e0f2f7;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            max-width: 650px;
+            animation: slideInFromTop 0.5s ease;
+            position: relative;
+            padding-top: 35px; /* Espaço para o badge */
+        }
+
+        /* Badge NOVO - CORRIGIDO PARA NÃO SOBREPOR */
+        .novo-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #FFD700;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mission-vi-card h2 {
+            color: #1a73e8;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            margin-top: 10px;
+            border-bottom: 1px solid #e6f0fa;
+            padding-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .mission-vi-card p {
+            color: #555;
+            font-size: 1.05em;
+            margin-bottom: 25px;
+        }
+
+        /* O2C Reader Card - Em Construção */
+        .o2c-reader-card {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+            border: 2px dashed #1a73e8;
+            position: relative;
+            max-width: 550px;
+        }
+
+        .o2c-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .o2c-header-left {
+            flex: 1;
+        }
+
+        .o2c-header-right {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .construction-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9800, #ff6f00);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .o2c-features {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .feature-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .feature-pill.red {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .feature-pill.green {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .card-highlighted-bg {
+            background-color: #e0f2f7;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            color: #1a73e8;
+            border-bottom: 1px solid #e6f0fa;
+            padding-bottom: 8px;
+        }
+        
+        .card p {
+            font-size: 0.9em;
+            line-height: 1.4;
+            color: #555;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+        
+        .ai-disclosure {
+            font-size: 0.85em;
+            color: #d32f2f;
+            font-weight: bold;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background-color: #155ab6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn-compact {
+            padding: 8px 12px;
+            font-size: 0.85em;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+        
+        .btn-primary { 
+            background-color: #4CAF50; 
+        }
+        .btn-primary:hover { 
+            background-color: #3b9440; 
+        }
+        
+        .btn-secondary { 
+            background-color: #FF9800; 
+        }
+        .btn-secondary:hover { 
+            background-color: #e68900; 
+        }
+        
+        .btn-tertiary { 
+            background-color: #9C27B0; 
+        }
+        .btn-tertiary:hover { 
+            background-color: #7B1FA2; 
+        }
+
+        .btn-construction {
+            background: linear-gradient(135deg, #ff9800, #ff6f00);
+            border: 2px dashed white;
+        }
+
+        .btn-construction:hover {
+            background: linear-gradient(135deg, #ff6f00, #ff5722);
+        }
+        
+        .suggestion-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.85em;
+            font-style: italic;
+            margin: 15px 0 10px 0;
+            font-weight: 600;
+        }
+        
+        .dropdown-container {
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .dropdown-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background 0.25s ease, transform 0.15s ease;
+            cursor: pointer;
+            border: none;
+            position: relative;
+        }
+        
+        .dropdown-btn .arrow-left,
+        .dropdown-btn .arrow-right {
+            position: absolute;
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-btn .arrow-left {
+            left: 14px;
+        }
+        
+        .dropdown-btn .arrow-right {
+            right: 14px;
+        }
+        
+        .dropdown-btn.active .arrow-left,
+        .dropdown-btn.active .arrow-right {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-btn:hover {
+            background-color: #155ab6;
+            transform: translateY(-2px);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: relative;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .dropdown-content.show {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #e6f0fa;
+        }
+        
+        .simple-container-3 {
+            background: transparent;
+            padding: 0;
+            margin-top: 5px;
+        }
+        
+        .simple-standalone {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e1ecf4;
+        }
+        
+        .simple-standalone:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        
+        .analise-container {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8f9ff 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px solid #e0e8f0;
+        }
+        
+        .analise-main {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e1ecf4;
+        }
+        
+        .analise-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        
+        .analise-label {
+            text-align: center;
+            color: #666;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .analise-child {
+            background: white;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-align: center;
+            border-left: 4px solid #7b68ee;
+            border: 1px solid #d6e9f7;
+        }
+        
+        .analise-child:hover {
+            transform: translateY(-2px);
+            background: #f8fbff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .simple-container {
+            background: linear-gradient(135deg, #f0f8f0 0%, #fff8f0 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 5px;
+            border: 1px solid #e8f5e8;
+        }
+        
+        .simple-main {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e8f5e8;
+        }
+        
+        .simple-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        
+        .simple-label {
+            text-align: center;
+            color: #666;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .simple-children {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .simple-child {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            text-align: center;
+            background: white;
+        }
+        
+        .simple-child:nth-child(1) {
+            border-left: 4px solid #81c784;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .simple-child:nth-child(2) {
+            border-left: 4px solid #ffb74d;
+            border: 1px solid #ffe0b2;
+        }
+        
+        .simple-child:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .simple-child:nth-child(1):hover {
+            background: #f1f8e9;
+        }
+        
+        .simple-child:nth-child(2):hover {
+            background: #fff3e0;
+        }
+        
+        .btn-doc { background-color: #4caf50; }
+        .btn-doc:hover { background-color: #3b9440; }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #1ebe5d; }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #eaeaea;
+            font-size: 0.8em;
+            color: #555;
+            letter-spacing: 0.5px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .ai-footer-notice {
+            font-size: 0.75em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .emoji {
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                font-size: 1.4em;
+                padding: 15px 10px;
+            }
+            main {
+                padding: 20px 10px;
+                gap: 15px;
+            }
+            .highlight-card {
+                padding: 20px;
+                max-width: 95%;
+            }
+            .highlight-card h2 {
+                font-size: 1.6em;
+            }
+            .highlight-card p {
+                font-size: 0.9em;
+            }
+            
+            .mission-vi-card {
+                padding-top: 40px;
+            }
+            
+            .mission-vi-card h2 {
+                font-size: 1.4em;
+                margin-top: 5px;
+            }
+            
+            .novo-badge {
+                top: -10px;
+                right: 15px;
+                font-size: 0.75em;
+                padding: 4px 12px;
+            }
+            
+            .ai-disclosure {
+                font-size: 0.7em;
+            }
+            .card {
+                max-width: 95%;
+                padding: 15px;
+            }
+            .card h2 {
+                font-size: 1.1em;
+            }
+            .btn {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+            .btn-compact {
+                padding: 6px 8px;
+                font-size: 0.8em;
+            }
+            .simple-children {
+                flex-direction: column;
+                gap: 8px;
+            }
+            footer {
+                padding: 10px;
+                font-size: 0.75em;
+            }
+            .ai-footer-notice {
+                font-size: 0.65em;
+            }
+            .consent-box {
+                padding: 30px 20px;
+            }
+            .consent-box h1 {
+                font-size: 1.8em;
+            }
+            .consent-box p {
+                font-size: 0.95em;
+            }
+            #accept-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay de Consentimento - SEMPRE VISÍVEL NO INÍCIO -->
+    <div id="consent-overlay">
+        <div class="consent-box">
+            <h1>Política de Uso de Inteligência Artificial</h1>
+            <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
+            <p>Ao continuar, confirma que leu e aceita a nossa<br><a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a></p>
+            <button id="accept-button">Aceitar e Continuar</button>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal - ESCONDIDO ATÉ ACEITAR -->
+    <div id="app-content" style="display: none;">
+        <header>
+            Missão VI - Order to Cash "O2C"
+        </header>
+
+        <main>
+            <!-- 1. MISSÃO VI - CARD PRINCIPAL COM DROPDOWN -->
+            <div class="card mission-vi-card">
+                <span class="novo-badge">🚀 NOVO</span>
+                <h2>🎯 Missão VI - Escolha da oportunidade e definição do âmbito do projeto aplicado</h2>
+                <p>Order to Cash "O2C" - Implementação de soluções de Inteligência Artificial para otimização do processo de faturação e cobrança na Hiperfrio.</p>
+                
+                <!-- Dropdown para Missão VI com estrutura igual à Missão IV -->
+                <div class="dropdown-container">
+                    <button class="dropdown-btn" onclick="toggleDropdown('dropdown6')" id="btn6">
+                        <span class="arrow-left">▼</span>
+                        <span><span class="emoji">📚</span> Documentação Missão VI</span>
+                        <span class="arrow-right">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="dropdown6" style="background: transparent; box-shadow: none; padding: 0;">
+                        <div class="simple-container">
+                            <a href="Apresentacao_interativa_missao_VI.html" target="_blank" class="simple-main">
+                                <span class="emoji">🎮</span> Apresentação Interativa Completa
+                            </a>
+                            <div class="simple-label">contém</div>
+                            <div class="simple-children">
+                                <a href="Oportunidade_Order_to_Cash_O2C.pdf" target="_blank" class="simple-child">
+                                    <span class="emoji">📄</span> Oportunidade Order to Cash "O2C"
+                                </a>
+                                <a href="AI_Project_Canvas.pdf" target="_blank" class="simple-child">
+                                    <span class="emoji">🎨</span> AI Project Canvas
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. O2C READER - EM CONSTRUÇÃO -->
+            <div class="highlight-card o2c-reader-card">
+                <div class="o2c-header">
+                    <div class="o2c-header-left">
+                        <h2>🤖 O2C Reader - Agente Inteligente</h2>
+                        <p>Sistema automatizado para análise e validação de relatórios de intervenção técnica com IA</p>
+                        <div class="ai-disclosure">Powered by AI "Inteligência Artificial"</div>
+                    </div>
+                    <div class="o2c-header-right">
+                        <div style="font-size: 3em;">🔧</div>
+                        <span class="construction-badge">EM CONSTRUÇÃO</span>
+                    </div>
+                </div>
+                
+                <div class="o2c-features">
+                    <span class="feature-pill">📤 Upload de Relatório</span>
+                    <span class="feature-pill">📊 Análise do relatório</span>
+                    <span class="feature-pill red">🚫 Bloqueadoras</span>
+                    <span class="feature-pill green">✅ Não bloqueadoras</span>
+                </div>
+                
+                <a class="btn btn-construction" href="index-agente-hiperfrio.html" target="_blank">
+                    <span class="emoji">🚧</span> Aceder ao Protótipo O2C Reader
+                </a>
+            </div>
+
+            <!-- 3. NEOOTTO.AI -->
+            <div class="highlight-card">
+                <h2>🧠 NeoOtto.ai</h2>
+                <p>O nosso especialista em inteligência artificial para identificar novas oportunidades de negócio. Explore as funcionalidades e a visão para o futuro!</p>
+                <p class="ai-disclosure">Esta secção integra um sistema de Inteligência Artificial.</p>
+                <a class="btn" href="https://chatgpt.com/g/g-6867dda33f808191a1c2e26f47d4fa1c-neootto-ai" target="_blank">
+                    <span class="emoji">💡</span> Aceder ao NeoOtto.ai
+                </a>
+            </div>
+
+            <!-- 4. AVALIAÇÃO - POSIÇÃO ORIGINAL -->
+            <div class="card card-highlighted-bg">
+                <h2>📊 Avaliação das Missões</h2>
+                <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho desenvolvido e a evolução do projeto.</p>
+                <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KdILJuUUjX2JffexE92n8E" target="_blank">
+                    <span class="emoji">⭐</span> Participar na Avaliação
+                </a>
+            </div>
+
+            <!-- 5. TRABALHOS REALIZADOS -->
+            <div class="card">
+                <h2>📚 Trabalhos Realizados</h2>
+                <p>Histórico completo das Missões anteriores do grupo.</p>
+                
+                <!-- Missão I -->
+                <a class="btn" href="https://drive.google.com/file/d/1eEPmpAtIbRS3K417RzaA4P5kf0I0_3gg/view?usp=drive_link" target="_blank">
+                    <span class="emoji">📄</span> Missão I
+                </a>
+                
+                <!-- Missão II -->
+                <a class="btn" href="https://docs.google.com/presentation/d/1W7NFxGzgThQ2zIH-q4MpHeKtNjCfKNrW/present?usp=sharing" target="_blank">
+                    <span class="emoji">🎯</span> Missão II
+                </a>
+                
+                <!-- Missão III com documentos separados -->
+                <div class="dropdown-container">
+                    <button class="dropdown-btn" onclick="toggleDropdown('dropdown3')" id="btn3">
+                        <span class="arrow-left">▼</span>
+                        <span><span class="emoji">📊</span> Missão III</span>
+                        <span class="arrow-right">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="dropdown3" style="background: transparent; box-shadow: none; padding: 0;">
+                        <div class="simple-container-3">
+                            <!-- Documento independente -->
+                            <a href="https://drive.google.com/file/d/1fnypY3ntZ6NbleWoP4lA7w2E1Yep55l5/view?usp=drive_link" target="_blank" class="simple-standalone">
+                                <span class="emoji">📑</span> Desenvolvimento do "Oráculo"
+                            </a>
+                            
+                            <!-- Análise Crítica com ligação ao áudio -->
+                            <div class="analise-container">
                                 <a href="Analise_Critica_Missao_III.pdf" target="_blank" class="analise-main">
                                     <span class="emoji">📝</span> Análise Crítica Detalhada
                                 </a>
