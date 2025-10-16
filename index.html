@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missão V - Prontidão Organizacional para IA na Hiperfrio</title>
+    <title>Missão VI - Escolha da oportunidade e definição do âmbito do projeto aplicado - Order to Cash "O2C"</title>
     <style>
         * {
             margin: 0;
@@ -91,6 +91,11 @@
             to { opacity: 1; transform: scale(1); }
         }
 
+        @keyframes slideInFromTop {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         header {
             background-color: #1a73e8;
             color: white;
@@ -162,6 +167,112 @@
             margin-bottom: 20px;
             line-height: 1.5;
         }
+
+        /* Card especial para Missão VI - CORRIGIDO */
+        .mission-vi-card {
+            background-color: #e0f2f7;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            max-width: 650px;
+            animation: slideInFromTop 0.5s ease;
+            position: relative;
+            padding-top: 35px; /* Espaço para o badge */
+        }
+
+        /* Badge NOVO - CORRIGIDO PARA NÃO SOBREPOR */
+        .novo-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #FFD700;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mission-vi-card h2 {
+            color: #1a73e8;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            margin-top: 10px;
+            border-bottom: 1px solid #e6f0fa;
+            padding-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .mission-vi-card p {
+            color: #555;
+            font-size: 1.05em;
+            margin-bottom: 25px;
+        }
+
+        /* O2C Reader Card - Em Construção */
+        .o2c-reader-card {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+            border: 2px dashed #1a73e8;
+            position: relative;
+            max-width: 550px;
+        }
+
+        .o2c-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .o2c-header-left {
+            flex: 1;
+        }
+
+        .o2c-header-right {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .construction-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9800, #ff6f00);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .o2c-features {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .feature-pill {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .feature-pill.red {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .feature-pill.green {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
         
         .card-highlighted-bg {
             background-color: #e0f2f7;
@@ -211,10 +322,6 @@
             transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.15s ease;
             white-space: nowrap;
         }
-        
-        .btn-align-bottom {
-            margin-top: auto;
-        }
 
         .btn:hover {
             background-color: #155ab6;
@@ -222,7 +329,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
-        /* Botões compactos para ficheiros adicionais */
         .btn-compact {
             padding: 8px 12px;
             font-size: 0.85em;
@@ -230,11 +336,6 @@
             font-weight: 600;
         }
         
-        .btn-compact .emoji {
-            font-size: 1em;
-        }
-        
-        /* Cores diferenciadas para os ficheiros da Missão V */
         .btn-primary { 
             background-color: #4CAF50; 
         }
@@ -255,8 +356,16 @@
         .btn-tertiary:hover { 
             background-color: #7B1FA2; 
         }
+
+        .btn-construction {
+            background: linear-gradient(135deg, #ff9800, #ff6f00);
+            border: 2px dashed white;
+        }
+
+        .btn-construction:hover {
+            background: linear-gradient(135deg, #ff6f00, #ff5722);
+        }
         
-        /* Texto de sugestão */
         .suggestion-text {
             text-align: center;
             color: #666;
@@ -347,7 +456,6 @@
             background-color: #e6f0fa;
         }
         
-        /* Layout para Missão III - Documentos separados + ligação entre Análise Crítica e Áudio */
         .simple-container-3 {
             background: transparent;
             padding: 0;
@@ -441,7 +549,6 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
-        /* Layout simplificado para Missão IV - CORES ESBATIDAS */
         .simple-container {
             background: linear-gradient(135deg, #f0f8f0 0%, #fff8f0 100%);
             border-radius: 12px;
@@ -482,7 +589,6 @@
             font-weight: 600;
         }
         
-        /* Layout horizontal para outras missões */
         .simple-children {
             display: flex;
             gap: 10px;
@@ -572,6 +678,24 @@
             .highlight-card p {
                 font-size: 0.9em;
             }
+            
+            /* Ajustes específicos para Missão VI em mobile */
+            .mission-vi-card {
+                padding-top: 40px;
+            }
+            
+            .mission-vi-card h2 {
+                font-size: 1.4em;
+                margin-top: 5px;
+            }
+            
+            .novo-badge {
+                top: -10px;
+                right: 15px;
+                font-size: 0.75em;
+                padding: 4px 12px;
+            }
+            
             .ai-disclosure {
                 font-size: 0.7em;
             }
@@ -632,61 +756,82 @@
     <!-- Conteúdo Principal - ESCONDIDO ATÉ ACEITAR -->
     <div id="app-content" style="display: none;">
         <header>
-            Missão V - Prontidão Organizacional para IA
+            Missão VI - Order to Cash "O2C"
         </header>
 
         <main>
-            <!-- Card Missão V -->
-            <div class="card card-highlighted-bg">
-                <h2>🎯 Missão V - Prontidão Organizacional</h2>
-                <p>Avaliação da maturidade organizacional da Hiperfrio para implementação de IA, com Diagnóstico 9D, Aceleradores e Bloqueios, entre outros.</p>
+            <!-- 1. MISSÃO VI - CARD PRINCIPAL COM BADGE CORRIGIDO -->
+            <div class="card mission-vi-card">
+                <span class="novo-badge">🚀 NOVO</span>
+                <h2>🎯 Missão VI - Escolha da oportunidade e definição do âmbito do projeto aplicado</h2>
+                <p>Order to Cash "O2C" - Implementação de soluções de Inteligência Artificial para otimização do processo de faturação e cobrança na Hiperfrio.</p>
                 
-                <!-- Ficheiro principal - TAMANHO ORIGINAL -->
-                <a class="btn btn-primary" href="Missao_V.pdf" target="_blank">
-                    <span class="emoji">📋</span> Documento Missão V da Hiperfrio
+                <!-- Apenas 2 documentos da Missão VI -->
+                <a class="btn btn-primary" href="Oportunidade_Order_to_Cash_O2C.pdf" target="_blank">
+                    <span class="emoji">📄</span> Oportunidade Order to Cash "O2C"
                 </a>
                 
-                <!-- Texto de sugestão -->
-                <div class="suggestion-text">sugestão de leitura e escuta</div>
-                
-                <!-- Ficheiros adicionais - TAMANHO COMPACTO -->
-                <a class="btn btn-compact btn-secondary" href="missao-v-apresentacao.html" target="_blank">
-                    <span class="emoji">🎨</span> Apresentação Interativa Missão V
-                </a>
-                
-                <a class="btn btn-compact btn-tertiary" href="Prontidao_para_a_IA.mp3" target="_blank">
-                    <span class="emoji">🎵</span> Sugestão: Debate sobre a Missão V
+                <a class="btn btn-secondary" href="AI_Project_Canvas.pdf" target="_blank">
+                    <span class="emoji">🎨</span> AI Project Canvas
                 </a>
             </div>
 
-            <!-- NeoOtto.ai Card -->
+            <!-- 2. O2C READER - EM CONSTRUÇÃO -->
+            <div class="highlight-card o2c-reader-card">
+                <div class="o2c-header">
+                    <div class="o2c-header-left">
+                        <h2>🤖 O2C Reader - Agente Inteligente</h2>
+                        <p>Sistema automatizado para análise e validação de relatórios de intervenção técnica com IA</p>
+                        <div class="ai-disclosure">Powered by AI "Inteligência Artificial"</div>
+                    </div>
+                    <div class="o2c-header-right">
+                        <div style="font-size: 3em;">🔧</div>
+                        <span class="construction-badge">EM CONSTRUÇÃO</span>
+                    </div>
+                </div>
+                
+                <div class="o2c-features">
+                    <span class="feature-pill">📤 Upload de Relatório</span>
+                    <span class="feature-pill">📊 Análise do relatório</span>
+                    <span class="feature-pill red">🚫 Bloqueadoras</span>
+                    <span class="feature-pill green">✅ Não bloqueadoras</span>
+                </div>
+                
+                <a class="btn btn-construction" href="index-agente-hiperfrio.html" target="_blank">
+                    <span class="emoji">🚧</span> Aceder ao Protótipo O2C Reader
+                </a>
+            </div>
+
+            <!-- 3. NEOOTTO.AI -->
             <div class="highlight-card">
-                <h2>Bem-vindo ao NeoOtto.ai</h2>
+                <h2>🧠 NeoOtto.ai</h2>
                 <p>O nosso especialista em inteligência artificial para identificar novas oportunidades de negócio. Explore as funcionalidades e a visão para o futuro!</p>
                 <p class="ai-disclosure">Esta secção integra um sistema de Inteligência Artificial.</p>
                 <a class="btn" href="https://chatgpt.com/g/g-6867dda33f808191a1c2e26f47d4fa1c-neootto-ai" target="_blank">
-                    <span class="emoji">🤖</span> Aceder ao NeoOtto.ai
+                    <span class="emoji">💡</span> Aceder ao NeoOtto.ai
                 </a>
             </div>
 
-            <!-- Avaliação -->
+            <!-- 4. AVALIAÇÃO - POSIÇÃO ORIGINAL -->
             <div class="card card-highlighted-bg">
-                <h2>Avaliação da Missão V</h2>
-                <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho da Missão V e a evolução do projeto.</p>
-                <a class="btn btn-whatsapp btn-align-bottom" href="https://chat.whatsapp.com/KdILJuUUjX2JffexE92n8E" target="_blank">
-                    <span class="emoji">⭐</span> Começar Avaliação
+                <h2>📊 Avaliação das Missões</h2>
+                <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho desenvolvido e a evolução do projeto.</p>
+                <a class="btn btn-whatsapp" href="https://chat.whatsapp.com/KdILJuUUjX2JffexE92n8E" target="_blank">
+                    <span class="emoji">⭐</span> Participar na Avaliação
                 </a>
             </div>
 
-            <!-- Trabalhos Realizados -->
+            <!-- 5. TRABALHOS REALIZADOS -->
             <div class="card">
-                <h2>Trabalhos Realizados</h2>
-                <p>Aceda ao histórico completo das Missões anteriores do grupo.</p>
+                <h2>📚 Trabalhos Realizados</h2>
+                <p>Histórico completo das Missões anteriores do grupo.</p>
                 
+                <!-- Missão I -->
                 <a class="btn" href="https://drive.google.com/file/d/1eEPmpAtIbRS3K417RzaA4P5kf0I0_3gg/view?usp=drive_link" target="_blank">
-                    <span class="emoji">📋</span> Missão I
+                    <span class="emoji">📄</span> Missão I
                 </a>
                 
+                <!-- Missão II -->
                 <a class="btn" href="https://docs.google.com/presentation/d/1W7NFxGzgThQ2zIH-q4MpHeKtNjCfKNrW/present?usp=sharing" target="_blank">
                     <span class="emoji">🎯</span> Missão II
                 </a>
@@ -702,12 +847,12 @@
                         <div class="simple-container-3">
                             <!-- Documento independente -->
                             <a href="https://drive.google.com/file/d/1fnypY3ntZ6NbleWoP4lA7w2E1Yep55l5/view?usp=drive_link" target="_blank" class="simple-standalone">
-                                <span class="emoji">📖</span> Desenvolvimento do "Oráculo"
+                                <span class="emoji">📑</span> Desenvolvimento do "Oráculo"
                             </a>
                             
                             <!-- Análise Crítica com ligação ao áudio -->
                             <div class="analise-container">
-                                <a href="Analise_Critica_Missao_III.pdf" target="_blank" class="analise-main">
+                                                <a href="Analise_Critica_Missao_III.pdf" target="_blank" class="analise-main">
                                     <span class="emoji">📝</span> Análise Crítica Detalhada
                                 </a>
                                 <div class="analise-label">com</div>
@@ -734,13 +879,33 @@
                             <div class="simple-label">contém</div>
                             <div class="simple-children">
                                 <a href="Identificacao_Oportunidades.pdf" target="_blank" class="simple-child">
-                                    <span class="emoji">🔍</span> Identificação de Oportunidades
+                                    <span class="emoji">🌟</span> Identificação de Oportunidades
                                 </a>
                                 <a href="Tabela_Oportunidades.pdf" target="_blank" class="simple-child">
                                     <span class="emoji">📊</span> Tabela de Oportunidades
                                 </a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- MISSÃO V - NOME SIMPLIFICADO -->
+                <div class="dropdown-container">
+                    <button class="dropdown-btn" onclick="toggleDropdown('dropdown5')" id="btn5">
+                        <span class="arrow-left">▼</span>
+                        <span><span class="emoji">🎯</span> Missão V</span>
+                        <span class="arrow-right">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="dropdown5">
+                        <a href="Missao_V.pdf" target="_blank">
+                            <span class="emoji">📄</span> Documento Principal
+                        </a>
+                        <a href="missao-v-apresentacao.html" target="_blank">
+                            <span class="emoji">🎮</span> Apresentação Interativa
+                        </a>
+                        <a href="Prontidao_para_a_IA.mp3" target="_blank">
+                            <span class="emoji">🎵</span> Debate sobre a Missão
+                        </a>
                     </div>
                 </div>
             </div>
@@ -771,7 +936,7 @@
             });
         });
 
-        // Função para toggle dos dropdowns das outras missões
+        // Função para toggle dos dropdowns
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const btnId = dropdownId.replace('dropdown', 'btn');
