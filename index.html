@@ -168,17 +168,17 @@
             line-height: 1.5;
         }
 
-        /* Card especial para Missão VI - CORRIGIDO */
+        /* Card especial para Missão VI */
         .mission-vi-card {
             background-color: #e0f2f7;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
             max-width: 650px;
             animation: slideInFromTop 0.5s ease;
             position: relative;
-            padding-top: 35px; /* Espaço para o badge */
+            padding-top: 35px;
         }
 
-        /* Badge NOVO - CORRIGIDO PARA NÃO SOBREPOR */
+        /* Badge NOVO */
         .novo-badge {
             position: absolute;
             top: -12px;
@@ -212,7 +212,7 @@
             margin-bottom: 25px;
         }
 
-        /* O2C Reader Card - Em Construção */
+        /* O2C Reader Card */
         .o2c-reader-card {
             background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
             border: 2px dashed #1a73e8;
@@ -272,6 +272,100 @@
         .feature-pill.green {
             background: #e8f5e9;
             color: #2e7d32;
+        }
+
+        /* Controles do agente - LAYOUT VERTICAL */
+        .agent-controls {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .agent-controls-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-test-folder {
+            background: #1a73e8;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .btn-test-folder::before {
+            content: '⭐';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #FFD700;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 0.8em;
+        }
+
+        .btn-test-folder:hover {
+            background: #155ab6;
+        }
+
+        .btn-wake {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-wake:hover:not(:disabled) {
+            background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.4);
+        }
+
+        .btn-wake:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-open-agent {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: bold;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-open-agent:hover {
+            background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+        }
+
+        #wakeStatus {
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 0.85em;
+            text-align: center;
         }
         
         .card-highlighted-bg {
@@ -742,35 +836,34 @@
 </head>
 <body>
 
-    <!-- Overlay de Consentimento - SEMPRE VISÍVEL NO INÍCIO -->
+    <!-- Overlay de Consentimento -->
     <div id="consent-overlay">
         <div class="consent-box">
             <h1>Política de Uso de Inteligência Artificial</h1>
             <p>Para cumprir com o AI Act da UE e garantir a transparência, é fundamental que compreenda como esta aplicação utiliza Inteligência Artificial (IA).</p>
             <p>Ao continuar, confirma que leu e aceita a nossa<br><a href="politica-ia.html" target="_blank" class="consent-link">Política de Uso de IA</a></p>
-            <button id="accept-button">Aceitar e Continuar</button>
+            <button id="accept-button" onclick="handleAccept()">Aceitar e Continuar</button>
         </div>
     </div>
 
-    <!-- Conteúdo Principal - ESCONDIDO ATÉ ACEITAR -->
+    <!-- Conteúdo Principal -->
     <div id="app-content" style="display: none;">
         <header>
-            Missão VI - Order to Cash "O2C" - HIPERFRIO
+            Missão VI - Order to Cash "O2C"
         </header>
 
         <main>
-            <!-- 1. MISSÃO VI - CARD PRINCIPAL COM DROPDOWN -->
+            <!-- 1. MISSÃO VI -->
             <div class="card mission-vi-card">
                 <span class="novo-badge">🚀 NOVO</span>
                 <h2>🎯 Missão VI - Escolha da oportunidade e definição do âmbito do projeto aplicado</h2>
                 <p>Order to Cash "O2C" - Implementação de soluções de Inteligência Artificial para otimização do processo de faturação e cobrança na Hiperfrio.</p>
                 
-                <!-- Dropdown para Missão VI com estrutura igual à Missão IV -->
+                <!-- Dropdown para Missão VI -->
                 <div class="dropdown-container">
                     <button class="dropdown-btn active" onclick="toggleDropdown('dropdown6')" id="btn6">
-
                         <span class="arrow-left">▼</span>
-                        <span><span class="emoji">📚</span> Missão VI</span>
+                        <span><span class="emoji">📚</span> Documentação Missão VI</span>
                         <span class="arrow-right">▼</span>
                     </button>
                     <div class="dropdown-content show" id="dropdown6" style="background: transparent; box-shadow: none; padding: 0;">
@@ -780,11 +873,11 @@
                             </a>
                             <div class="simple-label">contém</div>
                             <div class="simple-children">
-                                <a href="Oportunidade_Order_to_Cash_O2C.pdf" target="_blank" class="simple-child">
+                                <a href="Missao_VI.pdf" target="_blank" class="simple-child">
                                     <span class="emoji">📄</span> Oportunidade Order to Cash "O2C"
                                 </a>
-                                <a href="AI_Project_Canvas.pdf" target="_blank" class="simple-child">
-                                    <span class="emoji">🎨</span> AI Project Canvas
+                                <a href="AI_Business_Model_Canvas.pdf" target="_blank" class="simple-child">
+                                    <span class="emoji">🎨</span> AI Business Model Canvas
                                 </a>
                             </div>
                         </div>
@@ -792,7 +885,7 @@
                 </div>
             </div>
 
-            <!-- 2. O2C READER - EM CONSTRUÇÃO -->
+            <!-- 2. O2C READER COM CONTROLES REORGANIZADOS -->
             <div class="highlight-card o2c-reader-card">
                 <div class="o2c-header">
                     <div class="o2c-header-left">
@@ -812,10 +905,21 @@
                     <span class="feature-pill red">🚫 Bloqueadoras</span>
                     <span class="feature-pill green">✅ Não bloqueadoras</span>
                 </div>
-                
-                <a class="btn btn-construction" href="index-agente-hiperfrio.html" target="_blank">
-                    <span class="emoji">🚧</span> Aceder ao Protótipo O2C Reader
-                </a>
+                               
+                <!-- Controles do Agente - LAYOUT VERTICAL -->
+                <div class="agent-controls">
+                    <div class="agent-controls-layout">
+                        <!-- Botão de Relatórios de Teste - AZUL ESCURO -->
+                        <a class="btn btn-test-folder" href="https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target="_blank" rel="noopener">
+                            <span class="emoji">📁</span> Relatórios de Teste
+                        </a>
+                                                                 
+                        <!-- Botão Abrir Agente O2C - VERDE -->
+                        <a class="btn btn-open-agent" href="https://hiperfrio-o2c-rag.onrender.com/" target="_blank" rel="noopener">
+                            Abrir o Agente O2C
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- 3. NEOOTTO.AI -->
@@ -828,7 +932,7 @@
                 </a>
             </div>
 
-            <!-- 4. AVALIAÇÃO - POSIÇÃO ORIGINAL -->
+            <!-- 4. AVALIAÇÃO -->
             <div class="card card-highlighted-bg">
                 <h2>📊 Avaliação das Missões</h2>
                 <p>A sua opinião é fundamental! Ajude-nos a melhorar avaliando o trabalho desenvolvido e a evolução do projeto.</p>
@@ -934,23 +1038,65 @@
     </div>
 
     <script>
-        // SCRIPT PARA GARANTIR QUE A POLÍTICA APARECE SEMPRE
-        document.addEventListener('DOMContentLoaded', () => {
+        // Script para acordar o agente
+        const AGENTE_BASE = 'https://hiperfrio-o2c-rag.onrender.com';
+
+        // Ping sem CORS via <img>
+        function pingOnce() {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => reject(new Error('sem resposta'));
+                img.src = `${AGENTE_BASE}/health?ts=${Date.now()}`;
+            });
+        }
+
+        async function acordarAgente() {
+            const btn = document.getElementById('btnWake');
+            const lbl = document.getElementById('wakeStatus');
+            btn.disabled = true;
+            lbl.innerHTML = 'A acordar o serviço…';
+
+            const deadline = Date.now() + 60000; // tenta até 60s
+            while (Date.now() < deadline) {
+                try {
+                    await pingOnce();
+                    lbl.textContent = 'Pronto ✅';
+                    btn.disabled = false;
+                    return;
+                } catch {
+                    await new Promise(r => setTimeout(r, 2000));
+                }
+            }
+            lbl.textContent = 'Sem resposta — abre o agente e aguarda alguns segundos.';
+            btn.disabled = false;
+        }
+
+        // Função para aceitar o consentimento
+        function handleAccept() {
             const consentOverlay = document.getElementById('consent-overlay');
             const appContent = document.getElementById('app-content');
-            const acceptButton = document.getElementById('accept-button');
+            
+            localStorage.setItem('ai-consent-given', 'true');
+            consentOverlay.style.display = 'none';
+            appContent.style.display = 'block';
+            
+            // Abre automaticamente o dropdown da Missão VI após aceitar
+            setTimeout(() => {
+                openMissionVI();
+            }, 300);
+        }
 
-            // FORÇA A APRESENTAÇÃO DA POLÍTICA EM TODAS AS VISITAS
-            consentOverlay.style.display = 'flex';
-            appContent.style.display = 'none';
-
-            // Quando clica em "Aceitar e Continuar"
-            acceptButton.addEventListener('click', () => {
-                localStorage.setItem('ai-consent-given', 'true');
-                consentOverlay.style.display = 'none';
-                appContent.style.display = 'block';
-            });
-        });
+        // Função para abrir automaticamente a Missão VI
+        function openMissionVI() {
+            const dropdown6 = document.getElementById('dropdown6');
+            const btn6 = document.getElementById('btn6');
+            
+            if (dropdown6 && btn6) {
+                dropdown6.classList.add('show');
+                btn6.classList.add('active');
+            }
+        }
 
         // Função para toggle dos dropdowns
         function toggleDropdown(dropdownId) {
@@ -977,6 +1123,16 @@
                 }
             });
         }
+
+        // Inicialização quando a página carrega
+        document.addEventListener('DOMContentLoaded', () => {
+            const consentOverlay = document.getElementById('consent-overlay');
+            const appContent = document.getElementById('app-content');
+
+            // FORÇA A APRESENTAÇÃO DA POLÍTICA EM TODAS AS VISITAS
+            consentOverlay.style.display = 'flex';
+            appContent.style.display = 'none';
+        });
     </script>
 
 </body>
