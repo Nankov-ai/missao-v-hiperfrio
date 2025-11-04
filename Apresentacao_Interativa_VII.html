@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIssist - Apresentação Business Case | Hiperfrio</title>
+    <style>
+        /* Reset Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Container Principal */
+        .presentation-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: #ffffff;
+        }
+
+        /* Slides - FUNDO SEMPRE BRANCO */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 40px;
+            background: #ffffff;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Slide 1 - Hero com gradiente */
+        .slide-hero {
+            background: linear-gradient(135deg, #6B46C1 0%, #9333EA 100%);
+            color: #ffffff;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-emoji {
+            font-size: 120px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-title {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 28px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 20px 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        /* Títulos e Textos - SEMPRE ESCUROS EM FUNDO BRANCO */
+        h2 {
+            font-size: 48px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 24px;
+            color: #2d2d2d;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 18px;
+            color: #4a4a4a;
+            line-height: 1.6;
+        }
+
+        .subtitle {
+            font-size: 22px;
+            color: #6b6b6b;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Cards do Problema */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .problem-card {
+            background: #ffffff;
+            border: 2px solid #e5e5e5;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 5px solid #EF4444;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .problem-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .problem-title {
+            font-size: 22px;
+            color: #1a1a1a;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .problem-text {
+            font-size: 16px;
+            color: #6b6b6b;
+            line-height: 1.5;
+        }
+
+        /* Solução Layout */
+        .solution-container {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .phone-mockup {
+            flex-shrink: 0;
+            width: 320px;
+            height: 640px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 15px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            border-radius: 25px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, #6B46C1, #9333EA);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .voice-wave {
+            background: linear-gradient(135deg, #6B46C1, #9333EA);
+            height: 100px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .wave-bar {
+            width: 4px;
+            height: 40px;
+            background: white;
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { height: 40px; }
+            50% { height: 60px; }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            flex: 1;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 2px solid #e5e5e5;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: #6B46C1;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(107, 70, 193, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            color: #6B46C1;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: #6b6b6b;
+            line-height: 1.4;
+        }
+
+        /* Fluxo */
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flow-step {
+            background: #ffffff;
+            border: 3px solid #6B46C1;
+            border-radius: 20px;
+            padding: 25px;
+            width: 180px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .flow-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(107, 70, 193, 0.3);
+        }
+
+        .flow-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .flow-title {
+            font-size: 18px;
+            color: #1a1a1a;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .flow-text {
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+        /* KPIs */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .kpi-card {
+            background: #ffffff;
+            border: 2px solid #e5e5e5;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .kpi-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-green { background: #10B981; }
+        .status-yellow { background: #F59E0B; }
+        .status-red { background: #EF4444; }
+
+        .kpi-label {
+            font-size: 14px;
+            color: #6b6b6b;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-size: 36px;
+            color: #6B46C1;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .kpi-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e5e5;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .kpi-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6B46C1, #9333EA);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* ROI - CORRIGIDO COM LEGENDAS E EIXOS */
+        .roi-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .roi-chart {
+            flex: 1;
+            background: #ffffff;
+            border: 2px solid #e5e5e5;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .chart-title {
+            font-size: 20px;
+            color: #1a1a1a;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .chart-y-axis {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6b6b6b;
+        }
+
+        .y-label {
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .chart-bars-wrapper {
+            position: absolute;
+            left: 60px;
+            right: 0;
+            bottom: 40px;
+            top: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+        .chart-bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px;
+        }
+
+        .chart-value {
+            font-size: 14px;
+            color: #6B46C1;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .chart-bar {
+            width: 60px;
+            background: linear-gradient(180deg, #9333EA, #6B46C1);
+            border-radius: 10px 10px 0 0;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .chart-bar:hover {
+            transform: scaleY(1.05);
+        }
+
+        .chart-x-axis {
+            position: absolute;
+            bottom: 0;
+            left: 60px;
+            right: 0;
+            height: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .x-label {
+            font-size: 14px;
+            color: #6b6b6b;
+            font-weight: 600;
+        }
+
+        .chart-legend {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b6b6b;
+        }
+
+        .roi-metrics {
+            display: grid;
+            gap: 20px;
+        }
+
+        .roi-card {
+            background: #f8f8f8;
+            border-left: 4px solid #6B46C1;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .roi-value {
+            font-size: 28px;
+            color: #6B46C1;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .roi-label {
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+        /* Riscos */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .risk-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: all 0.3s;
+        }
+
+        .risk-high { border-left-color: #EF4444; }
+        .risk-medium { border-left-color: #F59E0B; }
+        .risk-low { border-left-color: #10B981; }
+
+        .risk-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .risk-title {
+            font-size: 20px;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .risk-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .badge-high { background: #EF4444; }
+        .badge-medium { background: #F59E0B; }
+        .badge-low { background: #10B981; }
+
+        .risk-text {
+            font-size: 14px;
+            color: #6b6b6b;
+            margin-bottom: 15px;
+        }
+
+        .mitigation {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .mitigation-title {
+            font-size: 14px;
+            color: #6B46C1;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .mitigation-text {
+            font-size: 13px;
+            color: #6b6b6b;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(180deg, #6B46C1, #9333EA);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: #ffffff;
+            border: 4px solid #6B46C1;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background: #ffffff;
+            border: 2px solid #e5e5e5;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .phase-title {
+            font-size: 18px;
+            color: #6B46C1;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .phase-weeks {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .phase-text {
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 40px;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #6B46C1, #9333EA);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 48px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .member-avatar:hover {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .member-name {
+            font-size: 18px;
+            color: #1a1a1a;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .member-role {
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+        .team-quote {
+            background: linear-gradient(135deg, #6B46C1, #9333EA);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-style: italic;
+            line-height: 1.6;
+            box-shadow: 0 10px 30px rgba(107, 70, 193, 0.3);
+        }
+
+        /* CTA - CORRIGIDO PARA TEXTO LEGÍVEL */
+        .cta-container {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .cta-title {
+            font-size: 56px;
+            color: #1a1a1a;
+            font-weight: 900;
+            margin-bottom: 40px;
+        }
+
+        .decision-box {
+            background: linear-gradient(135deg, #6B46C1, #9333EA);
+            padding: 40px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(107, 70, 193, 0.3);
+        }
+
+        .decision-title {
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .decision-card {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .decision-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .decision-label {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .decision-value {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.4;
+        }
+
+        .decision-footer {
+            font-size: 16px;
+            color: rgba(255,255,255,0.95);
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        .approve-btn {
+            padding: 20px 60px;
+            font-size: 24px;
+            background: #ffffff;
+            color: #6B46C1;
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .approve-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #ffffff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: #6B46C1;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #9333EA;
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e5e5e5;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #6B46C1;
+            transform: scale(1.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .problem-grid,
+            .kpi-grid,
+            .risk-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-container,
+            .roi-container {
+                flex-direction: column;
+            }
+
+            .flow-container {
+                flex-direction: column;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 21px;
+            }
+
+            .right {
+                left: 0%;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .decision-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-btn span {
+                display: none;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+
+            .chart-y-axis {
+                width: 40px;
+                font-size: 10px;
+            }
+
+            .chart-bars-wrapper {
+                left: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Hero -->
+        <div class="slide slide-hero active" id="slide1">
+            <div class="hero-content">
+                <div class="hero-emoji">🚀</div>
+                <h1 class="hero-title">AIssist</h1>
+                <p class="hero-subtitle">A Musa do Pitch da Hiperfrio</p>
+                <div class="hero-badge">
+                    Faturar no mesmo dia, com menos erros, mais confiança
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Problema -->
+        <div class="slide" id="slide2">
+            <h2>O Problema Atual</h2>
+            <p class="subtitle">45 relatórios/dia com desafios críticos</p>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3 class="problem-title">Faturação Atrasada</h3>
+                    <p class="problem-text">DSO elevado prejudica o cashflow da empresa</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">❌</div>
+                    <h3 class="problem-title">Omissões Frequentes</h3>
+                    <p class="problem-text">Peças e tempos não registados = receita perdida</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">⚠️</div>
+                    <h3 class="problem-title">Disputas e Retrabalho</h3>
+                    <p class="problem-text">Divergências geram notas de crédito e insatisfação</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Solução -->
+        <div class="slide" id="slide3">
+            <h2>A Solução: AIssist</h2>
+            <div class="solution-container">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-header">AIssist</div>
+                        <div class="voice-wave">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+                        <p style="text-align: center; color: #6b6b6b; margin: 20px 0; font-size: 14px;">
+                            "Técnico a ditar relatório..."
+                        </p>
+                        <div style="background: #f8f8f8; padding: 15px; border-radius: 10px; margin-top: auto;">
+                            <p style="font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">Peças Identificadas:</p>
+                            <p style="color: #6b6b6b; font-size: 14px;">✓ Compressor 2HP</p>
+                            <p style="color: #6b6b6b; font-size: 14px;">✓ Filtro secador</p>
+                                                       <p style="color: #6b6b6b; font-size: 14px;">✓ 2h trabalho</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎤</div>
+                        <h3 class="feature-title">Voz PT-PT</h3>
+                        <p class="feature-text">Ditado natural em português, extração automática de peças e tempos</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📸</div>
+                        <h3 class="feature-title">OCR Inteligente</h3>
+                        <p class="feature-text">Fotografa etiquetas e identifica SKUs automaticamente</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title">Motor de Preços</h3>
+                        <p class="feature-text">Validação automática de contratos e margens</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h3 class="feature-title">Integração PHC</h3>
+                        <p class="feature-text">Criação automática de OT e fatura</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👤</div>
+                        <h3 class="feature-title">HITL</h3>
+                        <p class="feature-text">Supervisão humana para exceções</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Aprendizagem</h3>
+                        <p class="feature-text">Melhoria contínua com retraining mensal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Fluxo -->
+        <div class="slide" id="slide4">
+            <h2>Fluxo Completo AIssist</h2>
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div class="flow-icon">📅</div>
+                    <h3 class="flow-title">Agendar</h3>
+                    <p class="flow-text">PHC agenda e AIssist envia rota</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon">🚗</div>
+                    <h3 class="flow-title">Viagem</h3>
+                    <p class="flow-text">Briefing por voz durante trajeto</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon">🔧</div>
+                    <h3 class="flow-title">Intervenção</h3>
+                    <p class="flow-text">Falar + Fotografar = Registo automático</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon">✅</div>
+                    <h3 class="flow-title">Validação</h3>
+                    <p class="flow-text">Cliente assina, supervisor revê exceções</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-icon">💶</div>
+                    <h3 class="flow-title">Faturação</h3>
+                    <p class="flow-text">Fatura emitida em ≤4h</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: KPIs -->
+        <div class="slide" id="slide5">
+            <h2>Dashboard de KPIs - Metas MLP</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-status status-green"></div>
+                    <div class="kpi-label">Faturas no Dia (≤4h)</div>
+                    <div class="kpi-value">≥80%</div>
+                    <div class="kpi-bar">
+                        <div class="kpi-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-status status-green"></div>
+                    <div class="kpi-label">Precisão IA (Mês 3)</div>
+                    <div class="kpi-value">≥90%</div>
+                    <div class="kpi-bar">
+                        <div class="kpi-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-status status-yellow"></div>
+                    <div class="kpi-label">Redução DSO</div>
+                    <div class="kpi-value">-8 a -10 dias</div>
+                    <div class="kpi-bar">
+                        <div class="kpi-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-status status-green"></div>
+                    <div class="kpi-label">OTs com Peças</div>
+                    <div class="kpi-value">≥95%</div>
+                    <div class="kpi-bar">
+                        <div class="kpi-fill" style="width: 95%;"></div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-status status-green"></div>
+                    <div class="kpi-label">Adoção Utilizadores</div>
+                    <div class="kpi-value">100%</div>
+                    <div class="kpi-bar">
+                        <div class="kpi-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-status status-yellow"></div>
+                    <div class="kpi-label">Divergências Stock</div>
+                    <div class="kpi-value">-50%</div>
+                    <div class="kpi-bar">
+                        <div class="kpi-fill" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: ROI CORRIGIDO -->
+<div class="slide" id="slide6">
+    <h2>ROI e Impacto Financeiro</h2>
+    <div class="roi-container">
+        <div class="roi-chart">
+            <h3 style="font-size: 20px; color: #1a1a1a; margin-bottom: 30px; text-align: center;">Evolução do Retorno (Ano 1)</h3>
+            
+            <!-- Container do gráfico simplificado -->
+            <div style="position: relative; height: 300px; padding-left: 60px; padding-bottom: 40px;">
+                
+                <!-- Eixo Y -->
+                <div style="position: absolute; left: 0; top: 0; height: 260px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <span style="font-size: 12px; color: #6b6b6b;">€100k</span>
+                    <span style="font-size: 12px; color: #6b6b6b;">€75k</span>
+                    <span style="font-size: 12px; color: #6b6b6b;">€50k</span>
+                    <span style="font-size: 12px; color: #6b6b6b;">€25k</span>
+                    <span style="font-size: 12px; color: #6b6b6b;">€0</span>
+                </div>
+                
+                <!-- Área das barras -->
+                <div style="position: absolute; left: 60px; right: 20px; bottom: 40px; height: 260px; display: flex; justify-content: space-around; align-items: flex-end;">
+                    
+                    <!-- Barra Q1 -->
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
+                        <span style="font-size: 14px; color: #6B46C1; font-weight: bold; margin-bottom: 5px;">€26k</span>
+                        <div style="width: 60px; height: 65px; background: linear-gradient(180deg, #9333EA, #6B46C1); border-radius: 10px 10px 0 0;"></div>
+                    </div>
+                    
+                    <!-- Barra Q2 -->
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
+                        <span style="font-size: 14px; color: #6B46C1; font-weight: bold; margin-bottom: 5px;">€47k</span>
+                        <div style="width: 60px; height: 117px; background: linear-gradient(180deg, #9333EA, #6B46C1); border-radius: 10px 10px 0 0;"></div>
+                    </div>
+                    
+                    <!-- Barra Q3 -->
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
+                        <span style="font-size: 14px; color: #6B46C1; font-weight: bold; margin-bottom: 5px;">€73k</span>
+                        <div style="width: 60px; height: 182px; background: linear-gradient(180deg, #9333EA, #6B46C1); border-radius: 10px 10px 0 0;"></div>
+                    </div>
+                    
+                    <!-- Barra Q4 -->
+                    <div style="display: flex; flex-direction: column; align-items: center; width: 60px;">
+                        <span style="font-size: 14px; color: #6B46C1; font-weight: bold; margin-bottom: 5px;">€105k</span>
+                        <div style="width: 60px; height: 260px; background: linear-gradient(180deg, #9333EA, #6B46C1); border-radius: 10px 10px 0 0;"></div>
+                    </div>
+                </div>
+                
+                <!-- Eixo X -->
+                <div style="position: absolute; bottom: 10px; left: 60px; right: 20px; display: flex; justify-content: space-around;">
+                    <span style="font-size: 14px; color: #6b6b6b; font-weight: 600;">Q1</span>
+                    <span style="font-size: 14px; color: #6b6b6b; font-weight: 600;">Q2</span>
+                    <span style="font-size: 14px; color: #6b6b6b; font-weight: 600;">Q3</span>
+                    <span style="font-size: 14px; color: #6b6b6b; font-weight: 600;">Q4</span>
+                </div>
+            </div>
+            
+            <p style="text-align: center; font-size: 12px; color: #6b6b6b; margin-top: 20px;">
+                Valores acumulados por trimestre | Retorno progressivo do investimento
+            </p>
+        </div>
+        
+        <div class="roi-metrics">
+            <div class="roi-card">
+                <div class="roi-value">€105k/ano</div>
+                <div class="roi-label">Receita recuperada (omissões evitadas)</div>
+            </div>
+            <div class="roi-card">
+                <div class="roi-value">€131k-164k</div>
+                <div class="roi-label">Liquidez adicional (efeito DSO)</div>
+            </div>
+            <div class="roi-card">
+                <div class="roi-value"><12 meses</div>
+                <div class="roi-label">Payback period</div>
+            </div>
+            <div class="roi-card">
+                <div class="roi-value">€53k</div>
+                <div class="roi-label">Investimento CAPEX</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- Slide 7: Riscos -->
+        <div class="slide" id="slide7">
+            <h2>Gestão de Riscos</h2>
+            <div class="risk-grid">
+                <div class="risk-card risk-high">
+                    <div class="risk-header">
+                        <h3 class="risk-title">Baixa Adoção</h3>
+                        <span class="risk-badge badge-high">Alto</span>
+                    </div>
+                    <p class="risk-text">Técnicos resistentes à mudança</p>
+                    <div class="mitigation">
+                        <div class="mitigation-title">🛡️ Mitigação:</div>
+                        <p class="mitigation-text">UX voz-primeiro, champions, formação on-the-job, gamificação [[2]]</p>
+                    </div>
+                </div>
+                <div class="risk-card risk-medium">
+                    <div class="risk-header">
+                        <h3 class="risk-title">Catálogo/Contratos</h3>
+                        <span class="risk-badge badge-medium">Médio</span>
+                    </div>
+                    <p class="risk-text">Preços desatualizados ou incorretos</p>
+                    <div class="mitigation">
+                        <div class="mitigation-title">🛡️ Mitigação:</div>
+                        <p class="mitigation-text">Limpeza top-500, revisão mensal pelo Financeiro [[2]]</p>
+                    </div>
+                </div>
+                <div class="risk-card risk-medium">
+                    <div class="risk-header">
+                        <h3 class="risk-title">Integração PHC</h3>
+                        <span class="risk-badge badge-medium">Médio</span>
+                    </div>
+                    <p class="risk-text">Atrasos ou incompatibilidades técnicas</p>
+                    <div class="mitigation">
+                        <div class="mitigation-title">🛡️ Mitigação:</div>
+                        <p class="mitigation-text">Integração "2 velocidades" (ficheiro/API) + fallback [[2]]</p>
+                    </div>
+                </div>
+                <div class="risk-card risk-low">
+                    <div class="risk-header">
+                        <h3 class="risk-title">Precisão IA</h3>
+                        <span class="risk-badge badge-low">Baixo</span>
+                    </div>
+                    <p class="risk-text">Erros na extração de dados</p>
+                    <div class="mitigation">
+                        <div class="mitigation-title">🛡️ Mitigação:</div>
+                        <p class="mitigation-text">HITL, retraining mensal, observabilidade, rollback A/B [[2]]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Roadmap -->
+        <div class="slide" id="slide8">
+            <h2>Roadmap de Implementação</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Fase 0: Preparação</h3>
+                        <p class="phase-weeks">Semanas 0-2</p>
+                        <p class="phase-text">Baseline KPIs, limpeza top-500, 10 técnicos / 12 clientes [[2]]</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Fase 1: Piloto</h3>
+                        <p class="phase-weeks">Semanas 3-8</p>
+                        <p class="phase-text">TTF ≤24h, peças ≥85%, dashboards e logs [[2]]</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Fase 2: Otimização</h3>
+                        <p class="phase-weeks">Semanas 9-14</p>
+                        <p class="phase-text">Voz+NER, Precisão ≥88%, maioria ≤8h [[2]]</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3 class="phase-title">Fase 3: Escala</h3>
+                        <p class="phase-weeks">Semanas 15-24</p>
+                        <p class="phase-text">Faturação no dia ≥80%, peças ≥95%, escalar 50% AT [[2]]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Equipa -->
+        <div class="slide" id="slide9">
+            <h2>Equipa & Cultura de Inovação</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">👨‍💼</div>
+                    <h3 class="member-name">Process Owner</h3>
+                    <p class="member-role">Líder do Projeto</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">👩‍💻</div>
+                    <h3 class="member-name">Tech Lead</h3>
+                    <p class="member-role">Arquitetura & IA</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">👨‍🔧</div>
+                    <h3 class="member-name">Champions AT</h3>
+                    <p class="member-role">10 Técnicos Piloto</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">👩‍📊</div>
+                    <h3 class="member-name">Área de Dados</h3>
+                    <p class="member-role">MLOps & Métricas</p>
+                </div>
+            </div>
+            <div class="team-quote">
+                "Co-criação com técnicos, reconhecimento através de badges e leaderboard, 
+                demo-fridays e micro-formações de 10-15 minutos. 
+                Inovação contínua: ≥3 testes/trimestre, protótipos em ≤21 dias!" [[2]]
+            </div>
+        </div>
+
+        <!-- Slide 10: Call to Action CORRIGIDO COM TEXTO LEGÍVEL -->
+        <div class="slide" id="slide10">
+            <div class="cta-container">
+                <h2 class="cta-title">A Decisão é Sua!</h2>
+                <div class="decision-box">
+                    <h3 class="decision-title">Aprovar MLP de 12-14 Semanas</h3>
+                    <div class="decision-grid">
+                        <div class="decision-card">
+                            <div class="decision-icon">💰</div>
+                            <h4 class="decision-label">ROI Garantido</h4>
+                            <p class="decision-value">€105k/ano + liquidez €131k-164k [[2]]</p>
+                        </div>
+                        <div class="decision-card">
+                            <div class="decision-icon">⚡</div>
+                            <h4 class="decision-label">Resultados Rápidos</h4>
+                            <p class="decision-value">80% faturas no dia em 14 semanas [[2]]</p>
+                        </div>
+                        <div class="decision-card">
+                            <div class="decision-icon">🎯</div>
+                            <h4 class="decision-label">Risco Controlado</h4>
+                            <p class="decision-value">Gates go/no-go + HITL sempre presente [[2]]</p>
+                        </div>
+                    </div>
+                    <p class="decision-footer">
+                        Se Gate G3 cumprido (≥80% metas por 4 semanas), 
+                        escalar para 50% da AT e formalizar operação. [[2]]
+                    </p>
+                </div>
+                <button class="approve-btn" onclick="celebrate()">
+                    Aprovar Projeto AIssist 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">
+            <span>← Anterior</span>
+        </button>
+        <div class="nav-dots" id="navDots"></div>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">
+            <span>Próximo →</span>
+        </button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 10;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createDots();
+            updateSlideVisibility();
+            updateNavigation();
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') changeSlide(-1);
+                if (e.key === 'ArrowRight') changeSlide(1);
+            });
+
+            // Touch support
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            document.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) changeSlide(1);
+                if (touchEndX > touchStartX + 50) changeSlide(-1);
+            }
+        });
+
+        function createDots() {
+            const dotsContainer = document.getElementById('navDots');
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function changeSlide(direction) {
+            const newSlide = currentSlide + direction;
+            if (newSlide >= 1 && newSlide <= totalSlides) {
+                currentSlide = newSlide;
+                updateSlideVisibility();
+                updateNavigation();
+            }
+        }
+
+        function goToSlide(slideNum) {
+            if (slideNum >= 1 && slideNum <= totalSlides) {
+                currentSlide = slideNum;
+                updateSlideVisibility();
+                updateNavigation();
+            }
+        }
+
+        function updateSlideVisibility() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide - 1) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function updateNavigation() {
+            // Update buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            // Update dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentSlide - 1) {
+                    dot.classList.add('active');
+                }
+            });
+
+            // Update button text for mobile
+            if (window.innerWidth < 480) {
+                document.querySelector('#prevBtn span').textContent = '←';
+                document.querySelector('#nextBtn span').textContent = '→';
+            } else {
+                document.querySelector('#prevBtn span').textContent = '← Anterior';
+                document.querySelector('#nextBtn span').textContent = 'Próximo →';
+            }
+        }
+
+        function celebrate() {
+            const button = event.target;
+            button.style.transform = 'scale(1.1)';
+            button.innerHTML = '✅ Aprovado! Vamos começar!';
+            
+            // Create confetti
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+            
+            setTimeout(() => {
+                alert('Parabéns! O projeto AIssist foi aprovado.\n\nPróximos passos:\n1. Reunião de kick-off\n2. Seleção dos 10 técnicos champions\n3. Início da Fase 0 (baseline e preparação)\n\nVamos transformar a Hiperfrio! 🚀');
+                button.style.transform = 'scale(1)';
+            }, 1000);
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.top = '-10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.zIndex = '10000';
+            document.body.appendChild(confetti);
+            
+            let pos = -10;
+            const gravity = 0.5;
+            let velocity = Math.random() * 3 + 2;
+            const horizontalVelocity = (Math.random() - 0.5) * 2;
+            
+            const fall = setInterval(() => {
+                velocity += gravity;
+                pos += velocity;
+                confetti.style.top = pos + 'px';
+                confetti.style.left = parseFloat(confetti.style.left) + horizontalVelocity + 'px';
+                
+                if (pos > window.innerHeight) {
+                    clearInterval(fall);
+                    confetti.remove();
+                }
+            }, 20);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', updateNavigation);
+    </script>
+</body>
+</html>
+
