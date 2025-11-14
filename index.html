@@ -212,53 +212,79 @@
             margin-bottom: 25px;
         }
 
-        /* O2C Reader Card */
+        /* AIssist Card (antigo O2C Reader) */
         .o2c-reader-card {
             background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
             border: 2px dashed #1a73e8;
             position: relative;
-            max-width: 550px;
+            max-width: 520px;
+            padding: 18px 18px 14px 18px;
         }
 
         .o2c-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            gap: 10px;
         }
 
         .o2c-header-left {
             flex: 1;
+            text-align: left;
+        }
+
+        .o2c-header-left h2 {
+            margin: 0 0 6px 0;
+            font-size: 1.25em;
+        }
+
+        .o2c-header-left p {
+            margin: 0;
+            font-size: 0.85em;
+            line-height: 1.35;
+            color: #555;
         }
 
         .o2c-header-right {
             text-align: center;
-            padding: 10px;
+            padding: 0;
+            min-width: 90px;
+        }
+
+        .mascot-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: #ffffff;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+            border: 2px solid #e0ecff;
+            margin-bottom: 4px;
         }
 
         .construction-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #ff9800, #ff6f00);
+            background: linear-gradient(135deg, #4CAF50, #2e7d32);
             color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 0.8em;
-            margin-top: 5px;
+            padding: 3px 10px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.72em;
         }
 
         .o2c-features {
             display: flex;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 6px;
+            margin: 8px 0 10px 0;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .feature-pill {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85em;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.8em;
             font-weight: 600;
             background: #e3f2fd;
             color: #1565c0;
@@ -277,15 +303,15 @@
         /* Controles do agente - LAYOUT VERTICAL */
         .agent-controls {
             background: #f5f5f5;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 8px 0 4px 0;
         }
 
         .agent-controls-layout {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 6px;
         }
 
         .btn-test-folder {
@@ -294,6 +320,8 @@
             position: relative;
             overflow: hidden;
             width: 100%;
+            padding: 8px 10px;
+            font-size: 0.9em;
         }
 
         .btn-test-folder::before {
@@ -343,9 +371,9 @@
             background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
             text-decoration: none;
-            padding: 10px 14px;
+            padding: 8px 10px;
             border-radius: 10px;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: bold;
             width: 100%;
             display: flex;
@@ -368,6 +396,14 @@
             text-align: center;
         }
         
+        .ai-note-small {
+            margin-top: 4px;
+            font-size: 0.7em;
+            color: #d32f2f;
+            font-weight: 600;
+            text-align: left;
+        }
+
         .card-highlighted-bg {
             background-color: #e0f2f7;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
@@ -788,6 +824,15 @@
                 font-size: 0.75em;
                 padding: 4px 12px;
             }
+
+            .o2c-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .o2c-header-right {
+                align-self: center;
+            }
             
             .ai-disclosure {
                 font-size: 0.7em;
@@ -880,41 +925,41 @@
                 </div>
             </div>
 
-            <!-- 2. O2C READER COM CONTROLES REORGANIZADOS -->
+            <!-- 2. AIssist - Assistente Técnico da Hiperfrio (mais compacto) -->
             <div class="highlight-card o2c-reader-card">
                 <div class="o2c-header">
                     <div class="o2c-header-left">
-                        <h2>🤖 O2C Reader - Agente Inteligente</h2>
-                        <p>Sistema automatizado para análise e validação de relatórios de intervenção técnica com IA</p>
-                        <div class="ai-disclosure">Powered by AI "Inteligência Artificial"</div>
+                        <h2>🤖 AIssist — Assistente Técnico da Hiperfrio</h2>
+                        <p>
+                            App móvel offline-first para o técnico <strong>falar</strong> e <strong>fotografar</strong> a intervenção.
+                            O LLM preenche o relatório, valida peças/tempos e prepara a fatura no PHC.
+                        </p>
                     </div>
                     <div class="o2c-header-right">
-                        <div style="font-size: 3em;">🔧</div>
-                        <span class="construction-badge">EM CONSTRUÇÃO</span>
+                        <img src="assets/img/aissist-mascote.png" alt="AIssist — Mascote Hiperfrio" class="mascot-img">
+                        <span class="construction-badge">Protótipo ativo</span>
                     </div>
                 </div>
                 
                 <div class="o2c-features">
-                    <span class="feature-pill">📤 Upload de Relatório</span>
-                    <span class="feature-pill">📊 Análise do relatório</span>
-                    <span class="feature-pill red">🚫 Bloqueadoras</span>
-                    <span class="feature-pill green">✅ Não bloqueadoras</span>
+                    <span class="feature-pill">🎙️ Voz PT-PT & fotos</span>
+                    <span class="feature-pill">📑 Validação automática (O2C)</span>
+                    <span class="feature-pill">🧾 Proforma / Fatura PHC</span>
                 </div>
                                
-                <!-- Controles do Agente - LAYOUT VERTICAL -->
                 <div class="agent-controls">
                     <div class="agent-controls-layout">
-                        <!-- Botão de Relatórios de Teste - AZUL ESCURO -->
-                        <a class="btn btn-test-folder" href="
-https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target="_blank" rel="noopener">
-                            <span class="emoji">📁</span> Relatórios de Teste
+                        <a class="btn btn-test-folder" href="https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target="_blank" rel="noopener">
+                            <span class="emoji">📁</span> Relatórios de Teste (PDF)
                         </a>
-                                                                 
-                        <!-- Botão Abrir Agente O2C - VERDE -->
                         <a class="btn btn-open-agent" href="https://hiperfrio-o2c-rag.onrender.com/" target="_blank" rel="noopener">
-                            Abrir o Agente O2C
+                            <span class="emoji">🚀</span> Abrir protótipo AIssist
                         </a>
                     </div>
+                </div>
+
+                <div class="ai-note-small">
+                    Powered by IA (voz, visão, regras de negócio e HITL — humano revê exceções).
                 </div>
             </div>
 
@@ -961,12 +1006,9 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
                     </button>
                     <div class="dropdown-content" id="dropdown3" style="background: transparent; box-shadow: none; padding: 0;">
                         <div class="simple-container-3">
-                            <!-- Documento independente -->
                             <a href="https://drive.google.com/file/d/1fnypY3ntZ6NbleWoP4lA7w2E1Yep55l5/view?usp=drive_link" target="_blank" class="simple-standalone">
                                 <span class="emoji">📈</span> Desenvolvimento do "Oráculo"
                             </a>
-                            
-                            <!-- Análise Crítica com ligação ao áudio -->
                             <div class="analise-container">
                                 <a href="Analise_Critica_Missao_III.pdf" target="_blank" class="analise-main">
                                     <span class="emoji">📝</span> Análise Crítica Detalhada
@@ -1025,7 +1067,7 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
                     </div>
                 </div>
 
-                <!-- MISSÃO VI - MOVIDA DO TOPO PARA AQUI -->
+                <!-- MISSÃO VI -->
                 <div class="dropdown-container">
                     <button class="dropdown-btn" onclick="toggleDropdown('dropdown6')" id="btn6">
                         <span class="arrow-left">▼</span>
@@ -1054,10 +1096,8 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
     </div>
 
     <script>
-        // Script para acordar o agente
         const AGENTE_BASE = 'https://hiperfrio-o2c-rag.onrender.com';
 
-        // Ping sem CORS via <img>
         function pingOnce() {
             return new Promise((resolve, reject) => {
                 const img = new Image();
@@ -1070,10 +1110,12 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
         async function acordarAgente() {
             const btn = document.getElementById('btnWake');
             const lbl = document.getElementById('wakeStatus');
+            if (!btn || !lbl) return;
+
             btn.disabled = true;
             lbl.innerHTML = 'A acordar o serviço…';
 
-            const deadline = Date.now() + 60000; // tenta até 60s
+            const deadline = Date.now() + 60000;
             while (Date.now() < deadline) {
                 try {
                     await pingOnce();
@@ -1088,7 +1130,6 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
             btn.disabled = false;
         }
 
-        // Função para aceitar o consentimento
         function handleAccept() {
             const consentOverlay = document.getElementById('consent-overlay');
             const appContent = document.getElementById('app-content');
@@ -1097,13 +1138,11 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
             consentOverlay.style.display = 'none';
             appContent.style.display = 'block';
             
-            // Abre automaticamente o dropdown da Missão VII após aceitar
             setTimeout(() => {
                 openMissionVII();
             }, 300);
         }
 
-        // Função para abrir automaticamente a Missão VII
         function openMissionVII() {
             const dropdown7 = document.getElementById('dropdown7');
             const btn7 = document.getElementById('btn7');
@@ -1114,7 +1153,6 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
             }
         }
 
-        // Função para toggle dos dropdowns
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const btnId = dropdownId.replace('dropdown', 'btn');
@@ -1123,7 +1161,6 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
             dropdown.classList.toggle('show');
             btn.classList.toggle('active');
             
-            // Fecha outros dropdowns abertos
             const allDropdowns = document.querySelectorAll('.dropdown-content');
             const allBtns = document.querySelectorAll('.dropdown-btn');
             
@@ -1140,12 +1177,10 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
             });
         }
 
-        // Inicialização quando a página carrega
         document.addEventListener('DOMContentLoaded', () => {
             const consentOverlay = document.getElementById('consent-overlay');
             const appContent = document.getElementById('app-content');
 
-            // FORÇA A APRESENTAÇÃO DA POLÍTICA EM TODAS AS VISITAS
             consentOverlay.style.display = 'flex';
             appContent.style.display = 'none';
         });
@@ -1153,7 +1188,3 @@ https://drive.google.com/drive/folders/1z_PupLd67wJVCGIg36Ri436DhYP6xhA6" target
 
 </body>
 </html>
-
-
-
-
