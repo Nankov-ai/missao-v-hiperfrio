@@ -922,40 +922,110 @@
     </div>
 </div>
 
-            <!-- 2. AIssist - Assistente Técnico da Hiperfrio -->
-<div class="highlight-card o2c-reader-card">
-    <div class="o2c-header">
-        <div class="o2c-header-left">
-            <h2>🤖 AIssist — Assistente Técnico da Hiperfrio</h2>
-            <p>
-                App móvel offline-first para o técnico <strong>falar</strong> e <strong>fotografar</strong> a intervenção.
+           <!-- 2. AIssist - Assistente Técnico da Hiperfrio -->
+<div class="highlight-card" style="max-width: 700px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px dashed #3b82f6; padding: 30px; position: relative; overflow: visible;">
+    
+    <!-- Badge de Status no canto superior direito -->
+    <div style="position: absolute; top: -12px; right: 20px; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85em; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); z-index: 10;">
+        ✨ Protótipo Ativo
+    </div>
+    
+    <!-- Container Principal com Layout Flexível -->
+    <div style="display: flex; align-items: center; gap: 30px; margin-bottom: 25px;">
+        
+        <!-- Coluna Esquerda - Informações -->
+        <div style="flex: 1;">
+            <h2 style="color: #1e40af; font-size: 1.8em; margin: 0 0 15px 0; display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.2em;">🤖</span> 
+                AIssist — Assistente Técnico da Hiperfrio
+            </h2>
+            
+            <p style="color: #475569; font-size: 1.05em; line-height: 1.6; margin-bottom: 20px;">
+                App móvel offline-first para o técnico <strong style="color: #1e40af;">falar</strong> e 
+                <strong style="color: #1e40af;">fotografar</strong> a intervenção. 
                 O LLM preenche o relatório, valida peças/tempos e prepara a fatura no PHC.
             </p>
+            
+            <!-- Features Pills -->
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                <span style="background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #1e40af; padding: 8px 16px; border-radius: 20px; font-size: 0.9em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 5px rgba(59, 130, 246, 0.15);">
+                    🎤 Voz PT-PT & fotos
+                </span>
+                <span style="background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #be185d; padding: 8px 16px; border-radius: 20px; font-size: 0.9em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 5px rgba(190, 24, 93, 0.15);">
+                    📋 Validação automática (O2C)
+                </span>
+                <span style="background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #15803d; padding: 8px 16px; border-radius: 20px; font-size: 0.9em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 5px rgba(21, 128, 61, 0.15);">
+                    🧾 Proforma / Fatura PHC
+                </span>
+            </div>
         </div>
-        <div class="o2c-header-right">
-            <img src="aissist-mascot.png" alt="AIssist — Mascote Hiperfrio" class="mascot-img">
-            <span class="construction-badge">Protótipo ativo</span>
+        
+        <!-- Coluna Direita - Mascote -->
+        <div style="flex-shrink: 0; text-align: center;">
+            <div style="position: relative; display: inline-block;">
+                <!-- Círculo decorativo de fundo -->
+                <div style="position: absolute; inset: -15px; background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%); border-radius: 50%; animation: pulse 3s ease-in-out infinite;"></div>
+                
+                <!-- Imagem da Mascote -->
+                <img src="aissist-mascot.png" alt="AIssist Mascote" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; background: white; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25); border: 4px solid #3b82f6; position: relative; z-index: 1;">
+                
+                <!-- Nome da Mascote -->
+                <div style="margin-top: 12px; font-weight: 700; color: #1e40af; font-size: 1.1em;">AIssist</div>
+                <div style="font-size: 0.85em; color: #64748b;">Seu Assistente IA</div>
+            </div>
         </div>
     </div>
     
-    <div class="o2c-features">
-        <span class="feature-pill">🎤️ Voz PT-PT & fotos</span>
-        <span class="feature-pill">📋 Validação automática (O2C)</span>
-        <span class="feature-pill">🧾 Proforma / Fatura PHC</span>
+    <!-- Botão de Ação Principal -->
+    <div style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-radius: 12px; padding: 20px; margin-bottom: 15px;">
+        <a href="https://hiperfrio-o2c-rag.onrender.com/" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 32px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; text-decoration: none; border-radius: 12px; font-size: 1.1em; font-weight: 700; transition: all 0.3s; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); position: relative; overflow: hidden;">
+            
+            <!-- Efeito de brilho animado -->
+            <span style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shine 3s infinite;"></span>
+            
+            <span style="font-size: 1.3em;">🚀</span>
+            <span style="position: relative;">Abrir Protótipo AIssist</span>
+            <span style="font-size: 0.9em;">→</span>
+        </a>
+        
+        <p style="text-align: center; margin-top: 12px; font-size: 0.85em; color: #64748b;">
+            Clique para experimentar o assistente em ação
+        </p>
     </div>
-                   
-    <div class="agent-controls">
-        <div class="agent-controls-layout">
-            <a class="btn btn-open-agent" href="https://hiperfrio-o2c-rag.onrender.com/" target="_blank" rel="noopener">
-                <span class="emoji">🚀</span> Abrir protótipo AIssist
-            </a>
-        </div>
-    </div>
-
-    <div class="ai-note-small">
-        Powered by IA (voz, visão, regras de negócio e HITL — humano revê exceções).
+    
+    <!-- Footer com nota sobre IA -->
+    <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.2em;">⚡</span>
+        <p style="margin: 0; font-size: 0.85em; color: #92400e; font-weight: 600;">
+            Powered by IA (voz, visão, regras de negócio e HITL — humano revê exceções)
+        </p>
     </div>
 </div>
+
+<style>
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.3; }
+}
+
+@keyframes shine {
+    to { left: 100%; }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .highlight-card > div:first-of-type {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    .highlight-card img {
+        width: 120px !important;
+        height: 120px !important;
+    }
+}
+</style>
+
 
             <!-- 3. NEOOTTO.AI -->
             <div class="highlight-card">
@@ -1199,3 +1269,4 @@
 
 </body>
 </html>
+
