@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missão VIII - Applied AI Framework | Hiperfrio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Roboto+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --hiperfrio-blue: #003d82;
+            --hiperfrio-ice: #00a8e1;
+            --hiperfrio-dark: #001f3f;
+            --hiperfrio-accent: #ff6b35;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --danger-red: #ef4444;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--hiperfrio-dark) 0%, var(--hiperfrio-blue) 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+        
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            flex-direction: column;
+            padding: 3rem;
+            background: white !important;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+        
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+        
+        /* Header Design */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--hiperfrio-ice);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--hiperfrio-blue);
+            letter-spacing: -1px;
+        }
+        
+        .slide-number {
+            font-family: 'Roboto Mono', monospace;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+	    padding-top: 0;
+        }
+        
+        /* Title Slide */
+.title-slide {
+    background: linear-gradient(135deg, var(--hiperfrio-dark) 0%, var(--hiperfrio-blue) 50%, var(--hiperfrio-ice) 100%) !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+        
+        .title-slide h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .title-slide .subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+        
+        .title-slide .authors {
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            opacity: 0.8;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+        
+        .title-slide .institution {
+            margin-top: 2rem;
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            font-weight: 600;
+            animation: fadeInUp 1s ease-out 0.9s backwards;
+        }
+        
+        /* Typography */
+        h2 {
+            font-size: clamp(1.8rem, 3vw, 3rem);
+            color: var(--hiperfrio-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-left: 1rem;
+            border-left: 5px solid var(--hiperfrio-accent);
+        }
+        
+        h3 {
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            color: var(--hiperfrio-dark);
+            margin: 1.5rem 0 1rem;
+            font-weight: 600;
+        }
+        
+        p, li {
+            font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+            line-height: 1.7;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, white 0%, var(--bg-light) 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--hiperfrio-ice);
+            box-shadow: 0 12px 24px rgba(0,168,225,0.2);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card h4 {
+            color: var(--hiperfrio-blue);
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .card p {
+            font-size: clamp(0.85rem, 1.3vw, 1rem);
+            color: var(--text-light);
+        }
+        
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .data-table thead {
+            background: linear-gradient(135deg, var(--hiperfrio-blue), var(--hiperfrio-ice));
+            color: white;
+        }
+        
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .data-table tbody tr {
+            transition: background 0.2s ease;
+        }
+        
+        .data-table tbody tr:hover {
+            background: var(--bg-light);
+        }
+        
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Metrics */
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .metric {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--bg-light);
+            transition: all 0.3s ease;
+        }
+        
+        .metric:hover {
+            border-color: var(--hiperfrio-ice);
+            transform: scale(1.05);
+        }
+        
+        .metric-value {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            color: var(--hiperfrio-blue);
+            margin-bottom: 0.5rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        .metric-label {
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        /* Progress Bars */
+        .progress-item {
+            margin: 1.5rem 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: var(--bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--hiperfrio-blue), var(--hiperfrio-ice));
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            color: white;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            transition: width 2s ease-out;
+            width: 0;
+        }
+        
+        .slide.active .progress-bar {
+            animation: progressFill 1.5s ease-out forwards;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--hiperfrio-ice), var(--hiperfrio-blue));
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 18px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--hiperfrio-blue);
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--hiperfrio-ice);
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--hiperfrio-ice);
+        }
+        
+        .timeline-title {
+            font-weight: 700;
+            color: var(--hiperfrio-blue);
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-description {
+            color: var(--text-light);
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
+        }
+        
+        /* Status Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        /* Lists */
+        .icon-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .icon-list li {
+            padding: 0.8rem 0 0.8rem 3rem;
+            position: relative;
+            border-bottom: 1px solid var(--bg-light);
+        }
+        
+        .icon-list li:last-child {
+            border-bottom: none;
+        }
+        .icon-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, var(--hiperfrio-blue), var(--hiperfrio-ice));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 700;
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+        }
+        
+        .nav-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--hiperfrio-blue), var(--hiperfrio-ice));
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,61,130,0.3);
+        }
+        
+        .nav-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,168,225,0.5);
+        }
+        
+        .nav-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        /* Progress Indicator */
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 1000;
+        }
+        
+        .progress-indicator-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--hiperfrio-accent), var(--hiperfrio-ice));
+            transition: width 0.3s ease;
+        }
+        
+        /* RACI Matrix */
+      .raci-matrix {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 2px;
+  background: var(--text-light);
+  border-radius: 8px;
+  overflow: visible;
+  margin: 1.5rem 0 2rem 0;
+  font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+  width: 100%;
+  max-width: 100%;
+}
+
+.raci-cell {
+  background: white;
+  padding: 0.8rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 55px;
+  height: auto;
+  word-wrap: break-word;
+}
+
+.raci-header {
+  background: var(--hiperfrio-blue);
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  padding: 1rem 0.5rem;
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
+}
+
+.raci-role {
+  background: var(--bg-light);
+  font-weight: 600;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  text-align: left;
+  font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+}
+
+.raci-badge {
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+}
+/* Garantir que Slide 6 mostra toda a matriz */
+.slide:nth-child(7) .slide-content {
+  overflow-y: auto !important;
+  max-height: calc(100vh - 200px);
+}
+
+.slide:nth-child(7) .raci-matrix {
+  margin-bottom: 3rem;
+}
+        
+        .raci-r { background: #dcfce7; color: #166534; }
+        .raci-a { background: #dbeafe; color: #1e40af; }
+        .raci-c { background: #fef3c7; color: #92400e; }
+        .raci-i { background: #f3f4f6; color: #374151; }
+        
+        /* Risk Matrix */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .risk-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 5px solid;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .risk-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .risk-card.high { border-left-color: var(--danger-red); }
+        .risk-card.medium { border-left-color: var(--warning-orange); }
+        .risk-card.low { border-left-color: var(--success-green); }
+        
+        .risk-title {
+            font-weight: 700;
+            font-size: clamp(1rem, 1.4vw, 1.2rem);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .risk-level {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .risk-level.high { background: #fee2e2; color: #991b1b; }
+        .risk-level.medium { background: #fef3c7; color: #92400e; }
+        .risk-level.low { background: #d1fae5; color: #065f46; }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes progressFill {
+            from { width: 0; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 2rem;
+            }
+            
+            .card-grid, .metrics-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 1.5rem;
+            }
+            
+            .slide-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .card-grid, .metrics-container, .risk-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navigation {
+                bottom: 1rem;
+                right: 1rem;
+                gap: 0.5rem;
+            }
+            
+            .nav-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .raci-matrix {
+                font-size: 0.7rem;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item {
+                padding-left: 60px;
+            }
+            
+            .timeline-marker {
+                left: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide {
+                padding: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .data-table {
+                font-size: 0.75rem;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 0.5rem;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .navigation, .progress-indicator {
+                display: none;
+            }
+            
+            .slide {
+                page-break-after: always;
+                position: relative;
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        /* Highlight Effects */
+        .highlight-box {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-left: 4px solid var(--hiperfrio-accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box strong {
+            color: var(--hiperfrio-accent);
+            font-size: 1.1em;
+        }
+        
+        /* Stats Animation */
+        .animated-stat {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--hiperfrio-blue), var(--hiperfrio-ice));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+        }
+      </style>
+</head>
+<body>
+    <div class="progress-indicator">
+        <div class="progress-indicator-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="presentation-container">
+        
+        <!-- SLIDE 1: TITLE -->
+        <div class="slide active title-slide">
+            <h1>Missão VIII<br><span class="gradient-text">Applied AI Framework</span></h1>
+            <div class="subtitle">Guia Estratégico para Implementação de IA na Hiperfrio</div>
+            <div class="authors">
+                Fernando Costa | Maria Vieira | Miguel Anim<br>
+                João Luís | José Gomes | Rui Baltazar
+            </div>
+            <div class="institution">
+                ISCTE Executive Education<br>
+                Inteligência Artificial para Gestão • GT4 • Grupo 3
+            </div>
+        </div>
+        
+        <!-- SLIDE 2: CONTEXTO E VISÃO -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">02 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Contexto & Visão Estratégica</h2>
+                
+                <div class="highlight-box">
+                    <p><strong>Objetivo:</strong> Ir além da execução de um único projeto e estabelecer uma estrutura de governança e processos robustos para transformar a Hiperfrio numa organização AI-enabled.</p>
+                </div>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h4>Missão</h4>
+                        <p>Estabelecer melhores práticas e processos para garantir que cada aplicação de IA gera valor consistente e ético</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🚀</div>
+                        <h4>Visão</h4>
+                        <p>IA como acelerador de eficiência, inovação e competitividade alinhada aos objetivos de negócio</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">⚡</div>
+                        <h4>Impacto</h4>
+                        <p>Framework como base para todas as futuras iniciativas de Inteligência Artificial</p>
+                    </div>
+                </div>
+                
+                <div class="metrics-container">
+                    <div class="metric">
+                        <div class="metric-value">10</div>
+                        <div class="metric-label">Áreas do Framework</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">€240K</div>
+                        <div class="metric-label">Potencial Ganho Anual</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">&lt;12m</div>
+                        <div class="metric-label">Payback Esperado</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3: DORES IDENTIFICADAS -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">03 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Dores & Problemáticas Identificadas</h2>
+                
+                <p style="margin-bottom: 2rem;">A Hiperfrio enfrenta <strong>desafios operacionais significativos</strong> que impactam receita, fluxo de caixa e satisfação do cliente:</p>
+                
+                <div class="risk-grid">
+                    <div class="risk-card high">
+                        <div class="risk-title">
+                            <span>🔴</span>
+                            Erros e Omissões no Registo
+                            <span class="risk-level high">Alto</span>
+                        </div>
+                        <p><strong>Problema:</strong> Falha no registo completo das intervenções técnicas, resultando em omissões de peças e tempos</p>
+                        <p><strong>Impacto:</strong> <span style="color: var(--danger-red); font-weight: 700;">€105.000 anuais</span> em perda de receita</p>
+                    </div>
+                    
+                    <div class="risk-card high">
+                        <div class="risk-title">
+                            <span>🔴</span>
+                            Atraso na Faturação
+                            <span class="risk-level high">Alto</span>
+                        </div>
+                        <p><strong>Problema:</strong> Grande atraso entre conclusão da assistência e emissão da fatura</p>
+                        <p><strong>Impacto:</strong> DTI médio de <span style="color: var(--danger-red); font-weight: 700;">180 dias</span>, apenas 1% faturas no próprio dia</p>
+                    </div>
+                    
+                    <div class="risk-card medium">
+                        <div class="risk-title">
+                            <span>🟡</span>
+                            Retrabalho e Disputas
+                            <span class="risk-level medium">Médio</span>
+                        </div>
+                        <p><strong>Problema:</strong> Baixa qualidade do relatório inicial, gerando retrabalho administrativo</p>
+                        <p><strong>Impacto:</strong> <span style="color: var(--warning-orange); font-weight: 700;">50%</span> das ordens têm divergências, 20-30% requerem retrabalho</p>
+                                    </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Síntese O2C (Order-to-Cash):</strong> Processo manual e suscetível a erros, com mais de 50% das ordens com divergências, causando perda de €105K anuais e DTI baseline de 180 dias.</p>
+                 </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4: OBJETIVOS E KPIs -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">04 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Objetivos & Critérios de Sucesso</h2>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Objetivo Estratégico</th>
+                            <th>Critérios de Sucesso</th>
+                            <th>KPI</th>
+                            <th>Meta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Acelerar ciclo O2C</strong></td>
+                            <td>Reduzir DSO (Days Sales Outstanding)</td>
+                            <td>DSO em dias</td>
+                            <td><span class="badge badge-success">8-10 dias</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Faturação em tempo real</strong></td>
+                            <td>Emitir faturas no dia da intervenção</td>
+                            <td>% Faturas em 4h</td>
+                            <td><span class="badge badge-success">50%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Precisão dos registos</strong></td>
+                            <td>Atingir alta precisão da IA</td>
+                            <td>Accuracy IA</td>
+                            <td><span class="badge badge-success">90% ao M3</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reduzir divergências</strong></td>
+                            <td>Alinhamento stock vs. faturação</td>
+                            <td>Redução divergências</td>
+                            <td><span class="badge badge-success">50% em 90d</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Manutenção preditiva</strong></td>
+                            <td>Reduzir falhas imprevistas</td>
+                            <td>Falhas não previstas</td>
+                            <td><span class="badge badge-success">-20%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eficiência de reparação</strong></td>
+                            <td>Diminuir tempo médio de reparação</td>
+                            <td>MTTR (Mean Time To Repair)</td>
+                            <td><span class="badge badge-success">-15%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="metrics-container" style="margin-top: 2rem;">
+                    <div class="metric">
+                        <div class="metric-value animated-stat">€131K-€164K</div>
+                        <div class="metric-label">Ganhos de Liquidez</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value animated-stat">€105K</div>
+                        <div class="metric-label">Recuperação Receita</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value animated-stat">180 → 4h</div>
+                        <div class="metric-label">Redução DTI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 5: ROADMAP -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">05 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Roadmap: Controlo contra Sunk Costs</h2>
+                
+                <p style="margin-bottom: 2rem;">Roadmap iterativo de <strong>12-14 semanas</strong> com marcos claros (gates) e entregas rápidas para validar investimento em etapas:</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">F0: Semanas 0-2 • Preparação</div>
+                            <div class="timeline-description">
+                                <strong>Entregáveis:</strong> Baseline KPIs, limpeza dados (top-500 artigos), seleção grupo-piloto (5 técnicos, 5 clientes)<br>
+                                <strong>Gate G1 (Semana 4):</strong> Validação preparação dados e catálogos
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">F1: Semanas 3-8 • Piloto Inicial</div>
+                            <div class="timeline-description">
+                                <strong>Entregáveis:</strong> App móvel voice-first no terreno, integração inicial ERP PHC<br>
+                                <strong>Gate G2 (Semana 8):</strong> Confirmação 70% das metas intermédias cumpridas
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">F2: Semanas 9-14 • Otimização</div>
+                            <div class="timeline-description">
+                                <strong>Entregáveis:</strong> Voz NER avançado, melhoria precisão modelo, dashboards KPIs<br>
+                                <strong>Gate G3 (Semana 14):</strong> Verificação 80% metas cumpridas consistentemente
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">F3: Pós-Semana 14 • Escala</div>
+                            <div class="timeline-description">
+                                <strong>Condição:</strong> Aprovação em G3 autoriza escala<br>
+                                <strong>Expansão:</strong> 50% da equipa de assistência técnica + integração API robusta
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-grid" style="margin-top: 2rem;">
+                    <div class="card">
+                        <div class="card-icon">⚡</div>
+                        <h4>Quick Wins (90 dias)</h4>
+                        <p>Dashboards O2C com rituais diários de 15min + alertas baseados em regras simples</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔄</div>
+                        <h4>Metodologia Ágil</h4>
+                        <p>Sprints curtos com feedback contínuo dos técnicos e supervisores</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6: STAKEHOLDERS E RACI -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">06 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Stakeholders & Matriz RACI</h2>
+                
+                <p style="margin-bottom: 1.5rem;">Mapa de responsabilidades inequívoco para garantir <strong>agilidade e responsabilização</strong>:</p>
+                
+               <div class="raci-matrix">
+  <!-- LINHA 1: HEADER -->
+  <div class="raci-cell raci-header">Papel</div>
+  <div class="raci-cell raci-header">Responsible</div>
+  <div class="raci-cell raci-header">Accountable</div>
+  <div class="raci-cell raci-header">Consulted</div>
+  <div class="raci-cell raci-header">Informed</div>
+  
+  <!-- LINHA 2: Process Owner -->
+  <div class="raci-cell raci-role">Process Owner</div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"><span class="raci-badge raci-a">A</span></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  
+  <!-- LINHA 3: Tech Lead -->
+  <div class="raci-cell raci-role">Tech Lead</div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"><span class="raci-badge raci-a">A</span></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  
+  <!-- LINHA 4: Área de Dados -->
+  <div class="raci-cell raci-role">Área de Dados</div>
+  <div class="raci-cell"><span class="raci-badge raci-r">R</span></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  
+  <!-- LINHA 5: Financeiro -->
+  <div class="raci-cell raci-role">Financeiro</div>
+  <div class="raci-cell"><span class="raci-badge raci-r">R</span></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"><span class="raci-badge raci-c">C</span></div>
+  <div class="raci-cell"></div>
+  
+  <!-- LINHA 6: Supervisor AT -->
+  <div class="raci-cell raci-role">Supervisor AT</div>
+  <div class="raci-cell"><span class="raci-badge raci-r">R</span></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  
+  <!-- LINHA 7: Administração -->
+  <div class="raci-cell raci-role">Administração</div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"></div>
+  <div class="raci-cell"><span class="raci-badge raci-i">I</span></div>
+</div>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p><strong>Princípio Fundamental: Human-in-the-Loop (HITL)</strong></p>
+                    <p>A IA automatiza recolha e validação (extração de peças/tempos via voz e fotos), mas <strong>decisões críticas, gestão de exceções e aprovação final</strong> permanecem sob supervisão humana.</p>
+                </div>
+                
+                <ul class="icon-list">
+                    <li><strong>Process Owner:</strong> Responsável final pelo sucesso O2C, incluindo revisão exceções HITL</li>
+                    <li><strong>Tech Lead:</strong> Entrega técnica, integração PHC/EDI e treino de modelos</li>
+                    <li><strong>Supervisor AT:</strong> Revisão exceções HITL e adoção pela equipa técnica</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- SLIDE 7: VIABILIDADE FINANCEIRA -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">07 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Viabilidade Financeira</h2>
+                
+                <div class="metrics-container">
+                    <div class="metric">
+                        <div class="metric-value">€68K</div>
+                        <div class="metric-label">CAPEX Inicial</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">€3.2K/mês</div>
+                        <div class="metric-label">OPEX Recorrente</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">&lt;12m</div>
+                        <div class="metric-label">Payback Period</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">€240K</div>
+                        <div class="metric-label">Potencial Anual</div>
+                    </div>
+                </div>
+                
+                <h3>Análise Custo-Benefício: Projeto AIssist</h3>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Descrição</th>
+                            <th>Valor Anual</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Receita Recuperada</strong></td>
+                            <td>Eliminação de omissões nos registos</td>
+                            <td>€105.000</td>
+                            <td><span class="badge badge-success">Validado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ganhos de Liquidez</strong></td>
+                            <td>Redução DSO para 8-10 dias</td>
+                            <td>€131.000 - €164.000</td>
+                            <td><span class="badge badge-success">Projetado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Redução Retrabalho</strong></td>
+                            <td>50% ordens sem divergências</td>
+                            <td>Economias operacionais</td>
+                            <td><span class="badge badge-info">Qualitativo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investimento Total</strong></td>
+                            <td>CAPEX + OPEX 12meses</td>
+                            <td>€106.400</td>
+                            <td><span class="badge badge-warning">Investimento</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p><strong>ROI Projetado:</strong> Payback inferior a 12 meses, com potencial para <strong>menos de 6 meses</strong> considerando ganhos de liquidez. Controlo rigoroso através dos gates do roadmap assegura mitigação de sunk costs.</p>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Payback Progress (Mês 6)</span>
+                        <span>~50%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 50%;">50%</div>
+                    </div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span>Payback Progress (Mês 12)</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 100%;">100%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 8: TECH STACK E ARQUITETURA -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">08 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>AI Tech Stack & Arquitetura</h2>
+                
+                <p style="margin-bottom: 1.5rem;">Arquitetura focada em <strong>pragmatismo e escalabilidade</strong>, com componentes reutilizáveis para futuros casos de uso:</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📱</div>
+                        <h4>App Móvel Offline-First</h4>
+                        <p>Interface voice-first para técnicos no terreno, funcionamento sem conectividade constante</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🎤</div>
+                        <h4>Speech Recognition PT-PT</h4>
+                        <p>Extração automática de entidades (peças, quantidades, tempos) a partir de comandos de voz</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">👁️</div>
+                        <h4>OCR & Computer Vision</h4>
+                        <p>Digitalização de guias de transporte, referências de peças e documentos técnicos</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🔄</div>
+                        <h4>Integração ERP PHC</h4>
+                        <p>Estratégia 2 velocidades: ficheiros (piloto) → API (escala)</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🧠</div>
+                        <h4>Motor de Regras de Negócio</h4>
+                        <p>Validação automática de preços, margens e condições contratuais</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">☁️</div>
+                        <h4>Cloud Infrastructure</h4>
+                        <p>Arquitetura modular e escalável baseada em cloud</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem;">MLOps: Treino e Melhoria Contínua</h3>
+                
+                <ul class="icon-list">
+                    <li><strong>Retreino Mensal:</strong> Baseado em correções e validações HITL dos supervisores</li>
+                    <li><strong>Meta de Precisão:</strong> 90% de accuracy ao mês 3 do MVP</li>
+                    <li><strong>Ciclo de Feedback:</strong> Exceções transformadas em novas regras de negócio</li>
+                    <li><strong>Logs Imutáveis:</strong> Trilhos de auditoria completos para compliance</li>
+                </ul>
+                
+                <div class="highlight-box" style="margin-top: 1.5rem;">
+                    <p><strong>UX/CX & Segurança by Design:</strong> Interface voice-first minimiza fricção para técnicos. Controlos RBAC, minimização de dados e auditoria completa garantem segurança integrada.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 9: ESTRATÉGIA DE DADOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">09 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Estratégia de Dados</h2>
+                
+                <p style="margin-bottom: 1.5rem;">Dados são o ativo mais crítico. Governança incipiente identificada como <strong>risco médio</strong> no diagnóstico:</p>
+                
+                <h3>Fontes de Dados Primárias</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📋</div>
+                        <h4>Ordens de Trabalho</h4>
+                        <p>Histórico de intervenções técnicas do ERP e CRM</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🔧</div>
+                        <h4>Registos de Peças</h4>
+                        <p>Materiais e tempos de serviço por intervenção</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h4>Catálogos e Preços</h4>
+                        <p>Base de produtos, margens e condições contratuais</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem;">Preparação & Qualidade</h3>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ação</th>
+                            <th>Objetivo</th>
+                            <th>Responsável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Criação de Dicionário Mínimo de Dados</td>
+                            <td>Definir standards e nomenclaturas</td>
+                            <td>Área de Dados</td>
+                        </tr>
+                        <tr>
+                            <td>Processos de QA Recorrentes</td>
+                            <td>Garantir qualidade antes de expansão IA</td>
+                            <td>Tech Lead + Financeiro</td>
+                        </tr>
+                        <tr>
+                            <td>Limpeza Top-500 Artigos</td>
+                            <td>Preparar catálogo para piloto</td>
+                            <td>Área de Dados</td>
+                        </tr>
+                        <tr>
+                            <td>RBAC (Role-Based Access Control)</td>
+                            <td>Controlo de acesso por função</td>
+                            <td>Tech Lead</td>
+                        </tr>
+                        <tr>
+                            <td>Minimização de Dados</td>
+                            <td>Recolher apenas o estritamente necessário</td>
+                            <td>Process Owner</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p><strong>Conformidade RGPD:</strong> Armazenamento seguro com RBAC, princípio de minimização de dados e trilhos de auditoria para mitigar riscos de privacidade e segurança.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 10: MATRIZ DE RISCOS -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">10 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Matriz de Riscos & Estratégias de Mitigação</h2>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Pilar</th>
+                            <th>Risco</th>
+                            <th>Nível</th>
+                            <th>Estratégia de Mitigação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Financeiro</strong></td>
+                            <td>Sunk Costs / Baixo ROI</td>
+                            <td><span class="badge badge-warning">Médio</span></td>
+                            <td>Roadmap iterativo com Gates Go/No-Go • Payback &lt;12 meses</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Técnico</strong></td>
+                            <td>Erros / Baixa precisão IA</td>
+                            <td><span class="badge badge-warning">Médio</span></td>
+                            <td>HITL (Human-in-the-Loop) • MLOps com retreino mensal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operacional</strong></td>
+                            <td>Governança dados incipiente</td>
+                            <td><span class="badge badge-warning">Médio</span></td>
+                            <td>Dicionário de dados • QA recorrente • Minimização dados</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Processual</strong></td>
+                            <td>Atrasos integração ERP</td>
+                            <td><span class="badge badge-warning">Médio</span></td>
+                            <td>Estratégia 2 Velocidades (ficheiros → API)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Humano</strong></td>
+                            <td>Resistência cultural / Adoção</td>
+                            <td><span class="badge badge-danger">Alto</span></td>
+                            <td>UX Voice-First • Co-criação com champions • Gamificação</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Legal/Ético</strong></td>
+                            <td>Não conformidade RGPD/AI Act</td>
+                            <td><span class="badge badge-danger">Alto</span></td>
+                            <td>HITL • Explicabilidade • Logs imutáveis • Minimização dados</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="metrics-container" style="margin-top: 2rem;">
+                    <div class="metric">
+                        <div class="metric-value">6</div>
+                        <div class="metric-label">Pilares de Risco</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Riscos Mitigados</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">3</div>
+                        <div class="metric-label">Gates de Validação</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 11: GOVERNANÇA E COMPLIANCE -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">11 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Governança & Compliance</h2>
+                
+                <p style="margin-bottom: 1.5rem;">Estrutura de governança robusta é <strong>prioridade absoluta</strong> (diagnóstico: risco alto):</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h4>Comité de IA Interdepartamental</h4>
+                        <p>IT, Operações, Financeiro, Jurídico • Priorização de casos de uso e supervisão de implementação</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🛡️</div>
+                        <h4>Gestão de Riscos Estruturada</h4>
+                        <p>Matriz de riscos aplicada a todos os projetos futuros de IA</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">⚖️</div>
+                        <h4>Conformidade Total</h4>
+                        <p>RGPD e AI Act da UE através de controlos obrigatórios</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem;">Controlos Obrigatórios de Compliance</h3>
+                
+                <ul class="icon-list">
+                    <li><strong>Supervisão Humana (HITL):</strong> Decisões críticas sempre validadas por humano</li>
+                    <li><strong>Transparência & Explicabilidade:</strong> Explicações claras "por linha" sobre resultados do sistema</li>
+                    <li><strong>Logs Imutáveis:</strong> Registos detalhados para fins de auditoria e rastreabilidade</li>
+                    <li><strong>Minimização de Dados:</strong> Recolha apenas dos dados estritamente necessários (RGPD)</li>
+                    <li><strong>Avaliação de Impacto:</strong> DPIA (Data Protection Impact Assessment) para projetos de alto risco</li>
+                </ul>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p><strong>Compromisso Ético:</strong> A melhor governança é ineficaz sem gestão da mudança que coloque as pessoas no centro
+do processo. IA vista como ferramenta para <strong>capacitar colaboradores</strong>, não para substituí-los.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 12: GESTÃO DA MUDANÇA -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">12 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Gestão da Mudança & Formação</h2>
+                
+                <p style="margin-bottom: 1.5rem;"><strong>Resistência cultural e baixa literacia digital</strong> são os maiores bloqueios previsíveis. A gestão da mudança é o <strong>pilar central</strong> para transformar tecnologia em capacidade organizacional:</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">💬</div>
+                        <h4>Comunicação Transparente</h4>
+                        <p>Desmistificar IA mostrando como apoia e potencia o trabalho, não substitui</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🤝</div>
+                        <h4>Co-criação com Champions</h4>
+                        <p>Envolver técnicos-chave na construção da solução para gerar adoção orgânica</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🎓</div>
+                        <h4>Micro-formações</h4>
+                        <p>Sessões de 10-15 minutos + formação on-the-job adaptadas por perfil</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🏆</div>
+                        <h4>Gamificação & Reconhecimento</h4>
+                        <p>Badges, leaderboards e reconhecimento público dos utilizadores mais ativos</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem;">Programa de Capacitação Incremental</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Fase 1: Sensibilização (Semanas 1-2)</div>
+                            <div class="timeline-description">Workshops introdutórios • Demonstrações práticas • Q&A aberto</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Fase 2: Formação Piloto (Semanas 3-8)</div>
+                            <div class="timeline-description">Training hands-on com 5 técnicos champions • Feedback contínuo • Ajustes rápidos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Fase 3: Expansão (Semanas 9-14)</div>
+                            <div class="timeline-description">Roll-out gradual • Peer-to-peer learning • Champions como mentores</div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Fase 4: Consolidação (Pós-semana 14)</div>
+                            <div class="timeline-description">Formação contínua • Comunidade de prática • Ciclo de melhoria</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 1.5rem;">
+                    <p><strong>Princípio Fundamental:</strong> Em vez de longas sessões de formação, adotamos micro-formações práticas e formação on-the-job para maximizar retenção e aplicabilidade do conhecimento.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 13: MONITORIZAÇÃ E MELHORIA CONTÍNUA -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">13 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Monitorização & Melhoria Contínua</h2>
+                
+                <p style="margin-bottom: 1.5rem;">A monitorização contínua é vital para garantir que os modelos de IA mantêm <strong>precisão ao longo do tempo</strong>:</p>
+                
+                <h3>Dashboards por Audiência</h3>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Audiência</th>
+                            <th>KPIs Principais</th>
+                            <th>Frequência</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Administração</strong></td>
+                            <td>DSO, Receita Recuperada, ROI</td>
+                            <td>Semanal</td>
+                            <td>Decisões estratégicas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Direção Financeira</strong></td>
+                            <td>Faturas 4h, DTI, Liquidez</td>
+                            <td>Diária</td>
+                            <td>Gestão cashflow</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gestão AT</strong></td>
+                            <td>Taxa Adoção, Divergências, HITL</td>
+                            <td>Diária</td>
+                            <td>Gestão operacional</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Técnicos</strong></td>
+                            <td>Registos completos, Tempo poupado</td>
+                            <td>Tempo real</td>
+                            <td>Feedback imediato</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tech Lead</strong></td>
+                            <td>Precisão IA, Performance, Erros</td>
+                            <td>Diária</td>
+                            <td>Otimização técnica</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 style="margin-top: 2rem;">Ciclo de Melhoria Contínua</h3>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h4>1. Monitorização</h4>
+                        <p>Dashboards em tempo real com sistema de semáforos (verde/amarelo/vermelho)</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🔍</div>
+                        <h4>2. Análise HITL</h4>
+                        <p>Supervisores revisam exceções e validam decisões críticas da IA</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">💡</div>
+                        <h4>3. Aprendizagem</h4>
+                        <p>Cada correção vira nova regra de negócio ou dado para retreino</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🔄</div>
+                        <h4>4. Retreino Mensal</h4>
+                        <p>Modelos melhorados com feedback validado (MLOps leve)</p>
+                    </div>
+                </div>
+                
+                <div class="metrics-container" style="margin-top: 2rem;">
+                    <div class="metric">
+                        <div class="metric-value">90%</div>
+                        <div class="metric-label">Meta Precisão IA (M3)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Mensal</div>
+                        <div class="metric-label">Cadência Retreino</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Decisões Críticas HITL</div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 1.5rem;">
+                    <p><strong>Motor da Evolução:</strong> O ciclo <em>feedback → ajuste → retreino</em> transforma exceções em oportunidades de melhoria, criando IA que aprende e evolui continuamente.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 14: AS 10 ÁREAS DO FRAMEWORK -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">14 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>As 10 Áreas do Applied AI Framework</h2>
+                
+                <p style="margin-bottom: 1.5rem;">Framework completo que serve de <strong>base para todas as futuras iniciativas de IA</strong> na Hiperfrio:</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <h4>1. Arranque do Projeto</h4>
+                        <p>Definição de âmbito, visão, objetivos SMART e matriz RACI</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🗺️</div>
+                        <h4>2. Roadmap</h4>
+                        <p>Fases iterativas com gates Go/No-Go e quick wins</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">💰</div>
+                        <h4>3. Avaliação de Viabilidade</h4>
+                        <p>Financeira, técnica, ética e legal (RGPD/AI Act)</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">📊</div>
+                        <h4>4. Estratégia de Dados</h4>
+                        <p>Identificação, preparação, QA e governança</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">⚙️</div>
+                        <h4>5. AI Tech Stack</h4>
+                        <p>Arquitetura, modelos, MLOps e UX/CX</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🚀</div>
+                        <h4>6. Implementação</h4>
+                        <p>Integração, testes, piloto e escalabilidade</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">📈</div>
+                        <h4>7. Monitorização</h4>
+                        <p>Dashboards, KPIs, retreino e performance</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">⚖️</div>
+                        <h4>8. Governança & Compliance</h4>
+                        <p>Comité IA, gestão riscos e conformidade RGPD</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <h4>9. Gestão da Mudança</h4>
+                        <p>Comunicação, formação, champions e gamificação</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">🔄</div>
+                        <h4>10. Melhoria Contínua</h4>
+                        <p>Documentação, feedback, learnings e evolução</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <p><strong>Framework Replicável:</strong> Estas 10 áreas formam uma metodologia completa e reutilizável para <strong>qualquer projeto de IA</strong> na Hiperfrio, garantindo consistência, qualidade e alinhamento estratégico.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 15: CONCLUSÕES E RECOMENDAÇÃO -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo">HIPERFRIO</div>
+                <div class="slide-number">15 / 15</div>
+            </div>
+            <div class="slide-content">
+                <h2>Conclusões & Recomendação Final</h2>
+                
+                <div class="card-grid">
+                    <div class="card" style="border-left: 4px solid var(--success-green);">
+                        <div class="card-icon">✅</div>
+                        <h4>Viabilidade Comprovada</h4>
+                        <p>Payback &lt;12 meses (potencial &lt;6m) • ROI claro com €240K potencial anual • Recuperação €105K + ganhos liquidez €131K-€164K</p>
+                    </div>
+                    
+                    <div class="card" style="border-left: 4px solid var(--success-green);">
+                        <div class="card-icon">🛡️</div>
+                        <h4>Governança & Risco sob Controlo</h4>
+                        <p>Roadmap iterativo com gates mitigam sunk costs • HITL controla erros • Conformidade total RGPD/AI Act assegurada</p>
+                    </div>
+                    
+                    <div class="card" style="border-left: 4px solid var(--success-green);">
+                        <div class="card-icon">💙</div>
+                        <h4>Compromisso Humano & Ético</h4>
+                        <p>IA como ferramenta para capacitar colaboradores • Transparência e explicabilidade • Gestão da mudança no centro do processo</p>
+                    </div>
+                    
+                    <div class="card" style="border-left: 4px solid var(--success-green);">
+                        <div class="card-icon">🔄</div>
+                        <h4>Motor de Evolução Contínua</h4>
+                        <p>Ciclo feedback → ajuste → retreino • Exceções transformadas em novas regras • Tecnologia e processos em melhoria constante</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 2rem; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-left-color: var(--hiperfrio-blue);">
+                    <h3 style="color: var(--hiperfrio-blue); margin-bottom: 1rem;">🎯 RECOMENDAÇÃO FINAL</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        Com todos os <strong>riscos mitigados</strong> através das 10 áreas do Applied AI Framework, 
+                        a Hiperfrio deve <strong style="color: var(--hiperfrio-blue);">aprovar a passagem à Fase de Escala (F3)</strong> 
+                        após cumprimento das metas do <strong>Gate G3</strong>.
+                    </p>
+                </div>
+                
+                <div class="metrics-container" style="margin-top: 2rem;">
+                    <div class="metric" style="background: linear-gradient(135deg, var(--hiperfrio-blue), var(--hiperfrio-ice)); color: white;">
+                        <div class="metric-value" style="color: white;">AI-Enabled</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.9);">Organização do Futuro</div>
+                    </div>
+                    <div class="metric" style="background: linear-gradient(135deg, var(--success-green), #10b981); color: white;">
+                        <div class="metric-value" style="color: white;">Impacto</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.9);">Direto no Negócio</div>
+                    </div>
+                    <div class="metric" style="background: linear-gradient(135deg, var(--hiperfrio-accent), #ff8c61); color: white;">
+                        <div class="metric-value" style="color: white;">Retorno</div>
+                        <div class="metric-label" style="color: rgba(255,255,255,0.9);">Mensurável & Ético</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 3rem; text-align: center; padding: 2rem; background: var(--bg-light); border-radius: 12px;">
+                    <h3 style="color: var(--hiperfrio-blue); margin-bottom: 1rem; font-size: clamp(1.5rem, 2.5vw, 2rem);">
+                        🚀 Este Framework é a Base para Transformar a Hiperfrio
+                    </h3>
+                    <p style="font-size: clamp(1rem, 1.5vw, 1.3rem); color: var(--text-light); max-width: 900px; margin: 0 auto;">
+                        Numa organização onde a <strong>tecnologia serve como acelerador</strong> de eficiência, 
+                        inovação e competitividade, com <strong>impacto direto</strong> no negócio, 
+                        <strong>ética assegurada</strong> e <strong>retorno mensurável</strong>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Navigation Controls -->
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">◀</button>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">▶</button>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        // Initialize
+        showSlide(currentSlide);
+        
+        function showSlide(n) {
+            // Remove all active classes
+            slides.forEach(slide => {
+                slide.classList.remove('active', 'prev');
+            });
+            
+            // Ensure slide number is within bounds
+            if (n >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            } else if (n < 0) {
+                currentSlide = 0;
+            } else {
+                currentSlide = n;
+            }
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Mark previous slides
+            for (let i = 0; i < currentSlide; i++) {
+                slides[i].classList.add('prev');
+            }
+            
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+            
+            // Trigger progress bar animations on new slide
+            if (currentSlide > 0) {
+                const progressBars = slides[currentSlide].querySelectorAll('.progress-bar');
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }
+        }
+        
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'Home') {
+                showSlide(0);
+            } else if (e.key === 'End') {
+                showSlide(totalSlides - 1);
+            }
+        });
+        
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                changeSlide(1); // Swipe left
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                changeSlide(-1); // Swipe right
+            }
+        }
+        
+        // Auto-set progress bar widths based on data attributes
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const width = bar.textContent.trim();
+                if (width.includes('%')) {
+                    bar.setAttribute('data-width', width);
+                }
+            });
+        });
+        
+        // Print support
+        window.addEventListener('beforeprint', () => {
+            slides.forEach(slide => {
+                slide.classList.add('active');
+                slide.classList.remove('prev');
+            });
+        });
+        
+        window.addEventListener('afterprint', () => {
+            showSlide(currentSlide);
+        });
+        
+        // Prevent context menu on presentation
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.closest('.presentation-container')) {
+                // e.preventDefault(); // Uncomment to disable right-click
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
